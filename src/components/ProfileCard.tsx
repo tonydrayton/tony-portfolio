@@ -81,19 +81,29 @@ const ProfileCard = () => {
                     {userData && userData.discord_user && userData.discord_user.avatar
                         ?
                         <Avatar
-                            size="5"
+                            size={{
+                                lg: "5",
+                                md: "4",
+                                sm: "4",
+                                initial: "4"
+                            }}
                             radius="full"
                             src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
                             fallback="T"
                             color="teal"
-                            className="pointer-events-none " />
+                            className="pointer-events-none transition-all duration-300 ease-in-out" />
                         :
                         <Avatar
-                            size="5"
+                            size={{
+                                lg: "5",
+                                md: "4",
+                                sm: "4",
+                                initial: "4"
+                            }}
                             radius="full"
                             fallback="T"
                             color="teal"
-                            className="pointer-events-none " />
+                            className="pointer-events-none transition-all duration-300 ease-in-out" />
                     }
 
                     <Box>
