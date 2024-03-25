@@ -10,6 +10,7 @@ import Link from "next/link";
 import AnimatedShapeBackdrop from "@/components/AnimatedShapeBackdrop";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion"
+import '@radix-ui/themes/styles.css';
 
 const ProjectPage = () => {
     return (
