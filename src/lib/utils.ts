@@ -8,7 +8,7 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getDiscordActivityImage(activities: DiscordActivity[]) {
     const activity = activities.filter(a => a.assets)[0];
-    if(!activity || !activity.assets) {
+    if(!activity || !activity.assets || !activity.assets.large_image) {
         return null;
     }
     const index = activity.assets.large_image.indexOf("/https/");
@@ -28,6 +28,13 @@ const colors: { [key: string]: string } = {
     offline: "#81848D"
 }
 
+export const statusMap: { [key: string]: { color: string; text: string, hex: string } } = {
+    dnd: { color: 'red', text: 'Do Not Disturb', hex: "#f44336" },
+    online: { color: 'green', text: 'Online', hex: "#50A361" },
+    idle: { color: 'yellow', text: 'Idle', hex: "#E7B54E" },
+    offline: { color: 'gray', text: 'Offline', hex: "#81848D" },
+};
+
 export const getStatusColor = (status: string) => {
-    return colors[status];
+    return statusMap[status].hex;
 }

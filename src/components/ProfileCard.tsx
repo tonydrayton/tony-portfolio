@@ -2,15 +2,15 @@
 "use client"
 import Backdrop from "@/components/Backdrop";
 import Container from "@/components/Container";
-import DiscordProfile from "@/components/DiscordProfile";
 import MailTo from "@/components/MailTo";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { LanyardSocketMessage, LanyardUser, lanyard } from "@/lib/lanyard";
-import { getStatusColor } from "@/lib/utils";
-import { Avatar, Box, Card, Flex, Separator, Skeleton, Text } from "@radix-ui/themes";
+import { getStatusColor, statusMap } from "@/lib/utils";
+import { Avatar, Box, Card, Flex, Separator, Skeleton, Text, Tooltip } from "@radix-ui/themes";
 import { Circle, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import ActivityDetails from "./ActivityDetails";
 
 const ProfileCard = () => {
     const [userData, setUserData] = useState<LanyardUser | null>(null);
@@ -36,7 +36,6 @@ const ProfileCard = () => {
 
     useEffect(() => {
         if (userData && !socket) {
-            console.log("YASSS")
             const newSocket = new WebSocket('wss://api.lanyard.rest/socket');
             newSocket.onopen = () => {
                 newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: userData.discord_user.id } }));
@@ -49,77 +48,91 @@ const ProfileCard = () => {
         }
 
         return () => {
-            
+
         };
     }, [userData, socket]);
 
-    console.log(userData, "data")
     return (
         <>
-                <Card
-                className="p-5"
-                    size={{
-                        lg: "5",
-                        md: "4",
-                        sm: "3"
-                    }}
-                    style={{ minHeight: "300px" }}>
-                    <Flex gap="3" align="center" pb="5">
-                        <Avatar
-                            size="5"
-                            radius="full"
-                            src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
-                            fallback="T"
-                            color="indigo"
-                            className="pointer-events-none " />
-                        <Box>
-                            <Text
-                                as="div"
-                                size={{
-                                    lg: "6",
-                                    md: "5",
-                                    sm: "4"
-                                }}
-                                className="flex items-center">
-                                Tony Drayton
-                                {userData && (
-                                    <Circle 
-                                    fill={getStatusColor(userData.discord_status)}
+            <Card
+                className="transition-all"
+                size={{
+                    lg: "3",
+                    md: "3",
+                    sm: "3"
+                }}>
+                <Flex gap="3" align="center" pb="5">
+                    <Avatar
+                        size="5"
+                        radius="full"
+                        src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
+                        fallback="T"
+                        color="indigo"
+                        className="pointer-events-none " />
+                    <Box>
+                        <Text
+                            as="div"
+                            size={{
+                                lg: "6",
+                                md: "5",
+                                sm: "4",
+                                xs: "4",
+                                initial: "4",
+                            }}
+                            className="flex items-center">
+                            Tony Drayton
+                            {userData && statusMap[userData.discord_status]
+                                ? (
+                                    <Tooltip content={statusMap[userData.discord_status].text}>
+                                        <Circle
+                                            fill={getStatusColor(userData.discord_status)}
+                                            color=""
+                                            size={15}
+                                            className="ml-2 transition-all" />
+                                    </Tooltip>
+                                )
+                                :
+                                <Circle
+                                    fill="gray"
                                     color=""
                                     size={15}
-                                    className="ml-2"/>
-                                )}
-                            </Text>
-                            <Text
-                                as="div"
-                                size={{
-                                    lg: "5",
-                                    md: "4",
-                                    sm: "3"
-                                }}
-                                color="gray">
-                                Software Engineer
-                            </Text>
-                        </Box>
-                    </Flex>
-                    <Separator size="4" />
-                    <div className="flex-row pt-5">
-                        <Flex>
-                            <a href="https://github.com" target="_blank" className="p-1">
-                                <Github />
-                            </a>
+                                    className="ml-2 transition-all" />}
+                        </Text>
+                        <Text
+                            as="div"
+                            size={{
+                                lg: "5",
+                                md: "4",
+                                sm: "3"
+                            }}
+                            color="gray">
+                            Software Engineer
+                        </Text>
+                        {userData && userData.activities && userData.activities.length > 0 && (
+                            <ActivityDetails userData={userData} />
+                        )}
+                    </Box>
 
-                            <a href="https://www.linkedin.com/in/tony-drayton-37a873275/" target="_blank" className="p-1">
-                                <Linkedin />
-                            </a>
-                            <MailTo
-                                mailto="mailto:tony.drayton@drexel.edu" className="p-1"
-                            >
-                                <Mail />
-                            </MailTo>
-                        </Flex>
-                    </div>
-                </Card>
+                </Flex>
+
+                <Separator size="4" />
+                <div className="flex-row pt-5">
+                    <Flex>
+                        <a href="https://github.com" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
+                            <Github />
+                        </a>
+
+                        <a href="https://www.linkedin.com/in/tony-drayton-37a873275/" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
+                            <Linkedin />
+                        </a>
+                        <MailTo
+                            mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all"
+                        >
+                            <Mail />
+                        </MailTo>
+                    </Flex>
+                </div>
+            </Card>
         </>
     );
 }
