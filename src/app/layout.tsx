@@ -12,9 +12,13 @@ const inter = Inter({ subsets: ["latin"] });
 const openGraph: OpenGraph = {
     title: "Tony Drayton",
     description: "Portfolio",
-    images: [{
-        url: "https://cdn.discordapp.com/emojis/1096246554479837225.png?size=480"
-    }],
+    images: [
+        {
+            url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+            width: 480,
+            height: 480
+        }
+    ],
     locale: "en_US",
     type: "website"
 }

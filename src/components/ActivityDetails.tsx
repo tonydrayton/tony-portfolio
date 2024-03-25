@@ -1,6 +1,6 @@
 import { LanyardUser } from "@/lib/lanyard/types";
 import { getDiscordActivityImage } from "@/lib/utils";
-import { Strong, Text, Tooltip } from "@radix-ui/themes";
+import { Skeleton, Strong, Text, Tooltip } from "@radix-ui/themes";
 import Image from "next/image";
 import prettyMs from "pretty-ms";
 
@@ -30,17 +30,6 @@ const ActivityDetails = ({ userData }: { userData: LanyardUser }) => {
                             objectFit="cover"
                             alt='Activity' />
                     </div>
-            )}
-            {!getDiscordActivityImage(userData.activities) && (
-                <div>
-                    <Image
-                        src={getDiscordActivityImage(userData.activities)!}
-                        width={40}
-                        height={40}
-                        className='rounded-md mr-2 pointer-events-none lg:w-auto'
-                        objectFit="cover"
-                        alt='Activity' />
-                </div>
             )}
             <span className='flex flex-col max-w-fit'>
                 <Text
