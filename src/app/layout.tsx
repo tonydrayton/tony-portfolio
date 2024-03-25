@@ -21,7 +21,7 @@ export default function RootLayout({
         <html lang="en">
             <body className={inter.className}>
                 <ThemeProvider attribute="class">
-                    <Theme accentColor="gray">
+                    <Theme accentColor="teal">
                         {children}
                     </Theme>
                 </ThemeProvider>

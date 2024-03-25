@@ -13,11 +13,6 @@ const nextConfig = {
                 port: '',
             }
         ],
-    },
-    experimental: {
-        images: {
-            allowFutureImage: true
-        }
     }
 };
 

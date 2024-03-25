@@ -11,34 +11,36 @@ import { Circle, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ActivityDetails from "./ActivityDetails";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons"
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const ProfileCard = () => {
     const [userData, setUserData] = useState<LanyardUser | null>(null);
     const [socket, setSocket] = useState<WebSocket | null>(null);
 
-    useEffect(() => {
-        async function fetchInitialUserData() {
-            try {
-                const userId = "534505536712998926";
-                const data = await lanyard({ userId: userId });
-                if (data && !Array.isArray(data) && !(data instanceof WebSocket)) {
-                    setUserData(data);
-                }
-            } catch (error) {
-                console.error('Error fetching initial data:', error);
-            }
-        }
+    // useEffect(() => {
+    //     async function fetchInitialUserData() {
+    //         try {
+    //             const userId = "534505536712998926";
+    //             const data = await lanyard({ userId: userId });
+    //             if (data && !Array.isArray(data) && !(data instanceof WebSocket)) {
+    //                 setUserData(data);
+    //             }
+    //         } catch (error) {
+    //             console.error('Error fetching initial data:', error);
+    //         }
+    //     }
 
-        if (!userData) {
-            fetchInitialUserData();
-        }
-    }, [userData]);
+    //     if (!userData) {
+    //         fetchInitialUserData();
+    //     }
+    // }, []);
 
     useEffect(() => {
-        if (userData && !socket) {
+        if (!socket) {
             const newSocket = new WebSocket('wss://api.lanyard.rest/socket');
             newSocket.onopen = () => {
-                newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: userData.discord_user.id } }));
+                newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: "534505536712998926" } }));
             };
             newSocket.onmessage = (event) => {
                 const data: LanyardSocketMessage = JSON.parse(event.data);
@@ -48,7 +50,7 @@ const ProfileCard = () => {
         }
 
         return () => {
-
+            if(socket) socket.close()
         };
     }, [userData, socket]);
 
@@ -116,9 +118,9 @@ const ProfileCard = () => {
                 </Flex>
 
                 <Separator size="4" />
-                <div className="flex-row pt-5">
+                <div className="flex-row pt-5 pb-5">
                     <Flex>
-                        <a href="https://github.com" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
+                        <a href="https://github.com/Trintous" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
                             <Github />
                         </a>
 
@@ -131,7 +133,14 @@ const ProfileCard = () => {
                             <Mail />
                         </MailTo>
                     </Flex>
+                    
                 </div>
+                <Separator size="4" />
+                <div className="pt-5 flex flex-row items-center">
+                    <FontAwesomeIcon icon={faDiscord} className="mr-2" style={{ maxHeight: "15px" }} />
+                    @tcny
+                </div>
+                
             </Card>
         </>
     );

@@ -11,7 +11,7 @@ interface DiscordUser {
     discriminator: string;
     bot: boolean;
     global_name: string;
-    avatar_decoration_data: any; // Define appropriate type if needed
+    avatar_decoration_data: any;
     display_name: string;
     public_flags: number;
 }
@@ -42,10 +42,10 @@ export interface DiscordActivity {
 }
 
 export interface LanyardUser {
-    kv: Record<string, any>; // Define appropriate type if needed
-    spotify: null | any; // Define appropriate type if needed
+    kv: Record<string, any>;
+    spotify: null | any;
     discord_user: DiscordUser;
-    activities: DiscordActivity[]; // Define appropriate type if needed
+    activities: DiscordActivity[];
     discord_status: string;
     active_on_discord_web: boolean;
     active_on_discord_desktop: boolean;
