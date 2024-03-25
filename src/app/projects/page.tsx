@@ -63,7 +63,7 @@ const ProjectPage = () => {
                     sm: "2",
                     initial: "1"
                 }} gap="3">
-                    <Card size="2" className="flex flex-col">
+                    <Card size="2" className="flex flex-col ">
                         <div className="flex items-start pb-2">
                             <Image
                                 src={vaeleth}
