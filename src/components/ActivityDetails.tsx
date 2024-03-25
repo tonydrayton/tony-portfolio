@@ -5,13 +5,13 @@ import Image from "next/image"
 
 const ActivityDetails = ({ userData }: { userData: LanyardUser }) => {
     return (
-        <div className="overflow-hidden pt-2 flex flex-row">
+        <div className="overflow-hidden pt-2 flex flex-row mt-2">
             {getDiscordActivityImage(userData.activities) && (
                 <Image
                     src={getDiscordActivityImage(userData.activities)!}
                     width={40}
                     height={40}
-                    className='rounded-md mr-2 pointer-events-none '
+                    className='rounded-md mr-2 pointer-events-none lg:w-auto'
                     objectFit="cover"
                     alt='Activity' />
             )}

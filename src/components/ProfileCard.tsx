@@ -78,7 +78,8 @@ const ProfileCard = () => {
                     sm: "3",
                     initial: "3"
                 }}>
-                <Flex gap="3" align="start" pb="5">
+                <Flex align="start" pb="3" direction="column">
+                    <div className="flex">
                     {userData && userData.discord_user && userData.discord_user.avatar
                         ?
                         <Avatar
@@ -92,7 +93,7 @@ const ProfileCard = () => {
                             src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
                             fallback="T"
                             color="teal"
-                            className="pointer-events-none transition-all duration-300 ease-in-out" />
+                            className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
                         :
                         <Avatar
                             size={{
@@ -104,7 +105,7 @@ const ProfileCard = () => {
                             radius="full"
                             fallback="T"
                             color="teal"
-                            className="pointer-events-none transition-all duration-300 ease-in-out" />
+                            className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
                     }
 
                     <Box>
@@ -146,10 +147,13 @@ const ProfileCard = () => {
                             color="gray">
                             Software Engineer
                         </Text>
-                        {userData && userData.activities && userData.activities.length > 0 && (
+                        
+                    </Box>
+                    </div>
+
+                    {userData && userData.activities && userData.activities.length > 0 && (
                             <ActivityDetails userData={userData} />
                         )}
-                    </Box>
                 </Flex>
                 <Separator size="4" />
                 <div className="flex-row pt-3 pb-3">
@@ -176,7 +180,7 @@ const ProfileCard = () => {
                                     Are you sure? This will launch your email app.
                                 </AlertDialog.Description>
 
-                                <Flex gap="3" mt="4" justify="end">
+                                <Flex gap="3" mt="4" justify="end" align="center">
                                     <AlertDialog.Cancel>
                                         <Button variant="soft" color="gray">
                                             Cancel
@@ -186,7 +190,7 @@ const ProfileCard = () => {
                                     <MailTo
                                         mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
                                     >
-                                        <Button color="green">Confirm</Button>
+                                        <Button color="green" className="hover:cursor-pointer">Confirm</Button>
                                     </MailTo>
                                     </AlertDialog.Action>
                                 </Flex>
