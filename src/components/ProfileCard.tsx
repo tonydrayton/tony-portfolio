@@ -4,7 +4,6 @@ import Backdrop from "@/components/Backdrop";
 import Container from "@/components/Container";
 import MailTo from "@/components/MailTo";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
-import { LanyardSocketMessage, LanyardUser, lanyard } from "@/lib/lanyard";
 import { getStatusColor, statusMap } from "@/lib/utils";
 import { AlertDialog, Avatar, Box, Button, Card, Flex, Separator, Skeleton, Text, Tooltip } from "@radix-ui/themes";
 import { Circle, Github, Linkedin, Mail } from "lucide-react";
@@ -13,6 +12,7 @@ import { useEffect, useState } from "react";
 import ActivityDetails from "./ActivityDetails";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { LanyardSocketMessage, LanyardUser } from "@/lib/lanyard/types";
 
 const ProfileCard = () => {
     const [userData, setUserData] = useState<LanyardUser | null>(null);
@@ -182,7 +182,7 @@ const ProfileCard = () => {
 
                                 <Flex gap="3" mt="4" justify="end" align="center">
                                     <AlertDialog.Cancel>
-                                        <Button variant="soft" color="gray">
+                                        <Button variant="soft" color="gray" >
                                             Cancel
                                         </Button>
                                     </AlertDialog.Cancel>

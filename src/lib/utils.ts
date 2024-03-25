@@ -1,6 +1,6 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
-import { DiscordActivity } from "./lanyard";
+import { DiscordActivity } from "./lanyard/types";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -8,6 +8,10 @@ export function cn(...inputs: ClassValue[]) {
 
 export function getDiscordActivityImage(activities: DiscordActivity[]) {
     const activity = activities.filter(a => a.assets)[0];
+    if(activities.find(a => a.name === "Minecraft")) {
+        let mc = activities.find(a => a.name === "Minecraft");
+        return `https://cdn.discordapp.com/app-icons/${mc?.application_id}/166fbad351ecdd02d11a3b464748f66b.png`
+    }
     if(!activity || !activity.assets || !activity.assets.large_image) {
         return null;
     }

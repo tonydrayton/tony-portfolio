@@ -32,3 +32,13 @@ body {
     text-wrap: balance;
   }
 }
+
+.rt-BaseButton:where(.rt-variant-soft) {
+    background-color: var(--accent-a3) !important;
+}
+
+@media (hover: hover) {
+    .rt-BaseButton:where(.rt-variant-soft):where(:hover) {
+        background-color: var(--accent-a4) !important;
+    }
+}
