@@ -17,6 +17,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const ProfileCard = () => {
     const [userData, setUserData] = useState<LanyardUser | null>(null);
     const [socket, setSocket] = useState<WebSocket | null>(null);
+    const [heartbeat, setHeartbeat] = useState<NodeJS.Timeout | null>(null);
 
     // useEffect(() => {
     //     async function fetchInitialUserData() {
@@ -42,17 +43,30 @@ const ProfileCard = () => {
             newSocket.onopen = () => {
                 newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: "534505536712998926" } }));
             };
+
             newSocket.onmessage = (event) => {
                 const data: LanyardSocketMessage = JSON.parse(event.data);
-                setUserData(data.d);
+                if(data.d.heartbeat_interval && !heartbeat) {
+                    const heartbeatInterval = setInterval(() => {
+                        newSocket.send(JSON.stringify({ op: 3 }));
+                    }, data.d.heartbeat_interval);
+                    setHeartbeat(heartbeatInterval);
+                }
+                if (data.t === 'INIT_STATE') {
+                    setUserData(data.d);
+                }
+                if (data.t === 'PRESENCE_UPDATE') {
+                    setUserData(data.d);
+                }
+            };
+            
+            newSocket.onerror = (event) => {
+                console.error('WebSocket connection error:', event);
             };
             setSocket(newSocket);
         }
 
-        return () => {
-            if (socket) socket.close();
-        };
-    }, [userData, socket]);
+    }, [userData, socket, heartbeat]);
 
     return (
         <>

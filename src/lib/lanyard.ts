@@ -42,6 +42,7 @@ export interface DiscordActivity {
 }
 
 export interface LanyardUser {
+    heartbeat_interval?: number;
     kv: Record<string, any>;
     spotify: null | any;
     discord_user: DiscordUser;
@@ -53,10 +54,14 @@ export interface LanyardUser {
     listening_to_spotify: boolean;
 }
 
+interface heartbeat {
+    heartbeat_interval: number;
+}
+
 export interface LanyardSocketMessage {
     op: number;
-    t: string;
-    d: LanyardUser
+    t?: string;
+    d: LanyardUser;
 }
 
 interface LanyardData {
