@@ -38,7 +38,7 @@ const ProfileCard = () => {
 
     useEffect(() => {
         if (!socket) {
-            const newSocket = new WebSocket('wss://api.lanyard.rest/socket');
+            const newSocket = new WebSocket("wss://api.lanyard.rest/socket");
             newSocket.onopen = () => {
                 newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: "534505536712998926" } }));
             };
@@ -50,27 +50,38 @@ const ProfileCard = () => {
         }
 
         return () => {
-            if(socket) socket.close()
+            if (socket) socket.close();
         };
     }, [userData, socket]);
 
     return (
         <>
             <Card
-                className="transition-all"
+                className="transition-all duration-500 ease-in-out"
                 size={{
                     lg: "3",
                     md: "3",
                     sm: "3"
                 }}>
-                <Flex gap="3" align="center" pb="5">
-                    <Avatar
-                        size="5"
-                        radius="full"
-                        src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
-                        fallback="T"
-                        color="indigo"
-                        className="pointer-events-none " />
+                <Flex gap="3" align="start" pb="5">
+                    {userData && userData.discord_user && userData.discord_user.avatar
+                        ?
+                        <Avatar
+                            size="5"
+                            radius="full"
+                            src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
+                            fallback="T"
+                            color="teal"
+                            className="pointer-events-none " />
+                        :
+                        <Avatar
+                            size="5"
+                            radius="full"
+                            fallback="T"
+                            color="teal"
+                            className="pointer-events-none " />
+                    }
+
                     <Box>
                         <Text
                             as="div"
@@ -114,33 +125,31 @@ const ProfileCard = () => {
                             <ActivityDetails userData={userData} />
                         )}
                     </Box>
-
                 </Flex>
-
                 <Separator size="4" />
                 <div className="flex-row pt-5 pb-5">
                     <Flex>
-                        <a href="https://github.com/Trintous" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
+                        <a href="https://github.com/Trintous" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                             <Github />
                         </a>
 
-                        <a href="https://www.linkedin.com/in/tony-drayton-37a873275/" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all">
+                        <a href="https://www.linkedin.com/in/tony-drayton-37a873275/" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                             <Linkedin />
                         </a>
                         <MailTo
-                            mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all"
+                            mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
                         >
                             <Mail />
                         </MailTo>
                     </Flex>
-                    
+
                 </div>
                 <Separator size="4" />
                 <div className="pt-5 flex flex-row items-center">
                     <FontAwesomeIcon icon={faDiscord} className="mr-2" style={{ maxHeight: "15px" }} />
                     @tcny
                 </div>
-                
+
             </Card>
         </>
     );
