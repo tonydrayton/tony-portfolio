@@ -18,6 +18,9 @@ const nextConfig = {
                 port: ''
             }
         ],
+    },
+    env: {
+        DISCORD_ID: process.env.DISCORD_ID
     }
 };
 

@@ -41,7 +41,7 @@ const ProfileCard = () => {
         if (!socket) {
             const newSocket = new WebSocket("wss://api.lanyard.rest/socket");
             newSocket.onopen = () => {
-                newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: "534505536712998926" } }));
+                newSocket.send(JSON.stringify({ op: 2, d: { subscribe_to_id: process.env.DISCORD_ID } }));
             };
 
             newSocket.onmessage = (event) => {
@@ -201,8 +201,12 @@ const ProfileCard = () => {
                 </div>
                 <Separator size="4" />
                 <div className="pt-3 flex flex-row items-center">
-                    <FontAwesomeIcon icon={faDiscord} className="mr-2" style={{ maxHeight: "15px" }} />
-                    @tcny
+                    <FontAwesomeIcon icon={faDiscord} className="mr-3" style={{ maxHeight: "15px" }} />
+                    <Button variant="ghost" className="hover:cursor-pointer  hover:transition-all hover:ease-in-out hover:duration-300" 
+                    onClick={(e) => {
+                        e.preventDefault();
+                        window.open(`discord://-/users/${process.env.DISCORD_ID}`)
+                    }}>@tcny</Button>
                 </div>
 
             </Card>

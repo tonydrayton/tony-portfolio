@@ -1,15 +1,20 @@
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import { CSSProperties, ReactNode } from "react";
 
 const Container = ({ 
     children,
-    className 
+    className,
+    style
 }: { 
     children: ReactNode 
-    className?: string
+    className?: string,
+    style?: CSSProperties 
 }) => {
+    const containerStyles = {
+        ...style,
+    };
     return (
-        <div className={cn("flex justify-center items-center w-full h-svh", className)}>
+        <div className={cn("flex justify-center items-center w-full h-svh", className)} style={style}>
             {children}
         </div>
     );
