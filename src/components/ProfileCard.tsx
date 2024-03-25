@@ -6,7 +6,7 @@ import MailTo from "@/components/MailTo";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import { LanyardSocketMessage, LanyardUser, lanyard } from "@/lib/lanyard";
 import { getStatusColor, statusMap } from "@/lib/utils";
-import { Avatar, Box, Card, Flex, Separator, Skeleton, Text, Tooltip } from "@radix-ui/themes";
+import { AlertDialog, Avatar, Box, Button, Card, Flex, Separator, Skeleton, Text, Tooltip } from "@radix-ui/themes";
 import { Circle, Github, Linkedin, Mail } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -46,7 +46,7 @@ const ProfileCard = () => {
 
             newSocket.onmessage = (event) => {
                 const data: LanyardSocketMessage = JSON.parse(event.data);
-                if(data.d.heartbeat_interval && !heartbeat) {
+                if (data.d.heartbeat_interval && !heartbeat) {
                     const heartbeatInterval = setInterval(() => {
                         newSocket.send(JSON.stringify({ op: 3 }));
                     }, data.d.heartbeat_interval);
@@ -59,7 +59,7 @@ const ProfileCard = () => {
                     setUserData(data.d);
                 }
             };
-            
+
             newSocket.onerror = (event) => {
                 console.error('WebSocket connection error:', event);
             };
@@ -73,9 +73,10 @@ const ProfileCard = () => {
             <Card
                 className="transition-all duration-500 ease-in-out"
                 size={{
-                    lg: "3",
+                    lg: "4",
                     md: "3",
-                    sm: "3"
+                    sm: "3",
+                    initial: "3"
                 }}>
                 <Flex gap="3" align="start" pb="5">
                     {userData && userData.discord_user && userData.discord_user.avatar
@@ -151,7 +152,7 @@ const ProfileCard = () => {
                     </Box>
                 </Flex>
                 <Separator size="4" />
-                <div className="flex-row pt-5 pb-5">
+                <div className="flex-row pt-3 pb-3">
                     <Flex>
                         <a href="https://github.com/Trintous" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                             <Github />
@@ -160,16 +161,42 @@ const ProfileCard = () => {
                         <a href="https://www.linkedin.com/in/tony-drayton-37a873275/" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                             <Linkedin />
                         </a>
-                        <MailTo
-                            mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
-                        >
-                            <Mail />
-                        </MailTo>
+                        <AlertDialog.Root>
+                            <AlertDialog.Trigger>
+                                <button
+                                    className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
+                                >
+                                    <Mail />
+                                </button>
+
+                            </AlertDialog.Trigger>
+                            <AlertDialog.Content>
+                                <AlertDialog.Title>Email</AlertDialog.Title>
+                                <AlertDialog.Description size="2">
+                                    Are you sure? This will launch your email app.
+                                </AlertDialog.Description>
+
+                                <Flex gap="3" mt="4" justify="end">
+                                    <AlertDialog.Cancel>
+                                        <Button variant="soft" color="gray">
+                                            Cancel
+                                        </Button>
+                                    </AlertDialog.Cancel>
+                                    <AlertDialog.Action>
+                                    <MailTo
+                                        mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
+                                    >
+                                        <Button color="green">Confirm</Button>
+                                    </MailTo>
+                                    </AlertDialog.Action>
+                                </Flex>
+                            </AlertDialog.Content>
+                        </AlertDialog.Root>
                     </Flex>
 
                 </div>
                 <Separator size="4" />
-                <div className="pt-5 flex flex-row items-center">
+                <div className="pt-3 flex flex-row items-center">
                     <FontAwesomeIcon icon={faDiscord} className="mr-2" style={{ maxHeight: "15px" }} />
                     @tcny
                 </div>

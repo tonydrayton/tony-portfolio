@@ -13,7 +13,7 @@ children
     children: ReactNode
 }) => {
     return (
-        <button
+        <div
             onClick={(e) => {
                 window.location.href = mailto;
                 e.preventDefault();
@@ -21,7 +21,7 @@ children
             className={cn(className)}
         >
             {children}
-        </button>
+        </div>
     );
 };
 
