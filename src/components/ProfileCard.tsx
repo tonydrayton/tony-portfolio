@@ -223,7 +223,7 @@ const ProfileCard = () => {
                                             onClick={(e) => {
                                                 window.open(`discord://-/users/${process.env.DISCORD_ID}`)
                                             }}>Confirm</Button>
-                                            </div>
+                                    </div>
                                 </AlertDialog.Action>
                             </Flex>
                         </AlertDialog.Content>

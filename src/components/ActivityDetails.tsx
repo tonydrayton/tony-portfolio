@@ -9,19 +9,19 @@ const ActivityDetails = ({ userData }: { userData: LanyardUser }) => {
         <div className="overflow-hidden pt-2 flex flex-row mt-2">
             {getDiscordActivityImage(userData.activities) && (
                 userData.activities.find(a => a.assets?.large_image)?.assets?.large_text ?
-                <Tooltip content={userData.activities.find(a => a.assets?.large_image)?.assets?.large_text || ''}>
+                    <Tooltip content={userData.activities.find(a => a.assets?.large_image)?.assets?.large_text || ''}>
+                        <div>
+                            <Image
+                                src={getDiscordActivityImage(userData.activities)!}
+                                width={40}
+                                height={40}
+                                className='rounded-md mr-2 pointer-events-none lg:w-auto'
+                                objectFit="cover"
+                                alt='Activity' />
+                        </div>
+                    </Tooltip>
+                    :
                     <div>
-                        <Image
-                            src={getDiscordActivityImage(userData.activities)!}
-                            width={40}
-                            height={40}
-                            className='rounded-md mr-2 pointer-events-none lg:w-auto'
-                            objectFit="cover"
-                            alt='Activity' />
-                    </div>
-                </Tooltip>
-                :
-                <div>
                         <Image
                             src={getDiscordActivityImage(userData.activities)!}
                             width={40}

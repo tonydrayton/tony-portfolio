@@ -16,7 +16,7 @@ const VaelethCard = () => {
                 // style={{ boxShadow: "rgb(0, 149, 255) 0px 8px 80px -24px" }}
                 />
                 <div className="flex flex-col">
-                <Text
+                    <Text
                         className="flex sm:gap-3 sm:flex-row flex-col sm:items-center"
                         size={{
                             lg: "8",
@@ -79,7 +79,7 @@ const VaelethCard = () => {
             <div className="flex flex-row gap-5">
                 <Popover.Root>
                     <Popover.Trigger>
-                        <RadixLink href="#" className="w-fit"><Text color="blue">Picture 1</Text></RadixLink>
+                        <RadixLink className="w-fit"><Text color="blue">Picture 1</Text></RadixLink>
                     </Popover.Trigger>
                     <Popover.Content>
                         <Image
@@ -93,10 +93,10 @@ const VaelethCard = () => {
                         />
                     </Popover.Content>
                 </Popover.Root>
-                <Separator size="2" orientation="vertical" style={{ height: "unset"}} />
+                <Separator size="2" orientation="vertical" style={{ height: "unset" }} />
                 <Popover.Root>
                     <Popover.Trigger>
-                        <RadixLink href="#" className="w-fit"><Text color="blue">Picture 2</Text></RadixLink>
+                        <RadixLink className="w-fit"><Text color="blue">Picture 2</Text></RadixLink>
                     </Popover.Trigger>
                     <Popover.Content>
                         <Image

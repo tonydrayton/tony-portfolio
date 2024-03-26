@@ -4,8 +4,7 @@ const AboutCard = () => {
     return (
         <Card size="2" className="flex flex-col max-w-lg sm:p-4 xxs:p-4">
             <div className="flex flex-col">
-                
-                <Text  size={{
+                <Text size={{
                     lg: "4",
                     md: "4",
                     sm: "3",
