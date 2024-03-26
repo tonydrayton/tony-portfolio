@@ -1,6 +1,6 @@
 "use client"
 import Container from "@/components/Container";
-import { Card, Grid, HoverCard, Inset, Separator, Strong, Text, Tooltip } from "@radix-ui/themes";
+import { Card, Grid, HoverCard, Inset, Separator, Strong, Text, Tooltip, Link as RadixLink, Popover } from "@radix-ui/themes";
 import Image from "next/image";
 import vaeleth from "../../../public/vaeleth.png"
 import botdeveloper from "../../../public/earlybotdeveloper.svg";
@@ -17,8 +17,8 @@ const ProjectPage = () => {
         <>
             <Container className="p-5 flex-col !justify-start">
                 <motion.div
-                    initial={{ y: 150 }}
-                    animate={{ scale: 1, y: 0 }}
+                    initial={{ opacity: 0, y: 150 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{
                         duration: 2,
                         ease: [0, 0.71, 0.2, 1.01]
@@ -31,7 +31,7 @@ const ProjectPage = () => {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 1, y: 150 }}
+                    initial={{ opacity: 0, y: 150 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{
                         delay: 0.5,
@@ -98,30 +98,30 @@ const ProjectPage = () => {
                             </Text>
                             <Separator size="4" className="mt-2 mb-2" />
                             <div className="flex flex-row gap-5">
-                                <HoverCard.Root>
-                                    <HoverCard.Trigger>
-                                        <Link href="#" className="w-fit"><Text color="blue">Picture 1</Text></Link>
-                                    </HoverCard.Trigger>
-                                    <HoverCard.Content>
+                                <Popover.Root>
+                                    <Popover.Trigger>
+                                        <RadixLink href="#" className="w-fit"><Text color="blue">Picture 1</Text></RadixLink>
+                                    </Popover.Trigger>
+                                    <Popover.Content>
                                         <Image
                                             src={pokemoncampaign}
                                             alt="Pokemon Campaign"
-                                            className="w-auto"
+                                            className="w-auto xxs:w-80"
                                         />
-                                    </HoverCard.Content>
-                                </HoverCard.Root>
-                                <HoverCard.Root>
-                                    <HoverCard.Trigger>
-                                        <Link href="#" className="w-fit"><Text color="blue">Picture 2</Text></Link>
-                                    </HoverCard.Trigger>
-                                    <HoverCard.Content>
+                                    </Popover.Content>
+                                </Popover.Root>
+                                <Popover.Root>
+                                    <Popover.Trigger>
+                                        <a className="w-fit"><Text color="blue">Picture 2</Text></a>
+                                    </Popover.Trigger>
+                                    <Popover.Content>
                                         <Image
                                             src={nitrocompetition}
                                             alt="Nitro Competition"
-                                            className="w-auto"
+                                            className="w-auto xxs:w-80"
                                         />
-                                    </HoverCard.Content>
-                                </HoverCard.Root>
+                                    </Popover.Content>
+                                </Popover.Root>
                             </div>
                         </Card>
                     </Grid>

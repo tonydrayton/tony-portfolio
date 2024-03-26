@@ -218,10 +218,12 @@ const ProfileCard = () => {
                                     </Button>
                                 </AlertDialog.Cancel>
                                 <AlertDialog.Action>
+                                    <div className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                                         <Button color="green" className="hover:cursor-pointer"
                                             onClick={(e) => {
                                                 window.open(`discord://-/users/${process.env.DISCORD_ID}`)
                                             }}>Confirm</Button>
+                                            </div>
                                 </AlertDialog.Action>
                             </Flex>
                         </AlertDialog.Content>
