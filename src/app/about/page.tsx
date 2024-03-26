@@ -1,18 +1,23 @@
+
 import Container from "@/components/Container";
-import { Card, Grid, Text } from "@radix-ui/themes";
+import "./page.css";
+import { Metadata } from "next";
+import BackArrow from "@/components/about/BackArrow";
+import AboutPageContent from "@/components/about/AboutPageContent";
+
+export const metadata: Metadata = {
+    title: "About | Tony Drayton",
+    description: "Portfolio",
+};
 
 const AboutPage = () => {
     return (
-        <Container>
-            <Grid>
-                <Card>
-                    <Text weight="bold">
-                        About Me
-                    </Text>
-                    
-                </Card>
-            </Grid>
-        </Container>
+        <>
+            <Container className="p-5 flex-col !justify-start">
+                <BackArrow />
+                <AboutPageContent />
+            </Container>
+        </>
     )
 }
 

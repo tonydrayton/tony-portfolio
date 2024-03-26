@@ -18,7 +18,7 @@ const TabCard = () => {
                     e.preventDefault();
                     window.location.href = "about"
                 }}>
-                        <Link href="/projects" className="flex items-center">
+                        <Link href="/about" className="flex items-center">
                             <UserCircle className="mr-2" /> About Me
                         </Link>
                     </Button>
