@@ -1,0 +1,3 @@
+:is(.light, .light-theme), :is(.light, .light-theme) :where(.radix-themes:not(.dark, .dark-theme)) {
+    --color-background: white !important;
+}

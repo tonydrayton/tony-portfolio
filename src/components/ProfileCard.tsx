@@ -80,80 +80,80 @@ const ProfileCard = () => {
                 }}>
                 <Flex align="start" pb="3" direction="column">
                     <div className="flex">
-                    {userData && userData.discord_user && userData.discord_user.avatar
-                        ?
-                        <Avatar
-                            size={{
-                                lg: "5",
-                                md: "4",
-                                sm: "4",
-                                initial: "4"
-                            }}
-                            radius="full"
-                            src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
-                            fallback="T"
-                            color="teal"
-                            className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
-                        :
-                        <Avatar
-                            size={{
-                                lg: "5",
-                                md: "4",
-                                sm: "4",
-                                initial: "4"
-                            }}
-                            radius="full"
-                            fallback="T"
-                            color="teal"
-                            className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
-                    }
+                        {userData && userData.discord_user && userData.discord_user.avatar
+                            ?
+                            <Avatar
+                                size={{
+                                    lg: "5",
+                                    md: "4",
+                                    sm: "4",
+                                    initial: "4"
+                                }}
+                                radius="full"
+                                src={`https://cdn.discordapp.com/avatars/${userData?.discord_user?.id}/${userData?.discord_user?.avatar}.png`}
+                                fallback="T"
+                                color="teal"
+                                className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
+                            :
+                            <Avatar
+                                size={{
+                                    lg: "5",
+                                    md: "4",
+                                    sm: "4",
+                                    initial: "4"
+                                }}
+                                radius="full"
+                                fallback="T"
+                                color="teal"
+                                className="pointer-events-none transition-all duration-300 ease-in-out mr-3" />
+                        }
 
-                    <Box>
-                        <Text
-                            as="div"
-                            size={{
-                                lg: "6",
-                                md: "5",
-                                sm: "4",
-                                xs: "4",
-                                initial: "4",
-                            }}
-                            className="flex items-center">
-                            Tony Drayton
-                            {userData && statusMap[userData.discord_status]
-                                ? (
-                                    <Tooltip content={statusMap[userData.discord_status].text}>
-                                        <Circle
-                                            fill={getStatusColor(userData.discord_status)}
-                                            color=""
-                                            size={15}
-                                            className="ml-2 transition-all" />
-                                    </Tooltip>
-                                )
-                                :
-                                <Circle
-                                    fill="gray"
-                                    color=""
-                                    size={15}
-                                    className="ml-2 transition-all" />}
-                        </Text>
-                        <Text
-                            as="div"
-                            size={{
-                                lg: "5",
-                                md: "4",
-                                sm: "3"
-                            }}
-                            color="gray">
-                            Software Engineer
-                        </Text>
-                        
-                    </Box>
+                        <Box>
+                            <Text
+                                as="div"
+                                size={{
+                                    lg: "6",
+                                    md: "5",
+                                    sm: "4",
+                                    xs: "4",
+                                    initial: "4",
+                                }}
+                                className="flex items-center">
+                                Tony Drayton
+                                {userData && statusMap[userData.discord_status]
+                                    ? (
+                                        <Tooltip content={statusMap[userData.discord_status].text}>
+                                            <Circle
+                                                fill={getStatusColor(userData.discord_status)}
+                                                color=""
+                                                size={15}
+                                                className="ml-2 transition-all" />
+                                        </Tooltip>
+                                    )
+                                    :
+                                    <Circle
+                                        fill="gray"
+                                        color=""
+                                        size={15}
+                                        className="ml-2 transition-all" />}
+                            </Text>
+                            <Text
+                                as="div"
+                                size={{
+                                    lg: "5",
+                                    md: "4",
+                                    sm: "3"
+                                }}
+                                color="gray">
+                                Software Engineer
+                            </Text>
+
+                        </Box>
                     </div>
 
                     {userData && userData.activities && userData.activities.length > 0 && (
-                            <ActivityDetails userData={userData} />
-                        )}
+                        <ActivityDetails userData={userData} />
+                    )}
                 </Flex>
                 <Separator size="4" />
                 <div className="flex-row pt-3 pb-3">
@@ -187,28 +187,46 @@ const ProfileCard = () => {
                                         </Button>
                                     </AlertDialog.Cancel>
                                     <AlertDialog.Action>
-                                    <MailTo
-                                        mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
-                                    >
-                                        <Button color="green" className="hover:cursor-pointer">Confirm</Button>
-                                    </MailTo>
+                                        <MailTo
+                                            mailto="mailto:tony.drayton@drexel.edu" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300"
+                                        >
+                                            <Button color="green" className="hover:cursor-pointer">Confirm</Button>
+                                        </MailTo>
                                     </AlertDialog.Action>
                                 </Flex>
                             </AlertDialog.Content>
                         </AlertDialog.Root>
                     </Flex>
-
                 </div>
                 <Separator size="4" />
                 <div className="pt-3 flex flex-row items-center">
                     <FontAwesomeIcon icon={faDiscord} className="mr-3" style={{ maxHeight: "15px" }} />
-                    <Button variant="ghost" className="hover:cursor-pointer  hover:transition-all hover:ease-in-out hover:duration-300" 
-                    onClick={(e) => {
-                        e.preventDefault();
-                        window.open(`discord://-/users/${process.env.DISCORD_ID}`)
-                    }}>@tcny</Button>
+                    <AlertDialog.Root>
+                        <AlertDialog.Trigger>
+                            <Button variant="ghost" className="hover:cursor-pointer  hover:transition-all hover:ease-in-out hover:duration-300"
+                            >@tcny</Button>
+                        </AlertDialog.Trigger>
+                        <AlertDialog.Content>
+                            <AlertDialog.Title>Discord</AlertDialog.Title>
+                            <AlertDialog.Description size="2">
+                                Are you sure? This will launch your Discord app.
+                            </AlertDialog.Description>
+                            <Flex gap="3" mt="4" justify="end" align="center">
+                                <AlertDialog.Cancel>
+                                    <Button variant="soft" color="gray" >
+                                        Cancel
+                                    </Button>
+                                </AlertDialog.Cancel>
+                                <AlertDialog.Action>
+                                        <Button color="green" className="hover:cursor-pointer"
+                                            onClick={(e) => {
+                                                window.open(`discord://-/users/${process.env.DISCORD_ID}`)
+                                            }}>Confirm</Button>
+                                </AlertDialog.Action>
+                            </Flex>
+                        </AlertDialog.Content>
+                    </AlertDialog.Root>
                 </div>
-
             </Card>
         </>
     );

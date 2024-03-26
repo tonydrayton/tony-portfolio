@@ -6,6 +6,7 @@ import ProfileCard from "@/components/ProfileCard";
 import TabCard from "@/components/TabCard";
 import { motion } from "framer-motion"
 import Head from "next/head";
+import './page.css';
 
 export default function Home() {
     return (
