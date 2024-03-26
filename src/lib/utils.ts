@@ -42,3 +42,5 @@ export const statusMap: { [key: string]: { color: string; text: string, hex: str
 export const getStatusColor = (status: string) => {
     return statusMap[status].hex;
 }
+
+export const tealHex = "#0ad8b6";

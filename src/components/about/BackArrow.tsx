@@ -1,4 +1,5 @@
 "use client";
+import { tealHex } from "@/lib/utils";
 import { motion } from "framer-motion"
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
@@ -14,7 +15,7 @@ const BackArrow = () => {
             }}
             className="mb-10">
             <Link href="/">
-                <ArrowLeft size="50" className="hover:brightness-125 transition-all easein-out duration-200" style={{ color: "#0ad8b6" }}>
+                <ArrowLeft size="50" className="hover:brightness-125 transition-all easein-out duration-200" style={{ color: tealHex }}>
                 </ArrowLeft>
             </Link>
         </motion.div>

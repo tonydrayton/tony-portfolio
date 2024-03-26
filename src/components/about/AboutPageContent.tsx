@@ -5,6 +5,7 @@ import VaelethCard from "../VaelethCard"
 import { useEffect, useState } from "react";
 import AboutCard from "./AboutCard";
 import { useRouter } from "next/navigation";
+import MusicAtDrexelCard from "../MusicAtDrexelCard";
 
 const AboutPageContent = () => {
     const router = useRouter();
@@ -33,11 +34,13 @@ const AboutPageContent = () => {
                         duration: 1,
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
-                    className="mb-5 w-screen">
+                    className="mb-5 lg:w-screen">
                     {selectedTab && (
-                    <Tabs.Root defaultValue={selectedTab} className="w-screen flex flex-col items-center">
+                    <Tabs.Root defaultValue={selectedTab} className="lg:w-screen flex flex-col items-center">
                         <Tabs.List size="2">
-                            <Tabs.Trigger value="about" id="projects">
+                        <a href="#">
+                            <Tabs.Trigger value="about">
+                                
                                 <Text size={{
                                     lg: "6",
                                     md: "6",
@@ -47,8 +50,11 @@ const AboutPageContent = () => {
                                 >
                                     About
                                 </Text>
+                                
                             </Tabs.Trigger>
-                            <Tabs.Trigger value="projects" id="projects"><Text size={{
+                            </a>
+                            <a href="#projects">
+                            <Tabs.Trigger value="projects"><Text size={{
                                 lg: "6",
                                 md: "6",
                                 sm: "5",
@@ -56,11 +62,10 @@ const AboutPageContent = () => {
                             }}
                             >
                                 Projects
-                            </Text></Tabs.Trigger>
-                            <Tabs.Trigger value="settings">Settings</Tabs.Trigger>
+                            </Text></Tabs.Trigger></a>
                         </Tabs.List>
                         <Box pt="3">
-                            <Tabs.Content value="projects" className="p-4" id="projects">
+                            <Tabs.Content value="projects" className="p-4">
                                 <motion.div
                                     initial={{ opacity: 0, y: 100 }}
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -75,7 +80,7 @@ const AboutPageContent = () => {
                                         initial: "1"
                                     }} gap="3">
 
-                                        <VaelethCard />
+                                        <MusicAtDrexelCard />
                                         <VaelethCard />
 
                                     </Grid>
@@ -89,13 +94,12 @@ const AboutPageContent = () => {
                                     transition={{
                                         duration: 1,
                                         ease: [0, 0.71, 0.2, 1.01]
+                                    }}
+                                    style={{
+                                        boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)"
                                     }}>
                                     <AboutCard />
                                 </motion.div>
-                            </Tabs.Content>
-
-                            <Tabs.Content value="settings">
-                                <Text size="2">Edit your profile or update contact information.</Text>
                             </Tabs.Content>
                         </Box>
                     </Tabs.Root>
