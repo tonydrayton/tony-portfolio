@@ -12,27 +12,33 @@ const MusicAtDrexelCard = () => {
             <div className="flex items-center pb-2">
                 <Image
                     src={musicatdrexel}
-                    alt="Vaeleth"
-                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 xxs:w-8 mr-2"
+                    alt="Music At Drexel"
+                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2"
                     style={{ background: "#ffffff36", borderRadius: "5px", /* boxShadow: "rgb(0, 149, 255) 0px 8px 80px -24px"*/ }}
                 />
                 <div className="flex flex-col">
-                <Text size={{
-                    lg: "8",
-                    md: "8",
-                    sm: "7",
-                    initial: "7"
-                }}>Music At Drexel</Text>
-                <Text size={{
-                    lg: "3",
-                    md: "3",
-                    sm: "2",
-                    initial: "2"
-                }}>Full Stack Developer</Text>
+                    <Text
+                        className="flex sm:gap-3 sm:flex-row flex-col sm:items-center"
+                        size={{
+                            lg: "8",
+                            md: "8",
+                            sm: "7",
+                            initial: "7"
+                        }}>
+                        Music at Drexel
+                        <Separator orientation="vertical" className="sm:!block !hidden" size="2" />
+                        <span className="opacity-50 font-light sm:text-2xl text-sm">Website</span>
+                    </Text>
+                    <Text size={{
+                        lg: "3",
+                        md: "3",
+                        sm: "2",
+                        initial: "2"
+                    }}>Full Stack Developer</Text>
                 </div>
             </div>
             <Separator size="4" />
-            <div className="flex flex-row gap-2 pt-1 pb-1 text-slate-100 opacity-60 items-center">
+            <div className="flex flex-row gap-2 pt-1 pb-1 opacity-60 items-center">
                 <Text>
                     React
                 </Text>

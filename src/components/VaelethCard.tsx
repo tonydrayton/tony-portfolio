@@ -7,31 +7,37 @@ import nitrocompetition from "../../public/nitrocompetition.png";
 
 const VaelethCard = () => {
     return (
-        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2) "}}>
+        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2) " }}>
             <div className="flex items-center pb-2">
                 <Image
                     src={vaeleth}
                     alt="Vaeleth"
-                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 xxs:w-8 mr-2"
-                    // style={{ boxShadow: "rgb(0, 149, 255) 0px 8px 80px -24px" }}
+                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2"
+                // style={{ boxShadow: "rgb(0, 149, 255) 0px 8px 80px -24px" }}
                 />
                 <div className="flex flex-col">
-                <Text size={{
-                    lg: "8",
-                    md: "8",
-                    sm: "7",
-                    initial: "7"
-                }}>Vaeleth</Text>
-                <Text size={{
-                    lg: "3",
-                    md: "3",
-                    sm: "2",
-                    initial: "2"
-                }}>Lead Developer</Text>
+                <Text
+                        className="flex sm:gap-3 sm:flex-row flex-col sm:items-center"
+                        size={{
+                            lg: "8",
+                            md: "8",
+                            sm: "7",
+                            initial: "7"
+                        }}>
+                        Vaeleth
+                        <Separator orientation="vertical" className="sm:!block !hidden" size="2" />
+                        <span className="opacity-50 font-light sm:text-2xl text-sm">Discord Bot</span>
+                    </Text>
+                    <Text size={{
+                        lg: "3",
+                        md: "3",
+                        sm: "2",
+                        initial: "2"
+                    }}>Lead Developer</Text>
                 </div>
             </div>
             <Separator size="4" />
-            <div className="flex flex-row gap-2 pt-1 pb-1 text-slate-100 opacity-60 items-center">
+            <div className="flex flex-row gap-2 pt-1 pb-1 opacity-60 items-center">
                 <Text>
                     Node.js
                 </Text>
@@ -79,10 +85,15 @@ const VaelethCard = () => {
                         <Image
                             src={pokemoncampaign}
                             alt="Pokemon Campaign"
-                            className="w-auto xxs:w-80"
+                            data-loaded='false'
+                            onLoad={event => {
+                                event.currentTarget.setAttribute('data-loaded', 'true')
+                            }}
+                            className='w-auto xxs:w-80 data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
                         />
                     </Popover.Content>
                 </Popover.Root>
+                <Separator size="2" orientation="vertical" style={{ height: "unset"}} />
                 <Popover.Root>
                     <Popover.Trigger>
                         <RadixLink href="#" className="w-fit"><Text color="blue">Picture 2</Text></RadixLink>
@@ -91,7 +102,11 @@ const VaelethCard = () => {
                         <Image
                             src={nitrocompetition}
                             alt="Nitro Competition"
-                            className="w-auto xxs:w-80"
+                            data-loaded='false'
+                            onLoad={event => {
+                                event.currentTarget.setAttribute('data-loaded', 'true')
+                            }}
+                            className='w-auto xxs:w-80 data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
                         />
                     </Popover.Content>
                 </Popover.Root>

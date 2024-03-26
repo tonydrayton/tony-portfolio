@@ -14,7 +14,7 @@ const TabCard = () => {
                     initial: "3"
                 }}>
                 <div className="flex flex-col gap-3">
-                <Button variant="outline" className="hover:cursor-pointer" onClick={(e) => {
+                <Button variant="soft" className="hover:cursor-pointer" onClick={(e) => {
                     e.preventDefault();
                     window.location.href = "about"
                 }}>
@@ -22,7 +22,7 @@ const TabCard = () => {
                             <UserCircle className="mr-2" /> About Me
                         </Link>
                     </Button>
-                    <Button variant="solid" className="hover:cursor-pointer"
+                    {/* <Button variant="solid" className="hover:cursor-pointer"
                     onClick={(e) => {
                         e.preventDefault();
                         window.location.href = "projects"
@@ -30,7 +30,7 @@ const TabCard = () => {
                         <Link href="/projects" className="flex items-center">
                             <Hammer className="mr-2" /> Projects
                         </Link>
-                    </Button>
+                    </Button> */}
                 </div>
             </Card>
         </>
