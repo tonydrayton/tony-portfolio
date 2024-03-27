@@ -23,6 +23,9 @@ const config: Config = {
                   },
                 },
             }),
+            dropShadow: {
+                slight: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)"
+            }
         },
     },
     plugins: [],

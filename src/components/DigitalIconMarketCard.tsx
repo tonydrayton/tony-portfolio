@@ -17,7 +17,7 @@ const images: ImageComponentData[] = [
 
 const DigitalIconMarketCard = () => {
     return (
-        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)" }}>
+        <Card size="2" className="flex flex-col">
             <div className="flex items-center pb-2">
                 <Image
                     src={hippologo}
