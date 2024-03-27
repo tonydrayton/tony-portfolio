@@ -89,8 +89,8 @@ const VaelethCard = () => {
             Pictures:
             <div className="flex flex-row flex-wrap gap-3 mt-2">
             {
-                images.map(image => (
-                    <ImagePopover image={image} />
+                images.map((image, index) => (
+                    <ImagePopover image={image} key={index}/>
                 ))
             }
             </div>

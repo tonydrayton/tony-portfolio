@@ -3,13 +3,15 @@ import { Popover, Link as RadixLink, Separator, Text } from "@radix-ui/themes"
 import Image from "next/image"
 
 const ImagePopover = ({
-    image
+    image,
+    key
 }: {
-    image: ImageComponentData
+    image: ImageComponentData,
+    key: number
 }) => {
     return (
         <>
-            <Popover.Root>
+            <Popover.Root key={key}>
                 <Popover.Trigger>
                     <RadixLink className="w-fit hover:cursor-pointer">
                         <Text color="blue">{image.text}</Text>
