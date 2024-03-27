@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
+import { tealHex } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -51,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-    themeColor: "#ffffff0",
+    themeColor: tealHex,
     viewportFit: "cover"
 }
 
