@@ -12,12 +12,12 @@ import { tealHex } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 const openGraph: OpenGraph = {
-    title: "test",
+    title: "Tony Drayton",
     description: "Portfolio",
     locale: "en_US",
     type: "website",
     url: "https://tonydrayton.dev",
-    siteName: "Tony Drayton",
+    siteName: "Home",
     images: [
         {
             url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
@@ -53,6 +53,8 @@ export const metadata: Metadata = {
         apple: "https://cdn.discordapp.com/emojis/1096246554479837225.png"
     }
 };
+
+
 
 export default function RootLayout({
     children,

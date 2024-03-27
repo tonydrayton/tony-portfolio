@@ -1,4 +1,3 @@
-"use client"
 /* eslint-disable @next/next/no-async-client-component */
 import Backdrop from "@/components/Backdrop";
 import Container from "@/components/Container";
