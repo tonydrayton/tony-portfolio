@@ -21,13 +21,12 @@ const images: ImageComponentData[] = [
 
 const MusicAtDrexelCard = () => {
     return (
-        <Card size="2" className="flex flex-col dark:drop-shadow-slight">
+        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)" }}>
             <div className="flex items-center pb-2">
                 <Image
                     src={musicatdrexel}
                     alt="Music At Drexel"
-                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2"
-                    style={{ borderRadius: "5px", filter: "drop-shadow(1px 1px 1px black)" /* boxShadow: "rgb(0, 149, 255) 0px 8px 80px -24px"*/ }}
+                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2 dark:drop-shadow-slight"
                 />
                 <div className="flex flex-col">
                     <Text
