@@ -48,7 +48,10 @@ export const metadata: Metadata = {
     title: "Tony Drayton",
     description: "Portfolio",
     openGraph: openGraph,
-    twitter: twitter
+    twitter: twitter,
+    icons: {
+        apple: "https://cdn.discordapp.com/emojis/1096246554479837225.png"
+    }
 };
 
 export const viewport: Viewport = {
