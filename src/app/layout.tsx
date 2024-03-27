@@ -18,14 +18,14 @@ const openGraph: OpenGraph = {
     type: "website",
     url: "https://tonydrayton.dev",
     siteName: "Tony Drayton",
-    // images: [
-    //     {
-    //         url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
-    //         width: 480,
-    //         height: 480,
-    //         alt: "Tony Drayton"
-    //     }
-    // ]
+    images: [
+        {
+            url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+            width: 480,
+            height: 480,
+            alt: "Tony Drayton"
+        }
+    ]
 }
 
 const twitter: Twitter = {
@@ -34,14 +34,14 @@ const twitter: Twitter = {
     description: "Portfolio",
     creator: "@tonydrayton",
     site: "@tonydrayton",
-    // images: [
-    //     {
-    //         url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
-    //         width: 480,
-    //         height: 480,
-    //         alt: "Tony Drayton"
-    //     }
-    // ]
+    images: [
+        {
+            url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+            width: 480,
+            height: 480,
+            alt: "Tony Drayton"
+        }
+    ]
 }
 
 export const metadata: Metadata = {
