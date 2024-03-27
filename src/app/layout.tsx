@@ -12,7 +12,7 @@ import { tealHex } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 const openGraph: OpenGraph = {
-    title: "Tony Drayton",
+    title: "test",
     description: "Portfolio",
     locale: "en_US",
     type: "website",
@@ -53,11 +53,6 @@ export const metadata: Metadata = {
         apple: "https://cdn.discordapp.com/emojis/1096246554479837225.png"
     }
 };
-
-export const viewport: Viewport = {
-    themeColor: tealHex,
-    viewportFit: "cover"
-}
 
 export default function RootLayout({
     children,

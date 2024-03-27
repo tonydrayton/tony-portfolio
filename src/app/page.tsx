@@ -2,27 +2,21 @@
 /* eslint-disable @next/next/no-async-client-component */
 import Backdrop from "@/components/Backdrop";
 import Container from "@/components/Container";
-import ProfileCard from "@/components/ProfileCard";
-import TabCard from "@/components/TabCard";
-import { motion } from "framer-motion"
-import Head from "next/head";
+import HomePage from "@/components/HomePage";
+import { Viewport } from "next";
+import { tealHex } from "@/lib/utils";
 import './page.css';
+
+export const viewport: Viewport = {
+    themeColor: tealHex,
+    viewportFit: "cover"
+}
 
 export default function Home() {
     return (
         <>
             <Container className="flex-col">
-                <motion.div
-                    initial={{ opacity: 1, y: 150 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{
-                        duration: 1,
-                        ease: [0, 0.71, 0.2, 1.01]
-                    }}
-                    className="iphone-landscape:flex iphone-landscape:gap-5 iphone-landscape:items-center">
-                    <ProfileCard />
-                    <TabCard />
-                </motion.div>
+                <HomePage />
             </Container >
             <Backdrop />
         </>
