@@ -41,7 +41,6 @@ const Container = ({
         }
     }, []);
 
-    console.log(viewport)
     return (
         <>
             {viewport && (
