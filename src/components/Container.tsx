@@ -45,9 +45,9 @@ const Container = ({
     return (
         <>
             {viewport && (
-            <Fragment>
+            <Head>
                 <meta name="theme-color" content={viewport.themeColor ? viewport.themeColor.toString() : undefined} />
-            </Fragment>
+            </Head>
             )}
             <div className={cn("flex justify-center items-center w-full h-svh", className)} style={style}>
                 {children}
