@@ -10,14 +10,12 @@ export const metadata: Metadata = {
     description: "Portfolio",
 };
 
-export const viewport: Viewport = {
-    themeColor: "#2a2a2a"
-}
 
 const AboutPage = () => {
+    
     return (
         <>
-            <Container className="p-5 flex-col !justify-start h-full">
+            <Container className="p-5 flex-col !justify-start h-full" dynamicViewport>
                 <BackArrow />
                 <AboutPageContent />
             </Container>
