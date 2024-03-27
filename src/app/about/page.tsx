@@ -10,9 +10,7 @@ export const metadata: Metadata = {
     description: "Portfolio",
 };
 
-
 const AboutPage = () => {
-    
     return (
         <>
             <Container className="p-5 flex-col !justify-start h-full">
