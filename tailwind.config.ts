@@ -10,6 +10,7 @@ const config: Config = {
         extend: {
             screens: {
                 'xxs': '300px',
+                "iphone-landscape": { "raw": "(max-height: 400px) and (max-width: 1000px)"}
             },
             backgroundImage: {
                 "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

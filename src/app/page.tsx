@@ -18,7 +18,8 @@ export default function Home() {
                     transition={{
                         duration: 1,
                         ease: [0, 0.71, 0.2, 1.01]
-                    }}>
+                    }}
+                    className="iphone-landscape:flex iphone-landscape:gap-5 iphone-landscape:items-center">
                     <ProfileCard />
                     <TabCard />
                 </motion.div>
