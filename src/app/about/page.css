@@ -2,6 +2,16 @@
     --color-background: #f3f3f3 !important;
 }
 
+body,
+:is(.light, .light-theme) body:where(.radix-themes:not(.dark, .dark-theme)) {
+    background: #f3f3f3 !important;/* viewport bg color */
+}
+
 :is(.dark, .dark-theme), :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
     --color-background: #2a2a2a !important;
+}
+
+body,
+:is(.dark, .dark-theme) body:where(.radix-themes:not(.light, .light-theme)) {
+    background: #2a2a2a !important;/* viewport bg color */
 }

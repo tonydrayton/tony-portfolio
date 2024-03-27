@@ -17,7 +17,7 @@ const openGraph: OpenGraph = {
     locale: "en_US",
     type: "website",
     url: "https://tonydrayton.dev",
-    siteName: "Home",
+    siteName: "Tony Drayton", // Author on Discord
     images: [
         {
             url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
@@ -30,7 +30,7 @@ const openGraph: OpenGraph = {
 
 const twitter: Twitter = {
     card: "summary_large_image",
-    title: "Tony Drayton",
+    title: "Home",
     description: "Portfolio",
     creator: "@tonydrayton",
     site: "@tonydrayton",

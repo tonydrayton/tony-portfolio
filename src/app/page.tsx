@@ -7,7 +7,7 @@ import { tealHex } from "@/lib/utils";
 import './page.css';
 
 export const viewport: Viewport = {
-    themeColor: tealHex,
+    themeColor: tealHex, // specific viewport color for home page
     viewportFit: "cover"
 }
 
