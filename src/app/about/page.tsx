@@ -10,6 +10,9 @@ export const metadata: Metadata = {
     description: "Portfolio",
 };
 
+export const viewport: Viewport = {
+    themeColor: "#2a2a2a"
+}
 
 const AboutPage = () => {
     return (
