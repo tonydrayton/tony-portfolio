@@ -13,18 +13,18 @@ const inter = Inter({ subsets: ["latin"] });
 const openGraph: OpenGraph = {
     title: "Tony Drayton",
     description: "Portfolio",
-    images: [
-        {
-            url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
-            width: 480,
-            height: 480,
-            alt: "Tony Drayton"
-        }
-    ],
     locale: "en_US",
     type: "website",
     url: "https://tonydrayton.dev",
-    siteName: "Tony Drayton"
+    siteName: "Tony Drayton",
+    // images: [
+    //     {
+    //         url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+    //         width: 480,
+    //         height: 480,
+    //         alt: "Tony Drayton"
+    //     }
+    // ]
 }
 
 const twitter: Twitter = {
@@ -32,14 +32,15 @@ const twitter: Twitter = {
     title: "Tony Drayton",
     description: "Portfolio",
     creator: "@tonydrayton",
-    images: [
-        {
-            url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
-            width: 480,
-            height: 480,
-            alt: "Tony Drayton"
-        }
-    ]
+    site: "@tonydrayton",
+    // images: [
+    //     {
+    //         url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+    //         width: 480,
+    //         height: 480,
+    //         alt: "Tony Drayton"
+    //     }
+    // ]
 }
 
 export const metadata: Metadata = {
