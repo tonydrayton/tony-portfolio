@@ -45,7 +45,7 @@ const twitter: Twitter = {
 }
 
 export const metadata: Metadata = {
-    title: "Tony Drayton",
+    title: "Home",
     description: "Portfolio",
     openGraph: openGraph,
     twitter: twitter,

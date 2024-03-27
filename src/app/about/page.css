@@ -2,8 +2,7 @@
     --color-background: #f3f3f3 !important;
 }
 
-body,
-:is(.light, .light-theme) body:where(.radix-themes:not(.dark, .dark-theme)) {
+.light body {
     background: #f3f3f3 !important;/* viewport bg color */
 }
 
@@ -11,7 +10,7 @@ body,
     --color-background: #2a2a2a !important;
 }
 
-body,
-:is(.dark, .dark-theme) body:where(.radix-themes:not(.light, .light-theme)) {
+
+.dark body {
     background: #2a2a2a !important;/* viewport bg color */
 }
