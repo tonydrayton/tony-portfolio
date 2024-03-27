@@ -15,7 +15,7 @@ const AboutPage = () => {
     
     return (
         <>
-            <Container className="p-5 flex-col !justify-start h-full" dynamicViewport>
+            <Container className="p-5 flex-col !justify-start h-full">
                 <BackArrow />
                 <AboutPageContent />
             </Container>

@@ -11,7 +11,7 @@ import './page.css';
 export default function Home() {
     return (
         <>
-            <Container className="flex-col" dynamicViewport={false}>
+            <Container className="flex-col">
                 <motion.div
                     initial={{ opacity: 1, y: 150 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
