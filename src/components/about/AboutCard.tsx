@@ -10,7 +10,7 @@ const AboutCard = () => {
                     sm: "3",
                     initial: "3"
                 }}>
-                    {"Hey, my name is "}<Text color="teal">{"Tony"}</Text>{", and I am a Software Enginner and Student at "}<Text color="yellow">{"Drexel Univeristy"}</Text>{". I am studying Computer Science and on track to graduate in June of 2027."}
+                    {"Hey, my name is "}<Text color="teal">{"Tony"}</Text>{", and I am a Software Enginner and Student at "}<Text color="yellow">{"Drexel Univeristy"}</Text>{". I am a sophomore studying Computer Science with an anticipated graduation date of June, 2027."}
                 </Text>
                 <Text className="mt-4" size={{
                     lg: "4",

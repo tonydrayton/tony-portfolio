@@ -4,6 +4,13 @@ import vaeleth from "../../public/vaeleth.png"
 import botdeveloper from "../../public/earlybotdeveloper.svg";
 import pokemoncampaign from "../../public/pokemoncampaign.png";
 import nitrocompetition from "../../public/nitrocompetition.png";
+import { ImageComponentData } from "@/lib/utils";
+import ImagePopover from "./ImagePopover";
+
+const images: ImageComponentData[] = [
+    { text: "Campaign", src: pokemoncampaign, last: false },
+    { text: "Competition", src: nitrocompetition, last: true },
+];
 
 const VaelethCard = () => {
     return (
@@ -33,7 +40,10 @@ const VaelethCard = () => {
                         md: "3",
                         sm: "2",
                         initial: "2"
-                    }}>Lead Developer</Text>
+                    }}>
+                        Lead Developer
+                        <span className="opacity-50 font-light">{" (2019 - 2022)"}</span>
+                    </Text>
                 </div>
             </div>
             <Separator size="4" />
@@ -70,46 +80,19 @@ const VaelethCard = () => {
                 <Text color="teal">100,000</Text>
                 {" users and was in over "}
                 <Text color="teal">200</Text>
-                {" different servers. I discontinued this in 2022 because of events in my life, but this was hands down my favorite thing I created."}
+                {" different servers. I discontinued this in 2022 because of events in my life, but this was hands down the favorite thing I created."}
             </Text>
             <Separator size="4" className="mt-2 mb-2" />
             {
                 // TODO: Add more pictures
             }
-            <div className="flex flex-row gap-5">
-                <Popover.Root>
-                    <Popover.Trigger>
-                        <RadixLink className="w-fit"><Text color="blue">Picture 1</Text></RadixLink>
-                    </Popover.Trigger>
-                    <Popover.Content>
-                        <Image
-                            src={pokemoncampaign}
-                            alt="Pokemon Campaign"
-                            data-loaded='false'
-                            onLoad={event => {
-                                event.currentTarget.setAttribute('data-loaded', 'true')
-                            }}
-                            className='w-auto xxs:w-80 data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
-                        />
-                    </Popover.Content>
-                </Popover.Root>
-                <Separator size="2" orientation="vertical" style={{ height: "unset" }} />
-                <Popover.Root>
-                    <Popover.Trigger>
-                        <RadixLink className="w-fit"><Text color="blue">Picture 2</Text></RadixLink>
-                    </Popover.Trigger>
-                    <Popover.Content>
-                        <Image
-                            src={nitrocompetition}
-                            alt="Nitro Competition"
-                            data-loaded='false'
-                            onLoad={event => {
-                                event.currentTarget.setAttribute('data-loaded', 'true')
-                            }}
-                            className='w-auto xxs:w-80 data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
-                        />
-                    </Popover.Content>
-                </Popover.Root>
+            Pictures:
+            <div className="flex flex-row flex-wrap gap-3 mt-2">
+            {
+                images.map(image => (
+                    <ImagePopover image={image} />
+                ))
+            }
             </div>
         </Card>
     )

@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { DiscordActivity } from "./lanyard/types";
+import { StaticImageData } from "next/image";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs))
@@ -44,3 +45,9 @@ export const getStatusColor = (status: string) => {
 }
 
 export const tealHex = "#0ad8b6";
+
+export interface ImageComponentData {
+    text: string;
+    src: StaticImageData;
+    last: boolean;
+}

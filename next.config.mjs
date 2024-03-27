@@ -16,6 +16,11 @@ const nextConfig = {
                 protocol: 'https',
                 hostname: 'cdn.discordapp.com',
                 port: ''
+            },
+            {
+                protocol: 'https',
+                hostname: 'images.dog.ceo',
+                port: ''
             }
         ],
     },
