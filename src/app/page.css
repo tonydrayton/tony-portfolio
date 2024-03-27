@@ -2,7 +2,15 @@
     --color-background: white !important;
 }
 
+.light body {
+    background: white !important;/* viewport bg color */
+}
+
 :is(.dark, .dark-theme), :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
     --color-background: #101211
     !important;
+}
+
+.dark body {
+    background: #101211 !important;/* viewport bg color */
 }

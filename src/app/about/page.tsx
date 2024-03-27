@@ -7,7 +7,7 @@ import AboutPageContent from "@/components/about/AboutPageContent";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 const openGraph: OpenGraph = {
-    title: "Tony Drayton",
+    title: "About",
     description: "Portfolio",
     locale: "en_US",
     type: "website",

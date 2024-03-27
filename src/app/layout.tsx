@@ -12,7 +12,7 @@ import { tealHex } from "@/lib/utils";
 const inter = Inter({ subsets: ["latin"] });
 
 const openGraph: OpenGraph = {
-    title: "Tony Drayton",
+    title: "Home",
     description: "Portfolio",
     locale: "en_US",
     type: "website",
