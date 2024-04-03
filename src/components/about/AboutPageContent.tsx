@@ -16,7 +16,7 @@ const AboutPageContent = () => {
 
     useEffect(() => {
         const tab = window.location.hash.split('#')[1];
-        if(tab && tabs.includes(tab)) {
+        if (tab && tabs.includes(tab)) {
             setSelectedTab(tab);
         } else {
             setSelectedTab("about");
@@ -64,15 +64,15 @@ const AboutPageContent = () => {
                             </Text></Tabs.Trigger>
                         </a>
                         <a href="#dogs">
-                        <Tabs.Trigger value="dogs"><Text size={{
-                            lg: "6",
-                            md: "6",
-                            sm: "5",
-                            initial: "5"
-                        }}
-                        >
-                            <PawPrint />
-                        </Text></Tabs.Trigger>
+                            <Tabs.Trigger value="dogs"><Text size={{
+                                lg: "6",
+                                md: "6",
+                                sm: "5",
+                                initial: "5"
+                            }}
+                            >
+                                <PawPrint />
+                            </Text></Tabs.Trigger>
                         </a>
                     </Tabs.List>
                     <Box pt="3">
@@ -115,7 +115,7 @@ const AboutPageContent = () => {
                         </Tabs.Content>
 
                         <Tabs.Content value="dogs" className="p-4">
-                        <motion.div
+                            <motion.div
                                 initial={{ opacity: 0, y: 100 }}
                                 animate={{ opacity: 1, scale: 1, y: 0 }}
                                 transition={{
@@ -124,12 +124,12 @@ const AboutPageContent = () => {
                                 }}
                                 className="flex flex-col items-center">
                                 <Text
-                                size={{
-                                    lg: "5",
-                                    md: "8",
-                                    sm: "6"
-                                }}
-                                className="flex flex-col items-center mb-4"><a className="text-center">{"This page is dedicated to dogs."}</a><a className="text-center">{"Every time you click on this page you will see a new dog! 🐶"}</a>
+                                    size={{
+                                        lg: "5",
+                                        md: "8",
+                                        sm: "6"
+                                    }}
+                                    className="flex flex-col items-center mb-4"><a className="text-center">{"This page is dedicated to dogs."}</a><a className="text-center">{"Every time you click on this page you will see a new dog! 🐶"}</a>
                                 </Text>
                                 <motion.div
                                     initial={{ opacity: 0, y: 100 }}
@@ -139,10 +139,16 @@ const AboutPageContent = () => {
                                         duration: 1,
                                         ease: [0, 0.71, 0.2, 1.01]
                                     }}
-                                    >
-                                <Card className="w-fit">
-                                    <DogComponent />
-                                </Card>
+                                >
+                                    <Card
+                                        size={{
+                                            lg: "2",
+                                            md: "2",
+                                            sm: "2",
+                                            initial: "2"
+                                        }}>
+                                        <DogComponent />
+                                    </Card>
                                 </motion.div>
                             </motion.div>
                         </Tabs.Content>
