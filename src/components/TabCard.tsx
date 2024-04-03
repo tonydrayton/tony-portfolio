@@ -18,8 +18,7 @@ const TabCard = () => {
                     e.preventDefault();
                     window.location.href = "about"
                 }}>
-                        <Link href="/about" className="flex items-center">
-                            <UserCircle className="mr-2" /> About Me
+                        <Link href="/about" className="flex items-center w-[-webkit-fill-available] justify-center"> <UserCircle className="mr-2" /> About Me
                         </Link>
                     </Button>
                     {/* <Button variant="solid" className="hover:cursor-pointer"

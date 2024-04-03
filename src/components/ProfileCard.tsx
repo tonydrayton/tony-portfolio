@@ -158,7 +158,7 @@ const ProfileCard = () => {
                 <Separator size="4" />
                 <div className="flex-row pt-3 pb-3">
                     <Flex>
-                        <a href="https://github.com/Trintous" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+                        <a href="https://github.com/tonydrayton" target="_blank" className="p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
                             <Github />
                         </a>
 
