@@ -146,7 +146,8 @@ const AboutPageContent = () => {
                                             md: "2",
                                             sm: "2",
                                             initial: "2"
-                                        }}>
+                                        }}
+                                        className="lg:w-11/12">
                                         <DogComponent />
                                     </Card>
                                 </motion.div>
