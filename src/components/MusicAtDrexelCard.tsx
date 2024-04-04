@@ -26,7 +26,7 @@ const MusicAtDrexelCard = () => {
                 <Image
                     src={musicatdrexel}
                     alt="Music At Drexel"
-                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2 dark:drop-shadow-slight"
+                    className="xl:w-12 lg:w-12 md:w-10 sm:w-9 w-20 mr-2 dark:brightness-200"
                 />
                 <div className="flex flex-col">
                     <Text
