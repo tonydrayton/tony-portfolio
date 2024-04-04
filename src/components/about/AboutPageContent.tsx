@@ -126,8 +126,9 @@ const AboutPageContent = () => {
                                 <Text
                                     size={{
                                         lg: "5",
-                                        md: "8",
-                                        sm: "6"
+                                        md: "5",
+                                        sm: "6",
+                                        initial: "6"
                                     }}
                                     className="flex flex-col items-center mb-4"><a className="text-center">{"This page is dedicated to dogs."}</a><a className="text-center">{"Every time you click on this page you will see a new dog! 🐶"}</a>
                                 </Text>
@@ -139,6 +140,7 @@ const AboutPageContent = () => {
                                         duration: 1,
                                         ease: [0, 0.71, 0.2, 1.01]
                                     }}
+                                    className="flex justify-center"
                                 >
                                     <Card
                                         size={{
