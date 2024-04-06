@@ -100,9 +100,9 @@ const Socials = ({
                             </a>
                         </div>
                         <div className="flex p-1">
-                            <a className="flex flex-row gap-3 items-center" href="https:/www.linkedin.com/in/tonydrayton" target="_blank">
+                            <a className="flex flex-row gap-3 items-center" href="https://www.linkedin.com/in/tonydrayton" target="_blank">
                                 <Linkedin />
-                                <RadixLink href="https:/www.linkedin.com/in/tonydrayton" target="_blank">
+                                <RadixLink href="https://www.linkedin.com/in/tonydrayton" target="_blank">
                                     linkedin.com/in/tonydrayton
                                 </RadixLink>
                             </a>
