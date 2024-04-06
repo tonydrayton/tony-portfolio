@@ -1,11 +1,11 @@
 import { Card, Popover, Separator, Text, Tooltip, Link as RadixLink } from "@radix-ui/themes"
 import Image from "next/image"
-import vaeleth from "../../public/vaeleth.png"
-import botdeveloper from "../../public/earlybotdeveloper.svg";
-import pokemoncampaign from "../../public/pokemoncampaign.png";
-import nitrocompetition from "../../public/nitrocompetition.png";
+import vaeleth from "../../../public/vaeleth.png"
+import botdeveloper from "../../../public/earlybotdeveloper.svg";
+import pokemoncampaign from "../../../public/pokemoncampaign.png";
+import nitrocompetition from "../../../public/nitrocompetition.png";
 import { ImageComponentData } from "@/lib/utils";
-import ImagePopover from "./ImagePopover";
+import ImagePopover from "../ImagePopover";
 
 const images: ImageComponentData[] = [
     { text: "Campaign", src: pokemoncampaign, last: false },
@@ -14,7 +14,7 @@ const images: ImageComponentData[] = [
 
 const VaelethCard = () => {
     return (
-        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2) " }}>
+        <Card size="2" className="flex flex-col dark:shadow-card_dark">
             <div className="flex items-center pb-2">
                 <Image
                     src={vaeleth}

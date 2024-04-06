@@ -1,9 +1,9 @@
 :is(.light, .light-theme), :is(.light, .light-theme) :where(.radix-themes:not(.dark, .dark-theme)) {
-    --color-background: #f3f3f3 !important;
+    --color-background: white !important;
 }
 
 .light body {
-    background: #f3f3f3 !important;/* viewport bg color */
+    background: white !important;/* viewport bg color */
 }
 
 :is(.dark, .dark-theme), :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
@@ -13,4 +13,16 @@
 
 .dark body {
     background: #2a2a2a !important;/* viewport bg color */
+}
+
+.rt-PopoverContent {
+    backdrop-filter: blur(5px);
+}
+
+.dark .rt-PopoverContent {
+    background-color: color(display-p3 0.09 0.1 0.09 / 0);
+}
+
+.light .rt-PopoverContent {
+    background-color: color(display-p3 0.09 0.1 0.09 / 0.19);
 }

@@ -1,8 +1,9 @@
-import { Card, Link, Text } from "@radix-ui/themes"
+import { Card, Link, Separator, Text } from "@radix-ui/themes"
+import Socials from "../Socials";
 
 const AboutCard = () => {
     return (
-        <Card size="2" className="flex flex-col max-w-lg sm:p-4 xxs:p-4">
+        <Card size="2" className="!flex !flex-col gap-3 max-w-lg sm:p-4 xxs:p-4">
             <div className="flex flex-col">
                 <Text size={{
                     lg: "4",
@@ -19,6 +20,8 @@ const AboutCard = () => {
                     initial: "3"
                 }}>{"I currently work at "}<Link href="https://www.alumniq.com" target="_blank">AlumnIQ</Link>{" as a Junior Software Engineer."}</Text>
             </div>
+            <Separator size="4" />
+            <Socials />
         </Card>
     )
 }

@@ -33,7 +33,7 @@ export const metadata: Metadata = {
 const AboutPage = () => {
     return (
         <>
-            <Container className="p-5 flex-col !justify-start h-full">
+            <Container className="p-5 flex-col !justify-start h-full overflow-x-hidden">
                 <BackArrow />
                 <AboutPageContent />
             </Container>

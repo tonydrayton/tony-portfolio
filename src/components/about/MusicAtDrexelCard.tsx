@@ -1,19 +1,18 @@
 import { Card, Separator, Text, Link } from "@radix-ui/themes"
 import Image from "next/image"
-import musicatdrexel from "../../public/musicatdrexel.png";
-import homepage from "../../public/musicatdrexel/homepage.png";
-import aboutpage from "../../public/musicatdrexel/aboutpage.png";
-import connectpage from "../../public/musicatdrexel/connectpage.png";
-import showspage from "../../public/musicatdrexel/showspage.png";
-import verifyemailpage from "../../public/musicatdrexel/verifyemail.png";
-import completesignup from "../../public/musicatdrexel/completesignup.png";
+import musicatdrexel from "../../../public/musicatdrexel.png";
+import homepage from "../../../public/musicatdrexel/homepage.png";
+import aboutpage from "../../../public/musicatdrexel/aboutpage.png";
+import showspage from "../../../public/musicatdrexel/showspage.png";
+import verifyemailpage from "../../../public/musicatdrexel/verifyemail.png";
+import completesignup from "../../../public/musicatdrexel/completesignup.png";
 import { ImageComponentData } from "@/lib/utils";
-import ImagePopover from "./ImagePopover";
+import ImagePopover from "../ImagePopover";
 
 const images: ImageComponentData[] = [
     { text: "About Page", src: aboutpage, last: false },
     { text: "Home Page", src: homepage, last: false },
-    { text: "Connect Page", src: connectpage, last: false },
+    // { text: "Connect Page", src: connectpage, last: false },
     { text: "Shows Page", src: showspage, last: false },
     { text: "Email Verification", src: verifyemailpage, last: false },
     { text: "Sign Up Completion", src: completesignup, last: true }
@@ -21,7 +20,7 @@ const images: ImageComponentData[] = [
 
 const MusicAtDrexelCard = () => {
     return (
-        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)" }}>
+        <Card size="2" className="flex flex-col dark:shadow-card_dark">
             <div className="flex items-center pb-2">
                 <Image
                     src={musicatdrexel}

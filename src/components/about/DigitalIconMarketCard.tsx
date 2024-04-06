@@ -1,12 +1,12 @@
 import { Card, Popover, Separator, Text, Tooltip, Link as RadixLink, Link } from "@radix-ui/themes"
 import Image, { StaticImageData } from "next/image"
-import hippologo from "../../public/digitaliconmarket/logo.png";
-import homepage from "../../public/digitaliconmarket/homepage.png"
-import dashboardpage from "../../public/digitaliconmarket/dashboard.png"
-import loginpage from "../../public/digitaliconmarket/login.png"
-import cartpage from "../../public/digitaliconmarket/cart.png"
+import hippologo from "../../../public/digitaliconmarket/logo.png";
+import homepage from "../../../public/digitaliconmarket/homepage.png"
+import dashboardpage from "../../../public/digitaliconmarket/dashboard.png"
+import loginpage from "../../../public/digitaliconmarket/login.png"
+import cartpage from "../../../public/digitaliconmarket/cart.png"
 import { ImageComponentData } from "@/lib/utils";
-import ImagePopover from "./ImagePopover";
+import ImagePopover from "../ImagePopover";
 
 const images: ImageComponentData[] = [
     { text: "Home Page", src: homepage, last: false },
@@ -17,7 +17,7 @@ const images: ImageComponentData[] = [
 
 const DigitalIconMarketCard = () => {
     return (
-        <Card size="2" className="flex flex-col" style={{ boxShadow: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)" }}>
+        <Card size="2" className="flex flex-col dark:shadow-card_dark">
             <div className="flex items-center pb-2">
                 <Image
                     src={hippologo}
