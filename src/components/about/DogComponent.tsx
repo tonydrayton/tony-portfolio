@@ -39,7 +39,7 @@ const DogComponent = () => {
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{
-                        delay: 1,
+                        delay: 1.25,
                         duration: 1,
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
