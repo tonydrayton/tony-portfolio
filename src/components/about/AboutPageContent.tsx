@@ -1,19 +1,31 @@
 "use client";
 import { Box, Card, Grid, Tabs, Text } from "@radix-ui/themes"
-import { motion } from "framer-motion"
-import VaelethCard from "./VaelethCard"
+import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import AboutCard from "./AboutCard";
-import MusicAtDrexelCard from "./MusicAtDrexelCard";
-import DigitalIconMarketCard from "./DigitalIconMarketCard";
 import { Dog, PawPrint } from "lucide-react";
 import DogComponent from "./DogComponent";
 import Socials from "../Socials";
+import ProjectCards, { Projects } from "./ProjectCards";
 
 const tabs = ["about", "projects", "dogs"];
 
 const AboutPageContent = () => {
     const [selectedTab, setSelectedTab] = useState<string | null>(null);
+    const [windowSize, setWindowSize] = useState<number | null>(null)
+
+    useEffect(() => {
+        if (!windowSize) {
+            setWindowSize(window.innerWidth);
+        }
+        const handleResize = () => {
+            setWindowSize(window.innerWidth)
+        }
+
+        window.addEventListener('resize', handleResize)
+
+        return () => window.removeEventListener('resize', handleResize)
+    }, []);
 
     useEffect(() => {
         const tab = window.location.hash.split('#')[1];
@@ -78,26 +90,48 @@ const AboutPageContent = () => {
                     </Tabs.List>
                     <Box pt="3">
                         <Tabs.Content value="projects" className="p-4">
-                            <motion.div
-                                initial={{ opacity: 0, y: 100 }}
-                                animate={{ opacity: 1, scale: 1, y: 0 }}
-                                transition={{
-                                    duration: 1,
-                                    ease: [0, 0.71, 0.2, 1.01]
-                                }}>
-                                <Grid columns={{
-                                    lg: "3",
-                                    md: "2",
-                                    sm: "2",
-                                    initial: "1"
-                                }} gap="3">
-
-                                    <DigitalIconMarketCard />
-                                    <MusicAtDrexelCard />
-                                    <VaelethCard />
-
-                                </Grid>
-                            </motion.div>
+                            {windowSize && windowSize < 768 && (
+                                <div className="flex flex-col gap-4">
+                                    {Projects.map((project, index) => (
+                                        <motion.div
+                                            key={index}
+                                            initial={{
+                                                opacity: 0,
+                                                x: index % 2 === 0 ? -50 : 50
+                                            }}
+                                            whileInView={{
+                                                opacity: 1,
+                                                x: 0,
+                                                transition: {
+                                                    duration: 1,
+                                                    ease: [0, 0.71, 0.2, 1.01]
+                                                }
+                                            }}
+                                            viewport={{ once: false }}
+                                        >
+                                            <ProjectCards card={project.name} />
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            )}
+                            {windowSize && windowSize >= 768 && (
+                                <motion.div
+                                    initial={{ opacity: 0, y: 100 }}
+                                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                                    transition={{
+                                        duration: 1,
+                                        ease: [0, 0.71, 0.2, 1.01]
+                                    }}>
+                                    <Grid columns={{
+                                        lg: "3",
+                                        md: "2",
+                                        sm: "2",
+                                        initial: "1"
+                                    }} gap="3">
+                                        <ProjectCards />
+                                    </Grid>
+                                </motion.div>
+                            )}
                         </Tabs.Content>
 
                         <Tabs.Content value="about" className="p-4">
@@ -109,7 +143,7 @@ const AboutPageContent = () => {
                                     ease: [0, 0.71, 0.2, 1.01]
                                 }}
                                 className="dark:shadow-card_dark"
-                                >
+                            >
 
                                 <AboutCard />
                             </motion.div>

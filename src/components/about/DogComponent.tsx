@@ -9,7 +9,6 @@ const DogComponent = () => {
     const [loading, setLoading] = useState<boolean>(true);
 
     const onImageLoad = () => {
-        console.log("set loading false")
         setLoading(false);
     }
 
