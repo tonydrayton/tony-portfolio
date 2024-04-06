@@ -141,6 +141,9 @@ const Socials = ({
                                 </AlertDialog.Content>
                             </AlertDialog.Root>
                         </div>
+                        {/**
+                         * TODO: Add resume
+                         */}
                     </div>
                 </>
             )}

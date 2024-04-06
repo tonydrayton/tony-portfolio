@@ -25,7 +25,7 @@ const ImagePopover = ({
                         onLoad={event => {
                             event.currentTarget.setAttribute('data-loaded', 'true')
                         }}
-                        className='w-auto rounded-md xxs:w-80 data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
+                        className='w-auto rounded-md xxs:w-80 data-[loaded=false]:animate-pulse dark:data-[loaded=false]:bg-gray-100/10 data-[loaded=false]:bg-gray-900/40'
                     />
                 </Popover.Content>
             </Popover.Root>
