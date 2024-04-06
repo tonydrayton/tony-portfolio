@@ -146,7 +146,7 @@ const ProfileCard = () => {
                                     sm: "3"
                                 }}
                                 color="gray">
-                                Software Engineer
+                                Comp Sci Student
                             </Text>
 
                         </Box>
