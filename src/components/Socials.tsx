@@ -103,7 +103,7 @@ const Socials = ({
                             <a className="flex flex-row gap-3 items-center" href="https://www.linkedin.com/in/tony-drayton" target="_blank">
                                 <Linkedin />
                                 <RadixLink href="https://www.linkedin.com/in/tony-drayton" target="_blank">
-                                    linkedin.com/in/tonydrayton
+                                    linkedin.com/in/tony-drayton
                                 </RadixLink>
                             </a>
                         </div>
