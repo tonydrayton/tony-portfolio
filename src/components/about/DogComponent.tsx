@@ -1,11 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { DogApiResponse } from '@/lib/dogApi/types';
-import { motion } from "framer-motion"
+import { DragControls, motion } from "framer-motion"
 import { Card } from '@radix-ui/themes';
 
 const DogComponent = () => {
     const [dog, setDog] = useState<null | string>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+
+    const onImageLoad = () => {
+        console.log("set loading false")
+        setLoading(false);
+    }
 
     useEffect(() => {
         const fetchDog = async () => {
@@ -34,12 +40,22 @@ const DogComponent = () => {
 
     return (
         <>
-            {dog && (
+            {dog && loading && (
+                <Image src={dog}
+                    alt='Dog'
+                    layout='fill'
+                    className='opacity-0'
+                    onLoad={event => {
+                        onImageLoad();
+                    }}
+                />
+            )}
+            {dog && !loading && (
                 <motion.div
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     transition={{
-                        delay: 1.25,
+                        delay: 0.45,
                         duration: 1,
                         ease: [0, 0.71, 0.2, 1.01]
                     }}
@@ -62,7 +78,7 @@ const DogComponent = () => {
                             sizes='100vw'
                             data-loaded='false'
                             onLoad={event => {
-                                event.currentTarget.setAttribute('data-loaded', 'true')
+                                event.currentTarget.setAttribute('data-loaded', 'true');
                             }}
                             className='w-fit rounded-md data-[loaded=false]:animate-pulse data-[loaded=false]:bg-gray-100/10'
                         />
