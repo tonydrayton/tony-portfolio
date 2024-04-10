@@ -103,11 +103,11 @@ const AboutPageContent = () => {
                                                 opacity: 1,
                                                 x: 0,
                                                 transition: {
-                                                    duration: 1,
+                                                    duration: 0.75,
                                                     ease: [0, 0.71, 0.2, 1.01]
                                                 }
                                             }}
-                                            viewport={{ once: false }}
+                                            viewport={{ once: true }}
                                         >
                                             <ProjectCards card={project.name} />
                                         </motion.div>
