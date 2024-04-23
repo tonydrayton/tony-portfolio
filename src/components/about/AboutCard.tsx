@@ -3,18 +3,24 @@ import Socials from "../Socials";
 
 const AboutCard = () => {
     return (
-        <Card size="2" className="!flex !flex-col gap-3 max-w-lg sm:p-4 xxs:p-4">
+        <Card size={{
+            lg: "4",
+            initial: "2"
+        }} 
+        className="!flex !flex-col gap-3 max-w-lg xl:max-w-3xl sm:p-4 xxs:p-4 transition-all duration-500 ease-in-out">
             <div className="flex flex-col">
                 <Text size={{
-                    lg: "4",
+                    lg: "5",
                     md: "4",
                     sm: "3",
                     initial: "3"
                 }}>
-                    {"Hey, my name is "}<Text color="teal">{"Tony"}</Text>{". I am an undergraduate student studying Computer Science at "}<Text color="yellow">{"Drexel Univeristy"}</Text>.
+                    {"Hey, my name is "}<Text color="teal">{"Tony"}</Text>.
+                    <br />
+                    {"I am an undergraduate student studying Computer Science at "}<Text color="yellow">{"Drexel Univeristy"}</Text>.
                 </Text>
                 <Text className="mt-4" size={{
-                    lg: "4",
+                    lg: "5",
                     md: "4",
                     sm: "3",
                     initial: "3"

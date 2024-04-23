@@ -52,9 +52,14 @@ export interface ImageComponentData {
     src: StaticImageData;
     last: boolean;
 }
+export interface VideoComponentData {
+    text: string;
+    path: string;
+    last: boolean;
+}
 
 export interface ProjectType {
-    name: "Vaeleth" | "Music at Drexel" | "Digital Icon Market";
+    name: "Vaeleth" | "Music at Drexel" | "Digital Icon Market" | "Adopteam";
     logo: StaticImageData;
     type: string;
     role: string;
@@ -62,4 +67,6 @@ export interface ProjectType {
     technologies: string[];
     description: ReactNode;
     pictures: ImageComponentData[];
+    videos?: VideoComponentData[];
+    github?: string;
 }

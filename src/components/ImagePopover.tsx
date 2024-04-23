@@ -30,7 +30,7 @@ const ImagePopover = ({
                 </Popover.Content>
             </Popover.Root>
             {!image.last && <Separator size="2" orientation="vertical" style={{ height: "unset" }} />}
-            </>
+        </>
     )
 }
 

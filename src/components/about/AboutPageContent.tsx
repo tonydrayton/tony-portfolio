@@ -52,7 +52,6 @@ const AboutPageContent = () => {
                     <Tabs.List size="2">
                         <a href="#">
                             <Tabs.Trigger value="about">
-
                                 <Text size={{
                                     lg: "6",
                                     md: "6",
@@ -62,7 +61,6 @@ const AboutPageContent = () => {
                                 >
                                     About
                                 </Text>
-
                             </Tabs.Trigger>
                         </a>
                         <a href="#projects">
@@ -133,7 +131,6 @@ const AboutPageContent = () => {
                                 </motion.div>
                             )}
                         </Tabs.Content>
-
                         <Tabs.Content value="about" className="p-4">
                             <motion.div
                                 initial={{ opacity: 0, y: 100 }}
@@ -144,11 +141,9 @@ const AboutPageContent = () => {
                                 }}
                                 className="dark:shadow-card_dark"
                             >
-
                                 <AboutCard />
                             </motion.div>
                         </Tabs.Content>
-
                         <Tabs.Content value="dogs" className="p-4">
                             <motion.div
                                 initial={{ opacity: 0, y: 100 }}

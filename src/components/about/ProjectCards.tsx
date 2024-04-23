@@ -1,5 +1,8 @@
 import { ProjectType } from "@/lib/utils";
 import { Card, Link as RadixLink, Separator, Text, Tooltip } from "@radix-ui/themes";
+import Image from "next/image";
+import ImagePopover from "../ImagePopover";
+import { Github } from "lucide-react";
 
 import hippologo from "../../../public/digitaliconmarket/logo.png";
 import homepage from "../../../public/digitaliconmarket/homepage.png"
@@ -18,12 +21,43 @@ import vaeleth from "../../../public/vaeleth.png"
 import botdeveloper from "../../../public/earlybotdeveloper.svg";
 import pokemoncampaign from "../../../public/pokemoncampaign.png";
 import nitrocompetition from "../../../public/nitrocompetition.png";
-import Image from "next/image";
-import ImagePopover from "../ImagePopover";
 
-// TODO: Finish this
+import adopteam from "../../../public/adopteam/logo.png";
+import adopteam_home from "../../../public/adopteam/home.png";
+import adopteam_match_loading from "../../../public/adopteam/match_loading.png";
+import adopteam_match_start from "../../../public/adopteam/match_start.png";
+import adopteam_match_not_found from "../../../public/adopteam/match_not_found.png";
+import adopteam_match_found from "../../../public/adopteam/match_found.png";
+import VideoPopover from "../VideoPopover";
 
 export const Projects: ProjectType[] = [
+    {
+        name: "Adopteam",
+        logo: adopteam,
+        type: "Wesbite",
+        role: "Frontend Developer",
+        date: "April 2024",
+        technologies: ["Next.js", "AI", "Flask", "SQL"],
+        description:
+            <>
+                {"Created for the 2024 Drexel Hackathon, Adopteam is a website that uses AI to match users with adoptable kids. I worked on the frontend, using TypeScript with "}
+                <RadixLink href="https://nextjs.org/" target="_blank">Next.js</RadixLink>
+                {" to create a smooth user experience. The backend was built with "}
+                <RadixLink href="https://flask.palletsprojects.com/en/3.0.x/" target="_blank">Flask</RadixLink>
+                {" , which used classification AI algorithms to match users with kids based on the parents' attributes."}
+            </>,
+        pictures: [
+            { text: "Home", src: adopteam_home, last: false },
+            { text: "Start Match", src: adopteam_match_start, last: false },
+            { text: "Match Loading", src: adopteam_match_loading, last: false },
+            { text: "Match Found", src: adopteam_match_found, last: false },
+            { text: "Match Not Found", src: adopteam_match_not_found, last: true }
+        ],
+        videos: [
+            { text: "Demo", path: "/videos/adopteam_demo.mp4", last: true }
+        ],
+        github: 'https://github.com/kxllydo/codeFest'
+    },
     {
         name: "Digital Icon Market",
         logo: hippologo,
@@ -46,7 +80,7 @@ export const Projects: ProjectType[] = [
             { text: "Dashboard", src: dashboardpage, last: false },
             { text: "Login Page", src: loginpage, last: false },
             { text: "Cart Page", src: cartpage, last: true },
-        ]
+        ],
     },
     {
         name: "Music at Drexel",
@@ -105,7 +139,7 @@ export const Projects: ProjectType[] = [
             { text: "Campaign", src: pokemoncampaign, last: false },
             { text: "Competition", src: nitrocompetition, last: true },
         ]
-    }
+    },
 ]
 
 const ProjectCard = ({
@@ -153,7 +187,11 @@ const ProjectCard = ({
             <div className="flex flex-row gap-2 pt-1 pb-1 opacity-60 items-center">
                 {project.technologies.map((technology, index) => (
                     <>
-                        <Text key={index}>
+                        <Text
+                            size={{
+                                initial: "3"
+                            }}
+                            key={index}>
                             {technology}
                         </Text>
                         {index !== project.technologies.length - 1 && (
@@ -163,17 +201,38 @@ const ProjectCard = ({
                 ))}
             </div>
             <Separator size="4" />
-            <Text as="p" size="3" className="pt-2">
+            <Text as="p" className="pt-2">
                 {project.description}
             </Text>
             <Separator size="4" className="mt-2 mb-2" />
-            {"Pictures:"}
+            {project.github && (
+                <>
+                    <Text as="p" className="flex flex-row gap-1 flex-wrap">
+                        <Github />
+                        {"Check it out on Github: "}
+                        <RadixLink href={project.github} target="_blank" className="hover:underline">{project.github}</RadixLink>
+                    </Text>
+                    <Separator size="4" className="mt-2 mb-2" />
+                </>
+            )}
+            <Text as="p">
+                {"Assets:"}
+            </Text>
             <div className="flex flex-row flex-wrap gap-3 mt-2">
+                {project.videos && (
+                    <>
+                        {project.videos.map((video, index) => (
+                            <VideoPopover video={video} key={index} />
+                        ))}
+                        <Separator size="2" orientation="vertical" style={{ height: "unset" }} />
+                    </>
+                )}
                 {
                     project.pictures.map((image, index) => (
                         <ImagePopover image={image} key={index} />
                     ))
                 }
+
             </div>
         </Card>
     )
@@ -182,7 +241,7 @@ const ProjectCard = ({
 const ProjectCards = ({
     card
 }: {
-    card?: "Vaeleth" | "Music at Drexel" | "Digital Icon Market"
+    card?: "Vaeleth" | "Music at Drexel" | "Digital Icon Market" | "Adopteam";
 }) => {
     return (
         <>
