@@ -1,4 +1,4 @@
 export interface DogApiResponse {
-    message: string;
-    status: string
+	message: string;
+	status: string
 }
