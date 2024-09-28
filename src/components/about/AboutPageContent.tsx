@@ -1,5 +1,5 @@
 "use client";
-import { Box, Card, Grid, Tabs, Text } from "@radix-ui/themes"
+import { Box, Card, Grid, Separator, Tabs, Text } from "@radix-ui/themes"
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import AboutCard from "./AboutCard";
@@ -7,6 +7,7 @@ import { Dog, PawPrint } from "lucide-react";
 import DogComponent from "./DogComponent";
 import Socials from "../Socials";
 import ProjectCards, { Projects } from "./ProjectCards";
+import ExperienceCard from "./ExperienceCard";
 
 const tabs = ["about", "projects", "dogs"];
 
@@ -139,9 +140,11 @@ const AboutPageContent = () => {
 									duration: 1,
 									ease: [0, 0.71, 0.2, 1.01]
 								}}
-								className="dark:shadow-card_dark"
+								className=""
 							>
 								<AboutCard />
+								<Separator className="m-9 opacity-0"/>
+								<ExperienceCard />
 							</motion.div>
 						</Tabs.Content>
 						<Tabs.Content value="dogs" className="p-4">

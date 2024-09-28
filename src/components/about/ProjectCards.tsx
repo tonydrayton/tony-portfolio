@@ -98,7 +98,7 @@ export const Projects: ProjectType[] = [
 				{" to achieve a smooth user experience."}
 			</>,
 		pictures: [
-			{ text: "About Page", src: aboutpage, last: false },
+			// { text: "About Page", src: aboutpage, last: false },
 			{ text: "Home Page", src: drexelhomepage, last: false },
 			// { text: "Connect Page", src: connectpage, last: false },
 			{ text: "Shows Page", src: showspage, last: false },

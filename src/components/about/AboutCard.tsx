@@ -7,24 +7,21 @@ const AboutCard = () => {
 			lg: "4",
 			initial: "2"
 		}}
-			className="!flex !flex-col gap-3 max-w-lg xl:max-w-3xl sm:p-4 xxs:p-4 transition-all duration-500 ease-in-out">
+			className="!flex !flex-col gap-3 max-w-lg xl:max-w-3xl sm:p-4 xxs:p-4 transition-all duration-500 ease-in-out dark:shadow-card_dark">
 			<div className="flex flex-col">
-				<Text size={{
-					lg: "5",
-					md: "4",
-					sm: "3",
-					initial: "3"
-				}}>
-					{"Hey, my name is "}<Text color="teal">{"Tony"}</Text>.
+				<Text className="text-lg">
+					{"Hey, my name is Tony."}
+					{" I'm a third year Computer Science student at Drexel University"}.
+					{" I love my friends, coding, wordle, and dogs."}
+					{" I'm also an active member of both "}<Link href="https://drexel.campuslabs.com/engage/organization/drexelai" target="_blank">{"Drexel AI"}</Link>{" and "}<Link href="https://dragonlink.drexel.edu/organization/asian-students-association" target="_blank">{"Asian Student Association"}</Link>{"."}
 					<br />
-					{"I am an undergraduate student studying Computer Science at "}<Text color="yellow">{"Drexel Univeristy"}</Text>.
 				</Text>
 				<Text className="mt-4" size={{
 					lg: "5",
 					md: "4",
 					sm: "3",
 					initial: "3"
-				}}>{"I currently work at "}<Link href="https://www.alumniq.com" target="_blank">AlumnIQ</Link>{" as a Junior Software Engineer."}</Text>
+				}}></Text>
 			</div>
 			<Separator size="4" />
 			<Socials />
