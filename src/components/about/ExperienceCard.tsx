@@ -1,14 +1,22 @@
 import { Card, Link, Text } from "@radix-ui/themes"
 import Image from "next/image";
 import alumniq_logo from "../../../public/alumniq_logo.png";
+import { useEffect, useState } from "react";
 
 const ExperienceCard = () => {
-	const handleOpenPDF = async () => {
+	const [resumeURL, setResumeURL] = useState<string>('');
+
+	useEffect(() => {
+		getResumeURL();
+	}, [])
+
+	const getResumeURL = async () => {
 		try {
 			const response = await fetch('/api/getLatestResume');
 			if (response.ok) {
 				const blob = await response.blob();
 				const url = URL.createObjectURL(blob);
+				return setResumeURL(url);
 				window.open(url, '_blank', 'noopener,noreferrer');
 				setTimeout(() => URL.revokeObjectURL(url), 1000 * 60 * 10);
 			} else {
@@ -22,7 +30,7 @@ const ExperienceCard = () => {
 	return (
 		<>
 			<div className="flex flex-row">
-				<Text className="mb-1" size={{
+				<Text className="mb-1 flex-1" size={{
 					lg: "6",
 					md: "6",
 					sm: "6",
@@ -30,12 +38,15 @@ const ExperienceCard = () => {
 				}}>
 					{"Experience"}
 				</Text>
-				<Text color="teal" className="flex flex-row ml-auto hover:cursor-pointer transition-transform duration-300 transform hover:scale-105" onClick={handleOpenPDF} onTouchStart={handleOpenPDF} size={{
-					lg: "6",
-					md: "6",
-					sm: "6",
-					initial: "4"
-				}}>Resume</Text>
+					<Link color="teal" className={`flex flex-row transition-all duration-200 ease-in-out ${resumeURL.length > 0 ? 'opacity-100' : 'opacity-0'}`} href={resumeURL} target="_blank" size={{
+						lg: "6",
+						md: "6",
+						sm: "6",
+						initial: "4"
+					}}>
+						{"Resume"}
+					</Link>
+
 			</div>
 			<Card size={{
 				lg: "4",
