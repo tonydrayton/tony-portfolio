@@ -30,7 +30,7 @@ const ExperienceCard = () => {
 				}}>
 					{"Experience"}
 				</Text>
-				<Text color="teal" className="flex flex-row ml-auto hover:cursor-pointer transition-transform duration-300 transform hover:scale-105" onClick={handleOpenPDF} size={{
+				<Text color="teal" className="flex flex-row ml-auto hover:cursor-pointer transition-transform duration-300 transform hover:scale-105" onClick={handleOpenPDF} onTouchStart={handleOpenPDF} size={{
 					lg: "6",
 					md: "6",
 					sm: "6",
@@ -55,7 +55,7 @@ const ExperienceCard = () => {
 							sm: "3",
 							initial: "3"
 						}}>{"Junior Software Engineer @ "}<Link href="https://www.alumniq.com" target="_blank">AlumnIQ</Link></Text>
-						<Text className="text-gray-300">{"April 2024 - September 2024"}</Text>
+						<Text className="opacity-50 font-light">{"April 2024 - September 2024"}</Text>
 					</div>
 				</div>
 				<div className="flex flex-col mt-2">

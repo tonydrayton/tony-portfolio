@@ -44,7 +44,7 @@ export const Projects: ProjectType[] = [
 				<RadixLink href="https://nextjs.org/" target="_blank">Next.js</RadixLink>
 				{" to create a smooth user experience. The backend was built with "}
 				<RadixLink href="https://flask.palletsprojects.com/en/3.0.x/" target="_blank">Flask</RadixLink>
-				{" , which used classification AI algorithms to match users with kids based on the parents' attributes."}
+				{", which used classification AI algorithms to match users with kids based on the parents' attributes."}
 			</>,
 		pictures: [
 			{ text: "Home", src: adopteam_home, last: false },
