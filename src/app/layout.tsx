@@ -64,8 +64,8 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh]">
 			<body className={`h-full ${inter.className}`}>
-				<ThemeProvider attribute="class">
-					<Theme accentColor="teal">
+				<ThemeProvider attribute="class" defaultTheme="dark">
+					<Theme grayColor="mauve">
 						{children}
 					</Theme>
 				</ThemeProvider>
