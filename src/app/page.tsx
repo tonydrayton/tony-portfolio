@@ -63,7 +63,7 @@ export default function Home() {
 						</div>
 					</div>
 				</MotionBlurFade>
-				<motion.div
+				{/* <motion.div
 					className="self-center w-8"
 					initial={{
 						opacity: 0
@@ -84,7 +84,7 @@ export default function Home() {
 					}}
 				>
 					<ChevronDown className="fixed mt-60 w-8 h-8" />
-				</motion.div>
+				</motion.div> */}
 			</Container >
 
 			<Container className="flex-col items-center min-h-screen">

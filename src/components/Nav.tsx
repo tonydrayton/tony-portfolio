@@ -11,7 +11,7 @@ const sections = ['Experience', 'Projects'];
 
 export default function Nav() {
 	return (
-		<header className="fixed left-0 w-full p-4 z-10">
+		<header className="fixed left-0 w-full p-4 z-10 bottom-0 sm:bottom-[unset]">
 			<div className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out">
 				<div className="justify-between m-auto p-2 flex h-full w-full max-w-full items-center rounded-full border-[1px] border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/10 pl-3 pr-2 backdrop-blur-xl backdrop-filter shadow-sm">
 					<div className="items-center justify-center mx-2 gap-4 flex flex-row">
@@ -39,7 +39,7 @@ export default function Nav() {
 							}}
 						>
 							Resume
-
+							<span className="sr-only">Open resume</span>
 							<span
 								className="absolute left-0 -bottom-5 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-lime-500 dark:to-lime-200 from-lime-700 to-lime-500 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 							/>
