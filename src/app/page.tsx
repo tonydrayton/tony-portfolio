@@ -15,7 +15,30 @@ import Image from "next/image";
 import { motion } from 'framer-motion'
 import scenery from "../../public/blue-purple-bg.png"
 import { ChevronDown } from "lucide-react";
+import Tilt from 'react-parallax-tilt';
 
+import awsLogo from "../../public/logos/amazon.svg";
+import reactLogo from "../../public/logos/react.svg";
+import cLogo from "../../public/logos/c.svg";
+import flaskLogo from "../../public/logos/flask.svg";
+import dockerLogo from "../../public/logos/docker.svg";
+import javaLogo from "../../public/logos/java.svg";
+import jQueryLogo from "../../public/logos/jquery.svg";
+import jsLogo from "../../public/logos/JS.svg";
+import mongodbLogo from "../../public/logos/mongodb.svg";
+import nodejsLogo from "../../public/logos/nodejs.svg";
+import pythonLogo from "../../public/logos/Python.svg";
+import tailwindLogo from "../../public/logos/tailwind.svg";
+import typescriptLogo from "../../public/logos/TypeScript.svg";
+import InfiniteCarousel from "@/components/InfiniteCarousel";
+import StaggeredText from "@/components/animation/StaggeredText";
+import Timeline from "@/components/Timeline";
+
+const entries = [
+	{ date: 'Jan 2022 - Present', title: 'Software Engineer', description: 'Working on various projects...' },
+	{ date: 'June 2020 - Dec 2021', title: 'Intern', description: 'Focused on front-end development...' },
+	// Add more entries as needed
+  ];
 
 export const viewport: Viewport = {
 	themeColor: tealHex, // specific viewport color for home page
@@ -40,26 +63,24 @@ export default function Home() {
 				<Image src={scenery} alt="blur background" className="rotate-180 -z-10 absolute inset-0 dark:brightness-50 -hue-rotate-90  opacity-60 dark:opacity-100 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} />
 			</div>
 
-			<Container className="flex-col items-center min-h-screen">
+			<Container className="flex-col items-center min-h-dvh">
 				<MotionBlurFade>
 					<div className="flex md:flex-row flex-col items-center gap-4 md:gap-10">
-						<Avatar
-							size={{
-								lg: "9",
-								md: "8",
-								sm: "8",
-								initial: "8"
-							}}
-							src={me1.src}
-							alt="Tony"
-							fallback="T"
-							radius="full"
+						<Tilt transitionSpeed={1000}>
 
-							className="rounded-full shadow-lg"
-						/>
+							<Image
+								src={me1}
+								width={100}
+								alt="Tony"
+								className="w-40 rounded-full shadow-lg"
+							/>
+						</Tilt>
+
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
-							<h1 className="text-4xl">Tony Drayton</h1>
-							<p className="max-w-72 text-center md:text-left">A computer science student that loves software engineering and animals</p>
+							<h1 className="text-4xl">Hello! <span className="ec ec-wave"></span>
+							</h1>
+							<h1 className="text-3xl">My name is Tony Drayton</h1>
+							<p className="max-w-72 text-center md:text-left">{"I'm computer science student that loves software engineering and animals"}</p>
 						</div>
 					</div>
 				</MotionBlurFade>
@@ -86,8 +107,13 @@ export default function Home() {
 					<ChevronDown className="fixed mt-60 w-8 h-8" />
 				</motion.div> */}
 			</Container >
+			{/* <Container className="flex-col items-center min-h-screen">
+			<Timeline entries={entries} />
 
-			<Container className="flex-col items-center min-h-screen">
+			</Container> */}
+
+			{/* <Container className="flex-col items-center min-h-screen">
+				<StaggeredText text="My Techstack" className="text-3xl p-4"/>
 				<motion.div
 					initial={{
 						opacity: 0,
@@ -100,10 +126,15 @@ export default function Home() {
 						}
 					}}
 					viewport={{ once: true }}
+					className="w-96 md:w-1/3"
+					style={{
+						maskImage: 'linear-gradient(to right, transparent, black 20%, black 80%, transparent)'
+					}}
 				>
-					<p>hi</p>
+					<InfiniteCarousel logos={[awsLogo, reactLogo, cLogo, flaskLogo, dockerLogo, javaLogo ]} />
+					<InfiniteCarousel logos={[ jQueryLogo, jsLogo, mongodbLogo, nodejsLogo, pythonLogo, tailwindLogo, typescriptLogo ]} />
 				</motion.div>
-			</Container>
+			</Container> */}
 		</>
 	);
 }

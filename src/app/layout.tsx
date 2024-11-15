@@ -63,6 +63,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh]">
+			<link rel='stylesheet' href='https://unpkg.com/emoji.css/dist/emoji.min.css' />
 			<body className={`h-full ${inter.className}`}>
 				<ThemeProvider attribute="class" defaultTheme="dark">
 					<Theme grayColor="mauve">
