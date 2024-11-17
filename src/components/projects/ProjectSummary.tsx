@@ -13,6 +13,8 @@ import { CircleChevronLeft, CircleChevronRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
+import { fadeInVariants } from '@/utils/transitions';
+import { motion } from 'framer-motion';
 
 const projects = [
 	{
@@ -48,6 +50,7 @@ export default function ProjectSummary() {
 	const project = projects[projectIndex];
 	const [enableZoom, setEnableZoom] = useState(false);
 	const [userHasControl, setUserHasControl] = useState(false);
+	const [transitionFinished, setTransitionFinished] = useState(false);
 	const controlsRef = useRef<any>(null);
 	const animationRef = useRef<gsap.core.Tween | null>(null);
 
@@ -58,6 +61,9 @@ export default function ProjectSummary() {
 			const controls = controlsRef.current;
 			setUserHasControl(false);
 			controls.reset();
+			if(animationRef.current) {
+				animationRef.current.kill();
+			}
 		}
 	}, [projectIndex]);
 
@@ -73,15 +79,15 @@ export default function ProjectSummary() {
 	useGSAP(() => {
 		console.log('useGSAP')
 		console.log(controlsRef.current);
-		gsap.delayedCall(1.5, () => {
-			if (controlsRef.current && !userHasControl) {
+		gsap.delayedCall(1, () => {
+			if (controlsRef.current && !userHasControl && transitionFinished) {
 				console.log(controlsRef.current);
 				const controls = controlsRef.current;
 				animationRef.current = gsap.to(controls.object.position, {
 					x: 0,
 					y: 0,
 					z: 1.4,
-					duration: 5,
+					duration: 3,
 					repeat: 0,
 					ease: "power1.out",
 					onUpdate: () => {
@@ -90,15 +96,24 @@ export default function ProjectSummary() {
 				});
 			}
 		});
-	}, [userHasControl, projectIndex]);
+	}, [transitionFinished, userHasControl, projectIndex]);
 
 	const handlePointerEnter = () => setEnableZoom(true);
 	const handlePointerLeave = () => setEnableZoom(false);
+	const handleTransitionComplete = () => {
+		setTransitionFinished(true); // Set to true when transition finishes
+	  };
 
 	return (
-		<>
+		<motion.div
+		initial="offscreen"
+		whileInView="onscreen"
+		viewport={{ once: true, amount: 0.5 }}
+		variants={fadeInVariants}
+		onAnimationComplete={handleTransitionComplete}
+		>
 			<div className='flex flex-col w-full md:w-[unset] md:flex-row items-center'>
-				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none mx-6'>
+				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none md:mx-6'>
 					<Canvas>
 						<ambientLight intensity={1} />
 						<directionalLight position={[10, 10, 5]} intensity={3} />
@@ -111,6 +126,7 @@ export default function ProjectSummary() {
 										position={[0, -2, 0]}
 										rotation={[0, 0, 0]}
 										texturePath={project.texturePath}
+										transitionFinished={transitionFinished}
 										key={projectIndex}
 										onPointerEnter={handlePointerEnter}
 										onPointerLeave={handlePointerLeave}
@@ -122,6 +138,7 @@ export default function ProjectSummary() {
 										position={[0, -2, 0]}
 										rotation={[0, 0, 0]}
 										texturePath={project.texturePath}
+										transitionFinished={transitionFinished}
 										key={projectIndex}
 										onPointerEnter={handlePointerEnter}
 										onPointerLeave={handlePointerLeave}
@@ -154,7 +171,7 @@ export default function ProjectSummary() {
 						{project.role}
 						<span className="opacity-50 font-light">{` (${project.date})`}</span>
 					</p>
-					<p className="text-lg my-4 w-auto max-w-96 text-center md:text-start">{project.description}</p>
+					<p className="text-lg my-4 w-auto max-w-96 text-center text-wrap md:text-start">{project.description}</p>
 					<div className='flex flex-row justify-center items-center'>
 						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
 							<CircleChevronLeft />
@@ -182,6 +199,6 @@ export default function ProjectSummary() {
 					</Button>
 				</div>
 			)}
-		</>
+		</motion.div>
 	)
 }

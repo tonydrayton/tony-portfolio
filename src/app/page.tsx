@@ -111,13 +111,7 @@ export default function Home() {
 				</motion.div> */}
 			</Container >
 			<Container className="flex-col items-center min-h-screen" id="projects" >
-			<motion.div
-			initial="offscreen"
-			whileInView="onscreen"
-			viewport={{ once: true, amount: 0.5 }}
-			variants={fadeInVariants}>
 				<ProjectSummary />
-				</motion.div>
 			</Container>
 
 			{/* <Container className="flex-col items-center min-h-screen">

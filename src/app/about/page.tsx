@@ -3,7 +3,7 @@ import Container from "@/components/Container";
 import "./page.css";
 import { Metadata, Viewport } from "next";
 import BackArrow from "@/components/about/BackArrow";
-import AboutPageContent from "@/components/about/AboutPageContent";
+// import AboutPageContent from "@/components/about/AboutPageContent";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 
 const openGraph: OpenGraph = {
@@ -35,7 +35,7 @@ const AboutPage = () => {
         <>
             <Container className="p-5 flex-col !justify-start h-full overflow-x-hidden">
                 <BackArrow />
-                <AboutPageContent />
+                {/* <AboutPageContent /> */}
             </Container>
         </>
     )

@@ -13,7 +13,7 @@ export default function Nav() {
 	return (
 		<header className="fixed left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-10 ">
 			<div className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out duration-100">
-				<div className="justify-between m-auto p-2 flex h-full w-full max-w-full items-center rounded-full border-[1px] border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/10 pl-3 pr-2 backdrop-blur-xl backdrop-filter shadow-sm">
+				<div className="sm:justify-between m-auto p-2 flex h-full w-full max-w-full items-center rounded-full border-[1px] border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/10 pl-3 pr-2 backdrop-blur-xl backdrop-filter shadow-sm">
 					<div className="items-center justify-center mx-2 gap-4 flex flex-row">
 						{sections.map((section, index) => (
 							<a key={index} href={`#${section.toLowerCase()}`} className="relative dark:text-white/80 dark:hover:text-white/100 transition-all duration-300 ease-in-out drop-shadow-md group dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.3)]">
