@@ -19,8 +19,8 @@ export function ModeToggle({
 
 	return (
 		<Button className={`${className ? cn(className, 'hover:bg-gray-300/40') : 'hover:bg-gray-300/40'} px-2 group relative`} variant="ghost" onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}>
-			<Sun className="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 dark:hidden" />
-			<Moon className=" h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 hidden dark:block" />
+			<Sun className="h-[1.2rem] w-[1.2rem] dark:hidden" />
+			<Moon className=" h-[1.2rem] w-[1.2rem] hidden dark:block" />
 			<span
 				className="absolute left-0 -bottom-4 h-0.5 bg-transparent transition-all duration-300 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 			/>

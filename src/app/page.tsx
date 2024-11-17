@@ -34,6 +34,7 @@ import InfiniteCarousel from "@/components/InfiniteCarousel";
 import StaggeredText from "@/components/animation/StaggeredText";
 import Timeline from "@/components/Timeline";
 import ProjectSummary from "@/components/projects/ProjectSummary";
+import { fadeInVariants } from "@/utils/transitions";
 
 const entries = [
 	{ date: 'Jan 2022 - Present', title: 'Software Engineer', description: 'Working on various projects...' },
@@ -79,7 +80,7 @@ export default function Home() {
 						</Tilt>
 
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
-							<h1 className="text-4xl">Hello! <span className="ec ec-wave"></span>
+							<h1 className="text-4xl">Hey! <span className="ec ec-wave"></span>
 							</h1>
 							<h1 className="text-3xl">My name is Tony Drayton</h1>
 							<p className="max-w-72 text-center md:text-left">{"I'm computer science student that loves software engineering and animals"}</p>
@@ -109,8 +110,14 @@ export default function Home() {
 					<ChevronDown className="fixed mt-60 w-8 h-8" />
 				</motion.div> */}
 			</Container >
-			<Container className="flex-col items-center min-h-screen">
+			<Container className="flex-col items-center min-h-screen" id="projects" >
+			<motion.div
+			initial="offscreen"
+			whileInView="onscreen"
+			viewport={{ once: true, amount: 0.5 }}
+			variants={fadeInVariants}>
 				<ProjectSummary />
+				</motion.div>
 			</Container>
 
 			{/* <Container className="flex-col items-center min-h-screen">
