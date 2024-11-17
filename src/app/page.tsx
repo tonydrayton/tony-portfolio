@@ -33,6 +33,7 @@ import typescriptLogo from "../../public/logos/TypeScript.svg";
 import InfiniteCarousel from "@/components/InfiniteCarousel";
 import StaggeredText from "@/components/animation/StaggeredText";
 import Timeline from "@/components/Timeline";
+import ProjectSummary from "@/components/projects/ProjectSummary";
 
 const entries = [
 	{ date: 'Jan 2022 - Present', title: 'Software Engineer', description: 'Working on various projects...' },
@@ -53,6 +54,7 @@ export default function Home() {
 			initializeSocket();
 		}
 		return () => {
+			console.log('Clearing heartbeat');
 			useUserStore.getState().clearHeartbeat();
 		};
 	}, [socket, initializeSocket]);
@@ -107,10 +109,9 @@ export default function Home() {
 					<ChevronDown className="fixed mt-60 w-8 h-8" />
 				</motion.div> */}
 			</Container >
-			{/* <Container className="flex-col items-center min-h-screen">
-			<Timeline entries={entries} />
-
-			</Container> */}
+			<Container className="flex-col items-center min-h-screen">
+				<ProjectSummary />
+			</Container>
 
 			{/* <Container className="flex-col items-center min-h-screen">
 				<StaggeredText text="My Techstack" className="text-3xl p-4"/>

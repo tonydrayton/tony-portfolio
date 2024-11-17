@@ -70,3 +70,4 @@ export interface ProjectType {
 	videos?: VideoComponentData[];
 	github?: string;
 }
+

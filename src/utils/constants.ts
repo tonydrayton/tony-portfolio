@@ -1,0 +1,1 @@
+export const MACBOOK_ANIMATION_DURATION = 16;
