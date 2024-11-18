@@ -42,11 +42,6 @@ const entries = [
 	// Add more entries as needed
   ];
 
-export const viewport: Viewport = {
-	themeColor: tealHex, // specific viewport color for home page
-	viewportFit: "cover"
-}
-
 export default function Home() {
 	const { socket, initializeSocket } = useUserStore();
 

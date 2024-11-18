@@ -24,6 +24,7 @@ interface MotionBlurFadeProps {
 	isVisible?: boolean;
 	viewportMargin?: ViewportMargin;
 	blur?: string;
+	style: React.CSSProperties;
 }
 
 export default function MotionBlurFade({
@@ -36,6 +37,7 @@ export default function MotionBlurFade({
 	isVisible = false,
 	viewportMargin = "-50px",
 	blur = "6px",
+	style
 }: MotionBlurFadeProps) {
 	const elementRef = useRef(null);
 	const isInViewport = useInView(elementRef, { once: true, margin: viewportMargin });
@@ -62,6 +64,7 @@ export default function MotionBlurFade({
 					ease: "easeOut",
 				}}
 				className={className}
+				style={style}
 			>
 				{children}
 			</motion.div>

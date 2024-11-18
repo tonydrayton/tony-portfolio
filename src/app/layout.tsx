@@ -11,8 +11,10 @@ import { tealHex } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
+const icon = 'https://art.pixilart.com/sr231aafbb1e176.png';
+
 const openGraph: OpenGraph = {
-	title: "Home",
+	title: "Tony Drayton",
 	description: "Portfolio",
 	locale: "en_US",
 	type: "website",
@@ -20,7 +22,7 @@ const openGraph: OpenGraph = {
 	siteName: "Tony Drayton", // Author on Discord
 	images: [
 		{
-			url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+			url: icon,
 			width: 480,
 			height: 480,
 			alt: "Tony Drayton"
@@ -30,13 +32,13 @@ const openGraph: OpenGraph = {
 
 const twitter: Twitter = {
 	card: "summary_large_image",
-	title: "Home",
+	title: "Tony Drayton",
 	description: "Portfolio",
 	creator: "@tonydrayton",
 	site: "@tonydrayton",
 	images: [
 		{
-			url: "https://cdn.discordapp.com/emojis/1096246554479837225.png",
+			url: icon,
 			width: 480,
 			height: 480,
 			alt: "Tony Drayton"
@@ -45,16 +47,14 @@ const twitter: Twitter = {
 }
 
 export const metadata: Metadata = {
-	title: "Home",
+	title: "Tony Drayton",
 	description: "Portfolio",
 	openGraph: openGraph,
 	twitter: twitter,
 	icons: {
-		apple: "https://cdn.discordapp.com/emojis/1096246554479837225.png"
+		apple: icon
 	}
 };
-
-
 
 export default function RootLayout({
 	children,
