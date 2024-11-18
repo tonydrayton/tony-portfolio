@@ -24,7 +24,7 @@ interface MotionBlurFadeProps {
 	isVisible?: boolean;
 	viewportMargin?: ViewportMargin;
 	blur?: string;
-	style: React.CSSProperties;
+	style?: React.CSSProperties;
 }
 
 export default function MotionBlurFade({
