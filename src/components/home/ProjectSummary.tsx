@@ -9,7 +9,7 @@ import { Separator } from '@radix-ui/themes';
 import { Button } from '../ui/button';
 import { Group, Mesh, Raycaster, Vector2 } from 'three';
 import { Badge } from '../ui/badge';
-import { CircleChevronLeft, CircleChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, CircleChevronLeft, CircleChevronRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
@@ -174,14 +174,14 @@ export default function ProjectSummary() {
 					<p className="text-lg my-4 w-auto max-w-96 text-center text-wrap md:text-start">{project.description}</p>
 					<div className='flex flex-row justify-center items-center'>
 						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
-							<CircleChevronLeft />
+							<ChevronLeft className='scale-75'/>
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
-						<Button variant="secondary" className='w-fit'>More info</Button>
+						<Button variant="shine" className='w-fit'>More info</Button>
 
 						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
-							<CircleChevronRight />
+							<ChevronRight className='scale-75'/>
 							<span className='sr-only'>Next</span>
 						</Button>}
 					</div>
@@ -189,12 +189,12 @@ export default function ProjectSummary() {
 			</div>
 			{isDesktop && (
 				<div className='mt-4 mb-8 w-full justify-center flex flex-row gap-6'>
-					<Button variant='secondary' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
-						<CircleChevronLeft />
+					<Button variant='secondary' className='bg-transparent'  onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
+						<ChevronLeft className='scale-75' />
 						<span className='sr-only'>Previous</span>
 					</Button>
-					<Button variant='secondary' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
-						<CircleChevronRight />
+					<Button variant='secondary' className='bg-transparent' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
+						<ChevronRight className='scale-75' />
 						<span className='sr-only'>Next</span>
 					</Button>
 				</div>

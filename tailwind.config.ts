@@ -83,9 +83,14 @@ const config: Config = {
 					'0%': { transform: 'translateX(0)' },
 					'100%': { transform: 'translateX(-100%)' },
 				},
+				"shine": {
+					from: { backgroundPosition: '200% 0' },
+					to: { backgroundPosition: '-200% 0' },
+				},
 			},
 			animation: {
-				marquee: 'marquee 40s linear infinite', // Adjust the duration as needed
+				marquee: 'marquee 40s linear infinite',
+				"shine": "shine 8s ease-in-out infinite",
 			},
 		},
 	},

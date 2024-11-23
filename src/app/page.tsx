@@ -14,7 +14,7 @@ import { Avatar } from "@radix-ui/themes";
 import Image from "next/image";
 import { motion } from 'framer-motion'
 import scenery from "../../public/blue-purple-bg.png"
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail } from "lucide-react";
 import Tilt from 'react-parallax-tilt';
 
 import awsLogo from "../../public/logos/amazon.svg";
@@ -33,14 +33,17 @@ import typescriptLogo from "../../public/logos/TypeScript.svg";
 import InfiniteCarousel from "@/components/InfiniteCarousel";
 import StaggeredText from "@/components/animation/StaggeredText";
 import Timeline from "@/components/Timeline";
-import ProjectSummary from "@/components/projects/ProjectSummary";
+import ProjectSummary from "@/components/home/ProjectSummary";
 import { fadeInVariants } from "@/utils/transitions";
+import TechStack from "@/components/home/tech-stack";
+import MailTo from "@/components/MailTo";
+import { Button } from "@/components/ui/button";
 
 const entries = [
 	{ date: 'Jan 2022 - Present', title: 'Software Engineer', description: 'Working on various projects...' },
 	{ date: 'June 2020 - Dec 2021', title: 'Intern', description: 'Focused on front-end development...' },
 	// Add more entries as needed
-  ];
+];
 
 export default function Home() {
 	const { socket, initializeSocket } = useUserStore();
@@ -75,13 +78,30 @@ export default function Home() {
 						</Tilt>
 
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
-							<h1 className="text-4xl">Hey! <span className="ec ec-wave"></span>
-							</h1>
-							<h1 className="text-3xl">My name is Tony Drayton</h1>
-							<p className="max-w-72 text-center md:text-left">{"I'm computer science student that loves software engineering and animals"}</p>
+							<h1 className="text-3xl">Tony Drayton</h1>
+							<p className="max-w-72 text-center md:text-left">{"A computer science student that loves software engineering and animals"}</p>
+							<div className="flex flex-row gap-2 mt-4">
+								<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+									<Github />
+								</a>
+								<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+									<Linkedin />
+								</a>
+								<MailTo
+									mailto="mailto:tony.drayton@drexel.edu" className="p-1 hover:cursor-pointer group"
+								>
+									<Button variant="ghost" className="p-0 h-[unset]">
+									<Mail className="brightness-90 group-hover:brightness-110" />
+									</Button>
+								</MailTo>
+							</div>
 						</div>
+
+
+
 					</div>
 				</MotionBlurFade>
+				{/* <TechStack /> */}
 				{/* <motion.div
 					className="self-center w-8"
 					initial={{
