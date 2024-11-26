@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Timeline } from "../ui/timeline";
-import { SiAmazonwebservices, SiAmazonwebservicesHex, SiMailgun, SiMailgunHex, SiMysql, SiMysqlHex, SiNodedotjs, SiNodedotjsHex, SiTypescript, SiTypescriptHex } from "@icons-pack/react-simple-icons";
+import { SiAmazonwebservices, SiAmazonwebservicesHex, SiFigma, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiMysqlHex, SiNextdotjs, SiNodedotjs, SiNodedotjsHex, SiPython, SiPythonHex, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from "@icons-pack/react-simple-icons";
 import { ClassValue } from "clsx";
 import { BentoCard, BentoGrid } from "../ui/bento-grid";
 import MailgunEventDocumentationImage from "../../../public/assets/experience/mailgun_event_documentation.png";
 import { PersonStanding } from "lucide-react";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 SiAmazonwebservices
 SiTypescript
 SiNodedotjs
@@ -33,22 +34,24 @@ const data = [
 					<BentoCard
 						icon={{
 							element: SiMailgun,
-							props: { color: SiMailgunHex }, // Additional props for the icon
+							className: "dark:text-white scale-75"
 						}}
 						name="Webhook Handler"
 						description="Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform"
 						href="/"
 						className="col-span-3 lg:col-span-2"
+						transitions={false}
 					/>
 					<BentoCard
 						icon={{
 							element: PersonStanding,
-							className: "dark:text-white"
+							className: "dark:text-white scale-75"
 						}}
 						name="Events"
 						description="Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion & Drexel's 50-year reunion of the Class of 1973, as support staff"
 						href="/"
 						className="col-span-3 lg:col-span-2"
+						transitions={false}
 					/>
 				</BentoGrid>
 			</div>
@@ -64,16 +67,60 @@ export default function About() {
 				<TabsTrigger value="experience">Experience</TabsTrigger>
 				<TabsTrigger value="education">Education</TabsTrigger>
 			</TabsList>
-			<TabsContent value="about" className="max-w-[30rem] p-4 flex flex-col">
-				<p>
-					{"Hey, I'm Tony Drayton, a third year Computer Science student at Drexel University. I'm passionate about creating beautiful and functional websites and applications."}
-				</p>
-				<p>
-					I specialize in front-end development and have experience with back-end development as well.
-				</p>
+			<TabsContent value="about" className="lg:max-w-[80rem] p-4 flex flex-col">
+				<div className="grid md:grid-cols-2 gap-4">
+					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
+						<CardHeader>
+							<CardTitle className="text-2xl">Quick Background</CardTitle>
+						</CardHeader>
+						<CardContent className="flex flex-col gap-2"><span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span><span> {"I'm passionate about creating beautiful and functional websites and applications."}</span>
+						<span>
+							I have been coding since I was 13 years old, starting with just JavaScript and now knowing many different languages and frameworks.</span></CardContent>
+					</Card>
+					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
+						<CardHeader>
+							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
+						</CardHeader>
+						<CardContent>
+							<div className="grid grid-cols-2 gap-4">
+								<div className="flex flex-row items-center gap-2">
+									<SiTypescript color={SiTypescriptHex} className="scale-75" />
+									<span>TypeScript</span>
+								</div>
+								<div className="flex flex-row items-center gap-2">
+									<SiNodedotjs color={SiNodedotjsHex} className="scale-75" />
+									<span>Node.js</span>
+								</div>
+								<div className="flex flex-row items-center gap-2">
+									<SiReact color={SiReactHex} className="scale-75" />
+									<span>React</span>
+								</div>
+								<div className="flex flex-row items-center gap-2">
+									<SiNextdotjs className="scale-75" />
+									<span>Next.js</span>
+								</div>
+								<div className="flex flex-row items-center gap-2">
+									<SiPython color={SiPythonHex} className="scale-75" />
+									<span>Python</span>
+								</div>
+								<div className="flex flex-row items-center gap-2">
+									<SiGit className="scale-75" />
+									<span>Git</span>
+								</div>
+							</div>
+						</CardContent>
+						<CardFooter className="text-sm text-muted-foreground">
+							These are the technologies I frequently use
+						</CardFooter>
+					</Card>
+
+				</div>
 			</TabsContent>
 			<TabsContent value="experience" className="lg:max-w-[80rem]">
 				<Timeline data={data} />
+			</TabsContent>
+			<TabsContent value="education" className="max-w-[30rem] p-4 flex flex-col">
+
 			</TabsContent>
 		</Tabs>
 	)

@@ -15,7 +15,7 @@ import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
 import { fadeInVariants } from '@/utils/transitions';
 import { motion } from 'framer-motion';
-import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiReact, SiTypescript } from '@icons-pack/react-simple-icons';
+import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 
 const iconClassName = "scale-75 mr-1 rounded-sm";
 const projects = [
@@ -23,7 +23,7 @@ const projects = [
 		name: 'Adopteam',
 		type: 'Website',
 		role: 'Frontend Developer',
-		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
+		skills: [{ icon: <SiTypescript color={SiTypescriptHex} className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact color={SiReactHex} className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
 		date: '2024',
 		description: 'Dedicated to finding loving homes for children in need through the power of AI',
 		texturePath: '/videos/adopteam_demo.mp4'
