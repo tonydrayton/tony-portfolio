@@ -1,55 +1,44 @@
 /* eslint-disable @next/next/no-async-client-component */
 "use client";
-import Backdrop from "@/components/Backdrop";
 import Container from "@/components/Container";
-import { Viewport } from "next";
-import { cn, tealHex } from "@/lib/utils";
+import { cn, getStatusColor, statusMap } from "@/lib/utils";
 import './page.css';
 import MotionBlurFade from "@/components/ui/MotionBlurFade";
 import { useEffect } from "react";
 import { useUserStore } from "@/stores/useUserStore";
 import Nav from "@/components/Nav";
-import me1 from "../../public/me/IMG_4698.jpg";
-import { Avatar } from "@radix-ui/themes";
-import Image from "next/image";
-import { motion, stagger } from 'framer-motion'
-import scenery from "../../public/blue-purple-bg.png"
-import { ChevronDown, Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
-import Tilt from 'react-parallax-tilt';
+import { motion } from 'framer-motion'
+import { Circle, Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
 
-import awsLogo from "../../public/logos/amazon.svg";
-import reactLogo from "../../public/logos/react.svg";
-import cLogo from "../../public/logos/c.svg";
-import flaskLogo from "../../public/logos/flask.svg";
-import dockerLogo from "../../public/logos/docker.svg";
-import javaLogo from "../../public/logos/java.svg";
-import jQueryLogo from "../../public/logos/jquery.svg";
-import jsLogo from "../../public/logos/JS.svg";
-import mongodbLogo from "../../public/logos/mongodb.svg";
-import nodejsLogo from "../../public/logos/nodejs.svg";
-import pythonLogo from "../../public/logos/Python.svg";
-import tailwindLogo from "../../public/logos/tailwind.svg";
-import typescriptLogo from "../../public/logos/TypeScript.svg";
-import InfiniteCarousel from "@/components/InfiniteCarousel";
-import StaggeredText from "@/components/animation/StaggeredText";
-import Timeline from "@/components/Timeline";
+// import awsLogo from "../../public/logos/amazon.svg";
+// import reactLogo from "../../public/logos/react.svg";
+// import cLogo from "../../public/logos/c.svg";
+// import flaskLogo from "../../public/logos/flask.svg";
+// import dockerLogo from "../../public/logos/docker.svg";
+// import javaLogo from "../../public/logos/java.svg";
+// import jQueryLogo from "../../public/logos/jquery.svg";
+// import jsLogo from "../../public/logos/JS.svg";
+// import mongodbLogo from "../../public/logos/mongodb.svg";
+// import nodejsLogo from "../../public/logos/nodejs.svg";
+// import pythonLogo from "../../public/logos/Python.svg";
+// import tailwindLogo from "../../public/logos/tailwind.svg";
+// import typescriptLogo from "../../public/logos/TypeScript.svg";
 import ProjectSummary from "@/components/home/ProjectSummary";
-import { fadeInVariants } from "@/utils/transitions";
-import TechStack from "@/components/home/tech-stack";
 import MailTo from "@/components/MailTo";
 import { Button } from "@/components/ui/button";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
 import { TextGenerateEffect } from "@/components/ui/generate-effect";
 import ShinyButton from "@/components/ui/shiny-button";
+import About from "@/components/home/about";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 
 const entries = [
 	{ date: 'Jan 2022 - Present', title: 'Software Engineer', description: 'Working on various projects...' },
 	{ date: 'June 2020 - Dec 2021', title: 'Intern', description: 'Focused on front-end development...' },
-	// Add more entries as needed
 ];
 
 export default function Home() {
-	const { socket, initializeSocket } = useUserStore();
+	const { socket, initializeSocket, userData } = useUserStore();
 
 	useEffect(() => {
 		if (!socket) {
@@ -60,24 +49,27 @@ export default function Home() {
 			useUserStore.getState().clearHeartbeat();
 		};
 	}, [socket, initializeSocket]);
+
+	// useGLTF.preload('/assets/models/macbook_pro_13_inch_2020/scene.gltf');
+
 	return (
 		<>
 			<div>
 				<Nav />
-				<AnimatedGridPattern
-					numSquares={5}
-					maxOpacity={0.05}
-					duration={2}
-					repeatDelay={1}
-					className={cn(
-					"[mask-image:radial-gradient(600px_circle_at_center,white,transparent)]",
-					"inset-0 -top-96 absolute h-100dvh skew-y-12",
-					)}
-				/>
 				{/* <Image src={scenery} alt="blur background" className="rotate-180 -z-10 absolute inset-0 dark:brightness-50 -hue-rotate-90  opacity-60 dark:opacity-100 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} /> */}
 			</div>
 
 			<Container className="flex-col items-center min-h-dvh">
+			<AnimatedGridPattern
+					numSquares={10}
+					maxOpacity={0.1}
+					duration={2}
+					repeatDelay={1}
+					className={cn(
+					"[mask-image:radial-gradient(600px_circle_at_50%_50%,white,transparent)]",
+					"inset-0 absolute skew-y-12 h-screen opacity-90",
+					)}
+				/>
 				<MotionBlurFade>
 					<div className="flex md:flex-row flex-col items-center gap-4 md:gap-10">
 						{/* <Tilt transitionSpeed={1000}>
@@ -91,11 +83,36 @@ export default function Home() {
 						</Tilt> */}
 
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
+							<div className="flex flex-row items-center gap-2">
 							<h1 className="text-3xl">Tony Drayton</h1>
+							{userData && statusMap[userData.discord_status]
+									? (
+										<TooltipProvider>
+											<Tooltip>
+												<TooltipTrigger asChild>
+													<Circle
+														fill={getStatusColor(userData.discord_status)}
+														color=""
+														size={15}
+														className="ml-2 transition-all" />
+												</TooltipTrigger>
+												<TooltipContent className="transition-all ">
+												{statusMap[userData.discord_status].text}
+												</TooltipContent>
+											</Tooltip>
+										</TooltipProvider>
+									)
+									:
+									<Circle
+										fill="gray"
+										color=""
+										size={15}
+										className="ml-2 transition-all" />}
+										</div>
 							<p className="text-muted-foreground flex flex-row gap-2">
 								<MapPinIcon /> Philadelphia, PA
 							</p>
-							<TextGenerateEffect className="max-w-72 text-center md:text-left" words="A computer science student that loves frontend development" />
+							<TextGenerateEffect className="max-w-72 my-2 text-center md:text-left" words="A computer science student that loves frontend development" />
 							<motion.div
 							initial={{
 								opacity: 0,
@@ -110,7 +127,7 @@ export default function Home() {
 									ease: 'easeInOut'
 								}
 							}}
-							className="flex flex-row gap-2 mt-4"
+							className="flex flex-row gap-2"
 							>
 								<ShinyButton className="bg-neutral-50/80 dark:bg-neutral-900/80">Resume</ShinyButton>
 								<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
@@ -120,10 +137,10 @@ export default function Home() {
 									<Linkedin />
 								</a>
 								<MailTo
-									mailto="mailto:tony.drayton@drexel.edu" className="p-1 hover:cursor-pointer group"
+									mailto="mailto:tony.drayton@drexel.edu" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
 								>
 									<Button variant="ghost" className="p-0 h-[unset]">
-									<Mail className="brightness-90 group-hover:brightness-110" />
+									<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100" />
 									</Button>
 								</MailTo>
 							</motion.div>
@@ -157,6 +174,10 @@ export default function Home() {
 					<ChevronDown className="fixed mt-60 w-8 h-8" />
 				</motion.div> */}
 			</Container >
+			<Container className="flex-col items-center justify-start min-h-dvh h-[unset]" id="about">
+				<About />
+			</Container>
+
 			<Container className="flex-col items-center min-h-screen" id="projects" >
 				<ProjectSummary />
 			</Container>

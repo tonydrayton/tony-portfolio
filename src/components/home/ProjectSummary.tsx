@@ -15,12 +15,15 @@ import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
 import { fadeInVariants } from '@/utils/transitions';
 import { motion } from 'framer-motion';
+import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiReact, SiTypescript } from '@icons-pack/react-simple-icons';
 
+const iconClassName = "scale-75 mr-1 rounded-sm";
 const projects = [
 	{
 		name: 'Adopteam',
 		type: 'Website',
 		role: 'Frontend Developer',
+		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
 		date: '2024',
 		description: 'Dedicated to finding loving homes for children in need through the power of AI',
 		texturePath: '/videos/adopteam_demo.mp4'
@@ -61,7 +64,7 @@ export default function ProjectSummary() {
 			const controls = controlsRef.current;
 			setUserHasControl(false);
 			controls.reset();
-			if(animationRef.current) {
+			if (animationRef.current) {
 				animationRef.current.kill();
 			}
 		}
@@ -102,15 +105,15 @@ export default function ProjectSummary() {
 	const handlePointerLeave = () => setEnableZoom(false);
 	const handleTransitionComplete = () => {
 		setTransitionFinished(true); // Set to true when transition finishes
-	  };
+	};
 
 	return (
 		<motion.div
-		initial="offscreen"
-		whileInView="onscreen"
-		viewport={{ once: true, amount: 0.5 }}
-		variants={fadeInVariants}
-		onAnimationComplete={handleTransitionComplete}
+			initial="offscreen"
+			whileInView="onscreen"
+			viewport={{ once: true, amount: 0.5 }}
+			variants={fadeInVariants}
+			onAnimationComplete={handleTransitionComplete}
 		>
 			<div className='flex flex-col w-full md:w-[unset] md:flex-row items-center'>
 				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none md:mx-6'>
@@ -132,7 +135,7 @@ export default function ProjectSummary() {
 										onPointerLeave={handlePointerLeave}
 										// Set these only for mobile (touch) events
 										onPointerDown={!isDesktop ? handlePointerEnter : undefined}
-										// onPointerUp={!isDesktop ? handlePointerLeave : undefined}
+									// onPointerUp={!isDesktop ? handlePointerLeave : undefined}
 									/> : <MacbookProImage
 										scale={14}
 										position={[0, -2, 0]}
@@ -144,7 +147,7 @@ export default function ProjectSummary() {
 										onPointerLeave={handlePointerLeave}
 										// Set these only for mobile (touch) events
 										onPointerDown={!isDesktop ? handlePointerEnter : undefined}
-										// onPointerUp={!isDesktop ? handlePointerLeave : undefined}
+									// onPointerUp={!isDesktop ? handlePointerLeave : undefined}
 									/>
 								}
 							</Suspense>
@@ -171,17 +174,30 @@ export default function ProjectSummary() {
 						{project.role}
 						<span className="opacity-50 font-light">{` (${project.date})`}</span>
 					</p>
+
+					{project.skills && (
+						<div className='mt-2'>
+							{project.skills.map((skill, index) => (
+								<Badge key={index} className="mr-2 transition-all duration-300 dark:border-neutral-700" variant="outline">
+									{skill.icon} {skill.name}
+								</Badge>
+							))}
+						</div>
+					)}
+
 					<p className="text-lg my-4 w-auto max-w-96 text-center text-wrap md:text-start">{project.description}</p>
+
+
 					<div className='flex flex-row justify-center items-center'>
 						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
-							<ChevronLeft className='scale-75'/>
+							<ChevronLeft className='scale-75' />
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
 						<Button variant="shine" className='w-fit'>More info</Button>
 
 						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
-							<ChevronRight className='scale-75'/>
+							<ChevronRight className='scale-75' />
 							<span className='sr-only'>Next</span>
 						</Button>}
 					</div>
@@ -189,7 +205,7 @@ export default function ProjectSummary() {
 			</div>
 			{isDesktop && (
 				<div className='mt-4 mb-8 w-full justify-center flex flex-row gap-6'>
-					<Button variant='secondary' className='bg-transparent'  onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
+					<Button variant='secondary' className='bg-transparent' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
 						<ChevronLeft className='scale-75' />
 						<span className='sr-only'>Previous</span>
 					</Button>
