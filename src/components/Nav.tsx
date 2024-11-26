@@ -32,7 +32,7 @@ export default function Nav() {
 								repeat: Infinity,
 								repeatType: 'reverse'
 							}}
-							className="group relative font-semibold text-sm sm:text-base rounded-lg bg-gradient-to-r from-lime-700 to-lime-500 dark:from-lime-500 dark:to-lime-200 bg-clip-text text-transparent dark:drop-shadow-lg"
+							className="group relative font-semibold text-sm sm:text-base rounded-lg bg-gradient-to-r from-neutral-700 to-neutral-500 dark:from-neutral-500 dark:to-neutral-200 bg-clip-text text-transparent dark:drop-shadow-lg"
 							style={{
 								backgroundSize: '200% 100%',
 								backgroundImage: 'linear-gradient(to right, #gray500, #ffffff)',
@@ -41,7 +41,7 @@ export default function Nav() {
 							Resume
 							<span className="sr-only">Open Resume</span>
 							<span
-								className="absolute left-0 -bottom-5 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-lime-500 dark:to-lime-200 from-lime-700 to-lime-500 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+								className="absolute left-0 -bottom-5 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-neutral-500 dark:to-neutral-200 from-neutral-700 to-neutral-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 							/>
 
 						</motion.button>

@@ -20,7 +20,7 @@
     "@react-three/drei": "^9.116.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "framer-motion": "^11.0.20",
+    "framer-motion": "^11.11.17",
     "gsap": "^3.12.5",
     "leva": "^0.9.35",
     "lucide-react": "^0.363.0",
