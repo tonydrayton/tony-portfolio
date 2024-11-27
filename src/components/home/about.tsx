@@ -8,10 +8,39 @@ import MailgunEventDocumentationImage from "../../../public/assets/experience/ma
 import { PersonStanding } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import DrBeachPhoto from "../../../public/assets/me/dr_beach.jpg";
-SiAmazonwebservices
-SiTypescript
-SiNodedotjs
-SiMysql
+
+const aboutSkills = [
+	{
+		icon: <SiTypescript className="scale-75" />,
+		name: "TypeScript",
+		description: "JavaScript with syntax for types"
+	},
+	{
+		icon: <SiNodedotjs className="scale-75" />,
+		name: "Node.js",
+		description: "JavaScript runtime environment"
+	},
+	{
+		icon: <SiReact className="scale-75" />,
+		name: "React",
+		description: "Library for web user interfaces"
+	},
+	{
+		icon: <SiNextdotjs className="scale-75" />,
+		name: "Next.js",
+		description: "Framework for React"
+	},
+	{
+		icon: <SiPython className="scale-75" />,
+		name: "Python",
+		description: "Programming language"
+	},
+	{
+		icon: <SiGit className="scale-75" />,
+		name: "Git",
+		description: "Version Control"
+	}
+]
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"
 const data = [
@@ -89,45 +118,15 @@ export default function About() {
 						</CardHeader>
 						<CardContent>
 							<div className="grid grid-cols-2 gap-4">
-								<div className="flex flex-row items-center gap-2">
-									<SiTypescript className="scale-75" />
-									<div className="flex flex-col">
-										<span>TypeScript</span>
-										<span className="text-muted-foreground text-xs">JavaScript with syntax for types</span>
+								{aboutSkills.map((skill, index) => (
+									<div key={index} className="flex flex-row gap-1">
+										{skill.icon}
+										<div className="flex flex-col">
+											<span>{skill.name}</span>
+											<span className="text-muted-foreground text-xs">{skill.description}</span>
+										</div>
 									</div>
-								</div>
-								<div className="flex flex-row items-center gap-2">
-									<SiNodedotjs className="scale-75" />
-									<div className="flex flex-col">
-										<span>Node.js</span>
-										<span className="text-muted-foreground text-xs">JavaScript runtime environment</span>
-									</div>
-								</div>
-								<div className="flex flex-row items-center gap-2">
-									<SiReact className="scale-75" />
-									<div className="flex flex-col">
-										<span>React</span>
-										<span className="text-muted-foreground text-xs">Library for web user interfaces</span>
-									</div>
-								</div>
-								<div className="flex flex-row items-center gap-2">
-									<SiNextdotjs className="scale-75" />
-									<div className="flex flex-col">
-										<span>Next.js</span>
-										<span className="text-muted-foreground text-xs">Framework for React</span>
-									</div>
-								</div>
-								<div className="flex flex-row items-center gap-2">
-									<SiPython className="scale-75" />
-									<span>Python</span>
-								</div>
-								<div className="flex flex-row items-center gap-2">
-									<SiGit className="scale-75" />
-									<div className="flex flex-col">
-										<span>Git</span>
-										<span className="text-muted-foreground text-xs">Version Control</span>
-									</div>
-								</div>
+								))}
 							</div>
 						</CardContent>
 						<CardFooter className="text-sm text-muted-foreground">

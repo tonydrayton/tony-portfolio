@@ -30,7 +30,7 @@ export default function Home() {
 
 	return (
 		<>
-			<Container className="flex-col items-center min-h-dvh">
+			<Container className="flex-col items-center min-h-screen">
 				<AnimatedGridPattern
 					numSquares={10}
 					maxOpacity={0.1}
@@ -120,7 +120,7 @@ export default function Home() {
 				</MotionBlurFade>
 			</Container>
 
-			<Container className="flex-col items-center justify-start min-h-dvh h-[unset]" id="about">
+			<Container className="flex-col items-center justify-start min-h-screen h-[unset]" id="about">
 				<About />
 			</Container>
 
