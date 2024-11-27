@@ -7,6 +7,7 @@ import { BentoCard, BentoGrid } from "../ui/bento-grid";
 import MailgunEventDocumentationImage from "../../../public/assets/experience/mailgun_event_documentation.png";
 import { PersonStanding } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
+import DrBeachPhoto from "../../../public/assets/me/dr_beach.jpg";
 SiAmazonwebservices
 SiTypescript
 SiNodedotjs
@@ -19,7 +20,7 @@ const data = [
 		title: "Junior Software Engineer",
 		workplace: { name: "AlumnIQ", url: "https://www.alumniq.com" },
 		date: "April 2024 - Sep. 2024",
-		skills: [{ icon: <SiTypescript color={SiTypescriptHex} className={iconClassName} />, name: "TypeScript" }, { icon: <SiNodedotjs color={SiNodedotjsHex} className={iconClassName} />, name: "Node.js" }, { icon: <SiMysql color={SiMysqlHex} className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
+		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNodedotjs className={iconClassName} />, name: "Node.js" }, { icon: <SiMysql className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		content: (
 			<div>
 				{/* <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-normal mb-8">
@@ -68,44 +69,64 @@ export default function About() {
 				<TabsTrigger value="education">Education</TabsTrigger>
 			</TabsList>
 			<TabsContent value="about" className="lg:max-w-[80rem] p-4 flex flex-col">
-				<div className="grid md:grid-cols-2 gap-4">
+				<div className="grid md:grid-cols-2 gap-4 md:mt-10">
 					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
 						<CardHeader>
-							<CardTitle className="text-2xl">Quick Background</CardTitle>
+							<CardTitle className="text-2xl tracking-normal">Quick Background</CardTitle>
 						</CardHeader>
-						<CardContent className="flex flex-col gap-2"><span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span><span> {"I'm passionate about creating beautiful and functional websites and applications."}</span>
-						<span>
-							I have been coding since I was 13 years old, starting with just JavaScript and now knowing many different languages and frameworks.</span></CardContent>
+						<CardContent className="flex flex-row gap-4">
+							<Image src={DrBeachPhoto} alt="Dominican Republic Beach" className="rounded-lg w-40 h-60" quality={100} />
+							<div className="flex flex-col gap-2">
+								<span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span><span> {"I'm passionate about creating beautiful and functional websites and applications."}</span>
+								<span>
+									I have been coding since I was 13 years old, starting with just JavaScript and now knowing many different languages and frameworks.</span>
+							</div>
+						</CardContent>
 					</Card>
 					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
 						<CardHeader>
-							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
+							<CardTitle className="text-2xl tracking-normal">My Go-Tos</CardTitle>
 						</CardHeader>
 						<CardContent>
 							<div className="grid grid-cols-2 gap-4">
 								<div className="flex flex-row items-center gap-2">
-									<SiTypescript color={SiTypescriptHex} className="scale-75" />
-									<span>TypeScript</span>
+									<SiTypescript className="scale-75" />
+									<div className="flex flex-col">
+										<span>TypeScript</span>
+										<span className="text-muted-foreground text-xs">JavaScript with syntax for types</span>
+									</div>
 								</div>
 								<div className="flex flex-row items-center gap-2">
-									<SiNodedotjs color={SiNodedotjsHex} className="scale-75" />
-									<span>Node.js</span>
+									<SiNodedotjs className="scale-75" />
+									<div className="flex flex-col">
+										<span>Node.js</span>
+										<span className="text-muted-foreground text-xs">JavaScript runtime environment</span>
+									</div>
 								</div>
 								<div className="flex flex-row items-center gap-2">
-									<SiReact color={SiReactHex} className="scale-75" />
-									<span>React</span>
+									<SiReact className="scale-75" />
+									<div className="flex flex-col">
+										<span>React</span>
+										<span className="text-muted-foreground text-xs">Library for web user interfaces</span>
+									</div>
 								</div>
 								<div className="flex flex-row items-center gap-2">
 									<SiNextdotjs className="scale-75" />
-									<span>Next.js</span>
+									<div className="flex flex-col">
+										<span>Next.js</span>
+										<span className="text-muted-foreground text-xs">Framework for React</span>
+									</div>
 								</div>
 								<div className="flex flex-row items-center gap-2">
-									<SiPython color={SiPythonHex} className="scale-75" />
+									<SiPython className="scale-75" />
 									<span>Python</span>
 								</div>
 								<div className="flex flex-row items-center gap-2">
 									<SiGit className="scale-75" />
-									<span>Git</span>
+									<div className="flex flex-col">
+										<span>Git</span>
+										<span className="text-muted-foreground text-xs">Version Control</span>
+									</div>
 								</div>
 							</div>
 						</CardContent>

@@ -23,7 +23,7 @@ const projects = [
 		name: 'Adopteam',
 		type: 'Website',
 		role: 'Frontend Developer',
-		skills: [{ icon: <SiTypescript color={SiTypescriptHex} className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact color={SiReactHex} className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
+		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
 		date: '2024',
 		description: 'Dedicated to finding loving homes for children in need through the power of AI',
 		texturePath: '/videos/adopteam_demo.mp4'

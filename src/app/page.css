@@ -7,8 +7,8 @@
 }
 
 :is(.dark, .dark-theme), :is(.dark, .dark-theme) :where(.radix-themes:not(.light, .light-theme)) {
-    --color-background: #101211
-    !important;
+    --color-background: #101211 !important;
+	--background: 120 5.9% 6.67% !important;
 }
 
 .dark body {
