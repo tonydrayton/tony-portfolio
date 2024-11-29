@@ -149,7 +149,13 @@ export default function Home() {
 			<div className="shrink-0 bg-border h-[1px] w-full my-10" />
 			<footer className="flex flex-col justify-center items-center w-full p-4 text-center">
 				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
-				<span className="text-lg sm:text-xl mb-10">Shoot me an email at tonydrayton43@gmail.com</span>
+				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">Shoot me an email at
+					<MailTo mailto="mailto:tonydrayton43@gmail.com" className="">
+						<Button variant="linkHover1" className="text-base sm:text-xl p-0 font-normal">
+							tonydrayton43@gmail.com
+						</Button>
+					</MailTo>
+					</span>
 				<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
 			</footer>
 		</>

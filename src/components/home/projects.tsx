@@ -158,7 +158,7 @@ export default function ProjectSummary() {
 						/>
 					</Canvas>
 				</div>
-				<div className="flex flex-col items-start">
+				<div className="flex flex-col items-start p-8">
 					{/* <Badge className={`${projectIndex != 0 && 'opacity-0 select-none'} my-2 mt-6`}>New</Badge> */}
 					<p className="flex gap-2 flex-row flex-wrap items-center text-2xl mt-6">
 						{project.name}
@@ -171,7 +171,7 @@ export default function ProjectSummary() {
 					</p>
 
 					{project.skills && (
-						<div className='mt-2 flex flex-wrap gap-2 justify-center sm:items-start sm:justify-start'>
+						<div className='mt-2 flex flex-wrap gap-2 items-start justify-start'>
 							{project.skills.map((skill, index) => (
 								<Badge key={index} className="transition-all duration-300 dark:border-neutral-700" variant="outline">
 									{skill.icon} {skill.name}

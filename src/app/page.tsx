@@ -13,8 +13,6 @@ export default function Page() {
 				<Nav />
 				{/* <Image src={scenery} alt="blur background" className="rotate-180 -z-10 absolute inset-0 dark:brightness-50 -hue-rotate-90  opacity-60 dark:opacity-100 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} /> */}
 			</div>
-
-
 			<Home />
 		</>
 	);
