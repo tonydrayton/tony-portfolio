@@ -8,13 +8,13 @@ import { MinimumWidth } from '@/lib/types';
 import { Separator } from '@radix-ui/themes';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Github } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
 import { fadeInVariants } from '@/utils/transitions';
 import { motion, useInView } from 'framer-motion';
-import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
+import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiPayloadcms, SiReact, SiReactHex, SiTrpc, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 
 const iconClassName = "scale-75 mr-1 rounded-sm";
 const projects = [
@@ -23,25 +23,29 @@ const projects = [
 		type: 'Website',
 		role: 'Frontend Developer',
 		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiReact className={iconClassName} />, name: "React" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiFlask className={iconClassName} />, name: "Flask" }],
-		date: '2024',
+		date: 'April 2024',
 		description: 'Dedicated to finding loving homes for children in need through the power of AI',
-		texturePath: '/videos/adopteam_demo.mp4'
+		texturePath: '/videos/adopteam_demo.mp4',
+		link: {
+			url: 'https://github.com/kxllydo/codefest24-25',
+			text: 'View on Github',
+			icon: <Github className='scale-75' />
+		},
+		footer: 'Drexel 2024 Codefest Project'
 	},
 	{
-		name: 'Music at Drexel',
+		name: 'Digital Icon Market',
 		type: 'Website',
 		role: 'Fullstack Developer',
-		date: '2023',
-		description: 'A music streaming platform for Drexel University students',
-		texturePath: '/musicatdrexel/aboutpage.png'
-	},
-	{
-		name: 'Vaeleth',
-		type: 'Discord Bot',
-		role: 'Lead Developer',
-		date: '2019 - 2022',
-		description: 'A music streaming platform for Drexel University students',
-		texturePath: '/vaeleth.png'
+		skills: [{ icon: <SiPayloadcms className={iconClassName} />, name: "Payload CMS" }, { icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiTrpc className={iconClassName} />, name: "TRPC" }],
+		date: 'December 2023',
+		description: 'A lightweight icon market for users to buy and sell digital icons',
+		texturePath: '/digitaliconmarket/homepage.png',
+		link: {
+			url: 'https://github.com/tonydrayton/digitalmarket',
+			text: 'View on Github',
+			icon: <Github className='scale-75' />
+		}
 	}
 ]
 
@@ -154,9 +158,9 @@ export default function ProjectSummary() {
 						/>
 					</Canvas>
 				</div>
-				<div className="flex flex-col items-center md:items-start">
-					<Badge className={`${projectIndex != 0 && 'opacity-0 select-none'} my-2 `}>New</Badge>
-					<p className="flex gap-2 flex-row flex-wrap items-center text-2xl">
+				<div className="flex flex-col items-start">
+					{/* <Badge className={`${projectIndex != 0 && 'opacity-0 select-none'} my-2 mt-6`}>New</Badge> */}
+					<p className="flex gap-2 flex-row flex-wrap items-center text-2xl mt-6">
 						{project.name}
 						<Separator size={"2"} orientation='vertical' />
 						<span className="opacity-50 font-light">{project.type}</span>
@@ -176,16 +180,23 @@ export default function ProjectSummary() {
 						</div>
 					)}
 
-					<p className="text-lg my-4 w-auto max-w-96 text-center text-wrap md:text-start">{project.description}</p>
+					<div className='my-4'>
+						<p className="text-lg w-auto max-w-96 text-wrap">{project.description}</p>
+						{project.footer && <p className="text-muted-foreground text-sm">{project.footer}</p>}
+					</div>
 
 
-					<div className='flex flex-row justify-center items-center'>
+					<div className='flex flex-row justify-center items-center self-center md:self-start'>
 						{!isDesktop && <Button variant='ghost' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
 							<ChevronLeft className='scale-75' />
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
-						<Button variant="shine" className='w-fit'>More info</Button>
+						<Button variant="ringHover" className='w-fit flex flex-row gap-2' asChild>
+							<a href={project.link?.url} target="_blank">
+								{project.link?.icon}{project.link?.text}
+							</a>
+						</Button>
 
 						{!isDesktop && <Button variant='ghost' className='mx-4' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
 							<ChevronRight className='scale-75' />
