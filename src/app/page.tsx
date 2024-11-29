@@ -1,23 +1,19 @@
-/* eslint-disable @next/next/no-async-client-component */
-import Backdrop from "@/components/Backdrop";
-import Container from "@/components/Container";
-import HomePage from "@/components/HomePage";
-import { Viewport } from "next";
-import { tealHex } from "@/lib/utils";
+"use client";
 import './page.css';
+import Nav from "@/components/Nav";
+import Home from "@/components/home";
+import { useGLTF } from "@react-three/drei";
 
-export const viewport: Viewport = {
-	themeColor: tealHex, // specific viewport color for home page
-	viewportFit: "cover"
-}
+export default function Page() {
+	useGLTF.preload('/assets/models/macbook_pro_13_inch_2020/scene.gltf');
 
-export default function Home() {
 	return (
 		<>
-			<Container className="flex-col">
-				<HomePage />
-			</Container >
-			<Backdrop />
+			<div>
+				<Nav />
+				{/* <Image src={scenery} alt="blur background" className="rotate-180 -z-10 absolute inset-0 dark:brightness-50 -hue-rotate-90  opacity-60 dark:opacity-100 pointer-events-none" style={{ maskImage: 'linear-gradient(to top, black, transparent)' }} /> */}
+			</div>
+			<Home />
 		</>
 	);
 }

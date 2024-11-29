@@ -1,22 +1,18 @@
 import { cn } from "@/lib/utils";
-import { Viewport } from "next";
-import Head from "next/head";
-import { CSSProperties, Fragment, ReactNode, useEffect, useState } from "react";
+import { ReactNode } from "react";
 
 const Container = ({
 	children,
 	className,
-	style,
-}: {
-	children: ReactNode
-	className?: string,
-	style?: CSSProperties
-}) => {
+	...props
+}:
+	React.HTMLAttributes<HTMLDivElement>
+) => {
 	return (
 		<>
-			<div className={cn("flex justify-center items-center w-full h-svh", className)} style={style}>
+			<section className={cn("flex justify-center items-center w-full", className)} {...props}>
 				{children}
-			</div>
+			</section>
 		</>
 	);
 };
