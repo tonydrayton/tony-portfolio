@@ -9,7 +9,7 @@ import MailTo from "../MailTo";
 import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
-import ProjectSummary from "./project-summary";
+import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
 import { useEffect, useState } from "react";
 import { useResumeStore } from "@/stores/useResumeStore";

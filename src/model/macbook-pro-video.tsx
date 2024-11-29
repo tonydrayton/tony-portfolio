@@ -63,7 +63,7 @@ export const MacbookProVideo = (props: MacbookProProps) => {
 	const { texturePath, inView } = props;
 	const { nodes, materials, animations } = useGLTF('/assets/models/macbook_pro_13_inch_2020/scene.gltf') as GLTFResult
 	const { actions } = useAnimations(animations, group);
-	const texture = useVideoTexture(texturePath);
+	const texture = useVideoTexture(texturePath, { start: false });
 	// if(texturePath) {
 	// 	texturePath.endsWith('.mp4') ? texture = useVideoTexture(texturePath) : texture = useTexture(texturePath);
 	// }
@@ -72,13 +72,16 @@ export const MacbookProVideo = (props: MacbookProProps) => {
 		const animation = actions['Animation'];
 		if (animation && inView) {
 			const clip = animation.getClip();
-			if(clip.duration > MACBOOK_ANIMATION_DURATION) clip.duration = clip.duration / 5;
+			if(clip.duration > MACBOOK_ANIMATION_DURATION) clip.duration = clip.duration / 5; // speed up animation
 			animation.timeScale = 5;
 			animation.setLoop(THREE.LoopOnce, 1)
-			animation.play()
+			animation.play();
 			animation.clampWhenFinished = true // stop animation
+
+			const videoElement = texture.image as HTMLVideoElement;
+			videoElement.play();
 		}
-	}, [inView, actions]);
+	}, [inView, actions, texture.image]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>

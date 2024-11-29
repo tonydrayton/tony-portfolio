@@ -59,7 +59,7 @@ const data = [
 		date: "April 2024 - Sep. 2024",
 		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNodedotjs className={iconClassName} />, name: "Node.js" }, { icon: <SiMysql className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		content: (
-			<div>
+			<div className="grid grid-cols-3 lg:grid-cols-4 gap-4">
 				{/* <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-normal mb-8">
 					Using the
 					<span className="inline-flex items-baseline">
@@ -68,30 +68,26 @@ const data = [
 					</span>
 					, I designed and implemented a webhook mail handler which handles all transactional and event mail for the platform
 				</p> */}
-				<BentoGrid className="grid-cols-3 lg:grid-cols-4">
-					<BentoCard
-						icon={{
-							element: SiMailgun,
-							className: "dark:text-white scale-75"
-						}}
-						name="Webhook Handler"
-						description="Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform"
-						href="/"
-						className="col-span-3 lg:col-span-2"
-						transitions={false}
-					/>
-					<BentoCard
-						icon={{
-							element: PersonStanding,
-							className: "dark:text-white scale-75"
-						}}
-						name="Events"
-						description="Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion & Drexel's 50-year reunion of the Class of 1973, as support staff"
-						href="/"
-						className="col-span-3 lg:col-span-2"
-						transitions={false}
-					/>
-				</BentoGrid>
+					<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+						<CardHeader>
+							<CardTitle className="flex flex-row gap-2 items-center text-xl">
+								<SiMailgun color={SiMailgunHex} /> Webhook Handler
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
+						</CardContent>
+					</Card>
+					<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+						<CardHeader>
+							<CardTitle className="flex flex-row gap-2 items-center text-xl">
+								<PersonStanding /> Events
+							</CardTitle>
+						</CardHeader>
+						<CardContent>
+							{"Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion and Drexel's 50-year reunion of the Class of 1973, as support staff"}
+						</CardContent>
+					</Card>
 			</div>
 		),
 	},
@@ -173,7 +169,7 @@ export default function About() {
 							<CardContent className="flex items-center justify-center text-3xl font-mono">
 								{wakatimeStats
 									?
-									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:underline">
+									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:scale-110 transition-transform ease-in-out">
 										<NumberTicker value={parseInt(wakatimeStats?.data.human_readable_total.split(' ')[0])} />
 									</Link>
 									: "--"
