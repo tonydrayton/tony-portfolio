@@ -146,7 +146,8 @@ export default function Home() {
 				<ProjectSummary />
 			</Container>
 
-			<footer className="flex flex-col justify-center items-center w-full p-4 pt-20 md:mt-12 text-center">
+			<div className="shrink-0 bg-border h-[1px] w-full my-10" />
+			<footer className="flex flex-col justify-center items-center w-full p-4 text-center">
 				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
 				<span className="text-lg sm:text-xl mb-10">Shoot me an email at tonydrayton43@gmail.com</span>
 				<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
