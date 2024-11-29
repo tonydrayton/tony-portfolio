@@ -7,9 +7,8 @@ import { useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { Separator } from '@radix-ui/themes';
 import { Button } from '../ui/button';
-import { Group, Mesh, Raycaster, Vector2 } from 'three';
 import { Badge } from '../ui/badge';
-import { ChevronLeft, ChevronRight, CircleChevronLeft, CircleChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { gsap } from 'gsap';
 import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
@@ -59,7 +58,6 @@ export default function ProjectSummary() {
 
 	// reset OrbitControls when the project changes
 	useEffect(() => {
-		console.log('change')
 		if (controlsRef.current) {
 			const controls = controlsRef.current;
 			setUserHasControl(false);
@@ -72,7 +70,6 @@ export default function ProjectSummary() {
 
 	// kill animation if the user wants to control
 	useEffect(() => {
-		console.log({ userHasControl })
 		if (animationRef.current && userHasControl) {
 			animationRef.current.kill();
 		}
@@ -80,11 +77,8 @@ export default function ProjectSummary() {
 
 	// animate the computer to zoom in a lil
 	useGSAP(() => {
-		console.log('useGSAP')
-		console.log(controlsRef.current);
 		gsap.delayedCall(1, () => {
 			if (controlsRef.current && !userHasControl && transitionFinished) {
-				console.log(controlsRef.current);
 				const controls = controlsRef.current;
 				animationRef.current = gsap.to(controls.object.position, {
 					x: 0,
@@ -115,6 +109,10 @@ export default function ProjectSummary() {
 			variants={fadeInVariants}
 			onAnimationComplete={handleTransitionComplete}
 		>
+			<div className='text-center relative top-16 md:top-28'>
+				<h2 className='text-3xl font-bold tracking-tight'>Selected Projects</h2>
+				<p className='text-lg text-muted-foreground'>You can move the Macbook!</p>
+			</div>
 			<div className='flex flex-col w-full md:w-[unset] md:flex-row items-center'>
 				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none md:mx-6'>
 					<Canvas>
@@ -155,10 +153,11 @@ export default function ProjectSummary() {
 						<OrbitControls
 							ref={controlsRef}
 							maxPolarAngle={Math.PI / 2}
-							enableZoom={enableZoom}
+							enableZoom={isDesktop ? enableZoom : true}
 							enablePan={false}
 							enableRotate={true}
 							zoomSpeed={1.2}
+							maxDistance={5}
 							onStart={() => setUserHasControl(true)}
 						/>
 					</Canvas>
@@ -189,14 +188,14 @@ export default function ProjectSummary() {
 
 
 					<div className='flex flex-row justify-center items-center'>
-						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
+						{!isDesktop && <Button variant='ghost' className='mx-4' onClick={() => setProjectIndex(projectIndex - 1)} disabled={projectIndex === 0}>
 							<ChevronLeft className='scale-75' />
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
 						<Button variant="shine" className='w-fit'>More info</Button>
 
-						{!isDesktop && <Button variant='secondary' className='mx-4' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
+						{!isDesktop && <Button variant='ghost' className='mx-4' onClick={() => setProjectIndex(projectIndex + 1)} disabled={projectIndex === projects.length - 1}>
 							<ChevronRight className='scale-75' />
 							<span className='sr-only'>Next</span>
 						</Button>}

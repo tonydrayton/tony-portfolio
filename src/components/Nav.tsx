@@ -1,24 +1,19 @@
-import { cn } from "@/lib/utils";
-import { Github, Linkedin, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { Github, Linkedin } from "lucide-react";
 import { ModeToggle } from "./ui/ModeToggle";
-import { Button } from "./ui/button";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import MotionBlurFade from "./ui/MotionBlurFade";
 import { useState } from "react";
 import { useDebounce } from 'use-debounce';
-
-
+import { useResumeStore } from "@/stores/useResumeStore";
 
 const sections = ['About', 'Projects'];
 
 export default function Nav() {
+	const { resume } = useResumeStore();
 	const { scrollYProgress } = useScroll();
 	const [visible, setVisible] = useState(true);
 	const [debouncedVisible] = useDebounce(visible, 100);
 
 	useMotionValueEvent(scrollYProgress, "change", (current) => {
-		// Check if current is not undefined and is a number
 		if (typeof current === "number") {
 			let direction = current! - scrollYProgress.getPrevious()!;
 			if (scrollYProgress.get() > 0.1) {
@@ -32,25 +27,23 @@ export default function Nav() {
 	});
 
 	return (
-		<AnimatePresence mode="wait">
-
-			<motion.header
-				layout
-				initial={{
-					y: -100,
-				}}
-				animate={{
-					y: visible ? 0 : -100,
-				}}
-				transition={{
-					duration: 0.4,
-					ease: 'easeInOut'
-				}}
+		// <AnimatePresence mode="wait">
+			<header
+				// layout
+				// initial={{
+				// 	y: -100,
+				// }}
+				// animate={{
+				// 	y: visible ? 0 : -100,
+				// }}
+				// transition={{
+				// 	duration: 0.4,
+				// 	ease: 'easeInOut'
+				// }}
 				className="fixed left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
 				<div
 					className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out duration-100">
 					<div
-
 						className="justify-center sm:justify-between m-auto p-0.5 mt-1 sm:px-4 flex h-full w-fit sm:w-full max-w-full items-center rounded-full border-[1px] border-black/20 dark:border-white/20 bg-black/5 dark:bg-white/10 pl-3 pr-2 backdrop-blur-xl backdrop-filter shadow-sm">
 						<div className="items-center justify-center mx-2 gap-4 flex flex-row">
 							{sections.map((section, index) => (
@@ -61,7 +54,7 @@ export default function Nav() {
 									/>
 								</a>
 							))}
-							<motion.button
+							<motion.a
 								initial={{ backgroundPosition: '0% 50%' }}
 								animate={{ backgroundPosition: '100% 50%' }}
 								transition={{
@@ -75,6 +68,8 @@ export default function Nav() {
 									backgroundSize: '200% 100%',
 									backgroundImage: 'linear-gradient(to right, #gray500, #ffffff)',
 								}}
+								href={resume}
+								target="_blank"
 							>
 								Resume
 								<span className="sr-only">Open Resume</span>
@@ -82,7 +77,7 @@ export default function Nav() {
 									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-150 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-neutral-500 dark:to-neutral-200 from-neutral-700 to-neutral-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 								/>
 
-							</motion.button>
+							</motion.a>
 						</div>
 						<div className="gap-1 flex flex-row justify-center items-center">
 							<ModeToggle />
@@ -102,8 +97,8 @@ export default function Nav() {
 						</div>
 					</div>
 				</div>
-			</motion.header>
-		</AnimatePresence>
+			</header>
+		// </AnimatePresence>
 	)
 
 }

@@ -1,32 +1,48 @@
 "use client";
-import { cn, getStatusColor, statusMap } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { Circle, Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
-import { useUserStore } from "@/stores/useUserStore";
+import { Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
 import { TextGenerateEffect } from "../ui/generate-effect";
 import { motion } from "framer-motion";
-import ShinyButton from "../ui/shiny-button";
+import { ShinyAnchor } from "../ui/shiny-button";
 import MailTo from "../MailTo";
 import { Button } from "../ui/button";
-import { useEffect } from "react";
 import Container from "../Container";
 import About from "./about";
-import ProjectSummary from "./ProjectSummary";
+import ProjectSummary from "./project-summary";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
+import { useEffect, useState } from "react";
+import { useResumeStore } from "@/stores/useResumeStore";
 
 export default function Home() {
-	const { socket, initializeSocket, userData } = useUserStore();
+	// Initiate a socket connection to the Lanyard API, not using atm
+	// const { socket, initializeSocket, userData } = useUserStore();
+
+	// useEffect(() => {
+	// 	if (!socket) {
+	// 		initializeSocket();
+	// 	}
+	// 	return () => {
+	// 		console.log('Clearing heartbeat');
+	// 		useUserStore.getState().clearHeartbeat();
+	// 	};
+	// }, [socket, initializeSocket]);
+	const { resume, setResume } = useResumeStore();
 
 	useEffect(() => {
-		if (!socket) {
-			initializeSocket();
+			getResumeURL();
+	}, []);
+
+	const getResumeURL = async () => {
+		try {
+			const response = await fetch('/api/getLatestResume');
+				const blob = await response.blob();
+				const url = URL.createObjectURL(blob);
+				setResume(url);
+		} catch (error) {
+			console.error('Error fetching or opening PDF', error);
 		}
-		return () => {
-			console.log('Clearing heartbeat');
-			useUserStore.getState().clearHeartbeat();
-		};
-	}, [socket, initializeSocket]);
+	};
 
 	return (
 		<>
@@ -100,7 +116,9 @@ export default function Home() {
 								}}
 								className="flex flex-row gap-2"
 							>
-								<ShinyButton className="bg-neutral-50/80 dark:bg-neutral-900/80">Resume</ShinyButton>
+								<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href={resume} target="_blank">
+										Resume
+								</ShinyAnchor>
 								<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 									<Github />
 								</a>
@@ -124,7 +142,7 @@ export default function Home() {
 				<About />
 			</Container>
 
-			<Container className="flex-col items-center" id="projects" >
+			<Container className="mt-20 flex-col items-center" id="projects" >
 				<ProjectSummary />
 			</Container>
 
