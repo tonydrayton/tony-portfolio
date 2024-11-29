@@ -119,7 +119,7 @@ export default function About() {
 						</CardHeader>
 						<CardContent className="flex flex-row gap-4">
 							<div className="flex flex-col gap-2">
-								<span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span>
+								<span>{"Hey, I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
 								<div className="mt-6 flex flex-col gap-2">
 									<Badge className="w-fit" variant="secondary">Currently</Badge>
 									<span>
