@@ -37,7 +37,7 @@ export default function Home() {
 					duration={2}
 					repeatDelay={1}
 					className={cn(
-						"[mask-image:radial-gradient(600px_circle_at_50%_50%,white,transparent)]",
+						"[mask-image:radial-gradient(350px_circle_at_50%_50%,white,transparent)] md:[mask-image:radial-gradient(500px_circle_at_50%_50%,white,transparent)]",
 						"inset-0 absolute skew-y-12 h-screen opacity-90",
 					)}
 				/>
@@ -56,7 +56,7 @@ export default function Home() {
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
 							<div className="flex flex-row items-center gap-2">
 								<h1 className="text-3xl">Tony Drayton</h1>
-								{userData && statusMap[userData.discord_status]
+								{/* {userData && statusMap[userData.discord_status]
 									? (
 										<TooltipProvider>
 											<Tooltip>
@@ -78,7 +78,7 @@ export default function Home() {
 										fill="gray"
 										color=""
 										size={15}
-										className="ml-2 transition-all" />}
+										className="ml-2 transition-all" />} */}
 							</div>
 							<p className="text-muted-foreground flex flex-row gap-2">
 								<MapPinIcon /> Philadelphia, PA
@@ -94,7 +94,7 @@ export default function Home() {
 									filter: 'blur(0px)',
 									transition: {
 										duration: 0.75,
-										delay: 2,
+										delay: 1.9,
 										ease: 'easeInOut'
 									}
 								}}
@@ -108,7 +108,7 @@ export default function Home() {
 									<Linkedin />
 								</a>
 								<MailTo
-									mailto="mailto:tony.drayton@drexel.edu" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
+									mailto="mailto:tonydrayton43@gmail.com" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
 								>
 									<Button variant="ghost" className="p-0 h-[unset]">
 										<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100" />
@@ -120,13 +120,19 @@ export default function Home() {
 				</MotionBlurFade>
 			</Container>
 
-			<Container className="flex-col items-center justify-start min-h-screen h-[unset]" id="about">
+			<Container className="flex-col items-center justify-start" id="about">
 				<About />
 			</Container>
 
-			<Container className="flex-col items-center min-h-screen" id="projects" >
+			<Container className="flex-col items-center" id="projects" >
 				<ProjectSummary />
 			</Container>
+
+			<footer className="flex flex-col justify-center items-center w-full p-4 pt-20 md:mt-12 text-center">
+				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
+				<span className="text-lg sm:text-xl mb-10">Shoot me an email at tonydrayton43@gmail.com</span>
+				<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
+			</footer>
 		</>
 	)
 }

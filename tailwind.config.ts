@@ -29,7 +29,8 @@ const config: Config = {
 				slight: "1px 1px 1px black"
 			},
 			boxShadow: {
-				card_dark: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)"
+				card_dark: "0 0 15px -10px rgba(0,0,0,.3), 0 0 25px -15px rgba(0,0,0,.2)",
+				sleek: "0 0 0 1px hsla(0,0%,100%,.06),0 -1px hsla(0,0%,100%,.1)"
 			},
 			colors: {
 				background: 'hsl(var(--background))',
@@ -87,10 +88,19 @@ const config: Config = {
 					from: { backgroundPosition: '200% 0' },
 					to: { backgroundPosition: '-200% 0' },
 				},
+				"shiny-text": {
+					"0%, 90%, 100%": {
+						"background-position": "calc(-100% - var(--shiny-width)) 0",
+					},
+					"30%, 60%": {
+						"background-position": "calc(100% + var(--shiny-width)) 0",
+					},
+				},
 			},
 			animation: {
 				marquee: 'marquee 40s linear infinite',
 				"shine": "shine 8s ease-in-out infinite",
+				"shiny-text": "shiny-text 8s infinite",
 			},
 		},
 	},

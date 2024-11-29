@@ -5,9 +5,17 @@ import { SiAmazonwebservices, SiAmazonwebservicesHex, SiFigma, SiGit, SiMailgun,
 import { ClassValue } from "clsx";
 import { BentoCard, BentoGrid } from "../ui/bento-grid";
 import MailgunEventDocumentationImage from "../../../public/assets/experience/mailgun_event_documentation.png";
-import { PersonStanding } from "lucide-react";
+import { CalendarDaysIcon, HourglassIcon, PersonStanding } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
 import DrBeachPhoto from "../../../public/assets/me/dr_beach.jpg";
+import { WakatimeSummaryResult } from "@/lib/types";
+import { useEffect, useState } from "react";
+import AnimatedShinyText from "../ui/animated-shiny-text";
+import { cn } from "@/lib/utils";
+import NumberTicker from "../ui/number-ticker";
+import Link from "next/link";
+import { Badge } from "../ui/badge";
+import { Button } from "../ui/button";
 
 const aboutSkills = [
 	{
@@ -90,34 +98,58 @@ const data = [
 ];
 
 export default function About() {
+	const [wakatimeStats, setWakatimeStats] = useState<WakatimeSummaryResult | null>(null);
+
+	const getWakatimeStats = async () => {
+		const res = await fetch('/api/getWakatimeStats');
+		const data = await res.json() as WakatimeSummaryResult;
+		return data;
+	}
+
+	useEffect(() => {
+		getWakatimeStats().then(data => setWakatimeStats(data)).catch(err => console.error(err));
+	}, []);
+
+
+
 	return (
 		<Tabs defaultValue="about" className="lg:max-w-[80rem] mt-20">
-			<TabsList className="grid grid-cols-3 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
+			<TabsList className="grid grid-cols-2 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
 				<TabsTrigger value="about">About</TabsTrigger>
 				<TabsTrigger value="experience">Experience</TabsTrigger>
-				<TabsTrigger value="education">Education</TabsTrigger>
 			</TabsList>
 			<TabsContent value="about" className="lg:max-w-[80rem] p-4 flex flex-col">
-				<div className="grid md:grid-cols-2 gap-4 md:mt-10">
-					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
+				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
+					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
 						<CardHeader>
-							<CardTitle className="text-2xl tracking-normal">Quick Background</CardTitle>
+							<CardTitle className="text-2xl">Background</CardTitle>
 						</CardHeader>
 						<CardContent className="flex flex-row gap-4">
-							<Image src={DrBeachPhoto} alt="Dominican Republic Beach" className="rounded-lg w-40 h-60" quality={100} />
 							<div className="flex flex-col gap-2">
-								<span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span><span> {"I'm passionate about creating beautiful and functional websites and applications."}</span>
-								<span>
-									I have been coding since I was 13 years old, starting with just JavaScript and now knowing many different languages and frameworks.</span>
+								<span>{"Hey, I'm Tony Drayton, a third year (20 years old) Computer Science student at Drexel University."}</span>
+								<div className="mt-6 flex flex-col gap-2">
+									<Badge className="w-fit" variant="secondary">Currently</Badge>
+									<span>
+										{"Working on "}
+										<span className="font-semibold">DragonGPT</span>
+										{", an AI powered chatbot for Drexel students."}
+									</span>
+									<Button variant="ringHover" asChild>
+										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank">Check out the live demo</Link>
+									</Button>
+								</div>
+
+
 							</div>
 						</CardContent>
 					</Card>
-					<Card className="col-span-1 bg-[var(--color-background)] dark:border-neutral-800 p-4">
+					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
 						<CardHeader>
-							<CardTitle className="text-2xl tracking-normal">My Go-Tos</CardTitle>
+							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
 						</CardHeader>
 						<CardContent>
-							<div className="grid grid-cols-2 gap-4">
+						These are the technologies I frequently use
+							<div className="mt-4 grid grid-cols-2 gap-4">
 								{aboutSkills.map((skill, index) => (
 									<div key={index} className="flex flex-row gap-1">
 										{skill.icon}
@@ -129,18 +161,58 @@ export default function About() {
 								))}
 							</div>
 						</CardContent>
-						<CardFooter className="text-sm text-muted-foreground">
-							These are the technologies I frequently use
-						</CardFooter>
 					</Card>
+					<div className="col-span-1 grid grid-cols-2 sm:grid-rows-2 sm:grid-cols-none gap-2">
+						<Card className="col-span-1 sm:row-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+							<CardHeader>
+								<CardTitle className="text-2xl flex flex-row items-center gap-2">
+									<HourglassIcon />Hours
+									</CardTitle>
+								<p className="text-xs text-muted-foreground">Coded since last year</p>
+							</CardHeader>
+							<CardContent className="flex items-center justify-center text-3xl font-mono">
+								{wakatimeStats
+									?
+									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:underline">
+										<NumberTicker value={parseInt(wakatimeStats?.data.human_readable_total.split(' ')[0])} />
+									</Link>
+									: "--"
+								}
+							</CardContent>
+						</Card>
+						<Card className="col-span-1 sm:row-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+							<CardHeader>
+								<CardTitle className="text-2xl flex flex-row items-center gap-2">
+									<CalendarDaysIcon />Daily
+									</CardTitle>
+							</CardHeader>
+							<CardContent className="flex items-center justify-center text-lg md:text-3xl font-mono">
+								{wakatimeStats
+									?
+									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:underline transition-all text-center">
+										{wakatimeStats.data.human_readable_daily_average}
+									</Link>
+									: "--"
+								}
+							</CardContent>
+						</Card>
+					</div>
+
 
 				</div>
 			</TabsContent>
 			<TabsContent value="experience" className="lg:max-w-[80rem]">
+				<div
+					className={cn(
+						"group shadow-sm w-fit mx-auto rounded-full border border-black/5 bg-green-200/60 text-base text-white transition-all ease-in hover:bg-neutral-200 dark:border-white/5 dark:bg-green-900/40 dark:hover:bg-neutral-800",
+					)}
+				>
+					<AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out text-green-600 dark:text-green-500 hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 text-sm sm:text-base">
+						<span>☘️ Currently looking for a new position!</span>
+						{/* <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" /> */}
+					</AnimatedShinyText>
+				</div>
 				<Timeline data={data} />
-			</TabsContent>
-			<TabsContent value="education" className="max-w-[30rem] p-4 flex flex-col">
-
 			</TabsContent>
 		</Tabs>
 	)

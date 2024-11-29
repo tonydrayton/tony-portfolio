@@ -44,6 +44,7 @@ export default function Nav() {
 				}}
 				transition={{
 					duration: 0.4,
+					ease: 'easeInOut'
 				}}
 				className="fixed left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
 				<div
@@ -56,7 +57,7 @@ export default function Nav() {
 								<a key={index} href={`#${section.toLowerCase()}`} className="relative text-sm sm:text-base dark:text-white/80 dark:hover:text-white/100 transition-all duration-300 ease-in-out drop-shadow-md group dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.3)]">
 									{section}
 									<span
-										className="absolute left-0 -bottom-5 h-0.5 bg-transparent transition-all duration-150 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+										className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 									/>
 								</a>
 							))}
@@ -78,7 +79,7 @@ export default function Nav() {
 								Resume
 								<span className="sr-only">Open Resume</span>
 								<span
-									className="absolute left-0 -bottom-5 h-0.5 bg-transparent transition-all duration-150 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-neutral-500 dark:to-neutral-200 from-neutral-700 to-neutral-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-150 ease-in-out group-hover:w-full group-hover:bg-black bg-gradient-to-r dark:group-hover:bg-white dark:from-neutral-500 dark:to-neutral-200 from-neutral-700 to-neutral-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 								/>
 
 							</motion.button>
@@ -89,13 +90,13 @@ export default function Nav() {
 							<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 								<Github className="size-4 sm:size-5" />
 								<span
-									className="absolute left-0 -bottom-4 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 								/>
 							</a>
 							<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 								<Linkedin className="size-4 sm:size-5" />
 								<span
-									className="absolute left-0 -bottom-4 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
 								/>
 							</a>
 						</div>

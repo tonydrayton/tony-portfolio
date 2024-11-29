@@ -10,7 +10,7 @@ const Container = ({
 ) => {
 	return (
 		<>
-			<section className={cn("flex justify-center items-center w-full h-svh", className)} {...props}>
+			<section className={cn("flex justify-center items-center w-full", className)} {...props}>
 				{children}
 			</section>
 		</>

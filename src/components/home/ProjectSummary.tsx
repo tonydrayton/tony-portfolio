@@ -176,7 +176,7 @@ export default function ProjectSummary() {
 					</p>
 
 					{project.skills && (
-						<div className='mt-2 flex flex-wrap gap-2 justify-center sm:items-start'>
+						<div className='mt-2 flex flex-wrap gap-2 justify-center sm:items-start sm:justify-start'>
 							{project.skills.map((skill, index) => (
 								<Badge key={index} className="transition-all duration-300 dark:border-neutral-700" variant="outline">
 									{skill.icon} {skill.name}
