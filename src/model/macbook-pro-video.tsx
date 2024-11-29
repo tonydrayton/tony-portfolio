@@ -55,12 +55,12 @@ type ActionName = 'Animation'
 type GLTFActions = Record<ActionName, THREE.AnimationAction>
 interface MacbookProProps extends React.ComponentProps<'group'> {
 	texturePath: string;
-	transitionFinished: boolean;
+	inView: boolean;
 }
 
 export const MacbookProVideo = (props: MacbookProProps) => {
 	const group = useRef<THREE.Group>(null);
-	const { texturePath, transitionFinished } = props;
+	const { texturePath, inView } = props;
 	const { nodes, materials, animations } = useGLTF('/assets/models/macbook_pro_13_inch_2020/scene.gltf') as GLTFResult
 	const { actions } = useAnimations(animations, group);
 	const texture = useVideoTexture(texturePath);
@@ -69,23 +69,16 @@ export const MacbookProVideo = (props: MacbookProProps) => {
 	// }
 
 	useEffect(() => {
-		console.log('Component mounted');
-		const animation = actions['Animation']
-
-		if (animation && transitionFinished) {
+		const animation = actions['Animation'];
+		if (animation && inView) {
 			const clip = animation.getClip();
-			console.log(clip.duration)
 			if(clip.duration > MACBOOK_ANIMATION_DURATION) clip.duration = clip.duration / 5;
 			animation.timeScale = 5;
 			animation.setLoop(THREE.LoopOnce, 1)
 			animation.play()
-			console.log('playing')
 			animation.clampWhenFinished = true // stop animation
 		}
-		return () => {
-			console.log('Component unmounted');
-		};
-	}, [transitionFinished, actions]);
+	}, [inView, actions]);
 
 	return (
 		<group ref={group} {...props} dispose={null}>

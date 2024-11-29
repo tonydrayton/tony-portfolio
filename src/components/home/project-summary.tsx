@@ -13,7 +13,7 @@ import { gsap } from 'gsap';
 import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
 import { fadeInVariants } from '@/utils/transitions';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 
 const iconClassName = "scale-75 mr-1 rounded-sm";
@@ -52,9 +52,10 @@ export default function ProjectSummary() {
 	const project = projects[projectIndex];
 	const [enableZoom, setEnableZoom] = useState(false);
 	const [userHasControl, setUserHasControl] = useState(false);
-	const [transitionFinished, setTransitionFinished] = useState(false);
 	const controlsRef = useRef<any>(null);
 	const animationRef = useRef<gsap.core.Tween | null>(null);
+	const observerRef = useRef<HTMLDivElement | null>(null);
+	const inView = useInView(observerRef, { once: true, amount: isDesktop ? 0.8 : "some" });
 
 	// reset OrbitControls when the project changes
 	useEffect(() => {
@@ -78,7 +79,7 @@ export default function ProjectSummary() {
 	// animate the computer to zoom in a lil
 	useGSAP(() => {
 		gsap.delayedCall(1, () => {
-			if (controlsRef.current && !userHasControl && transitionFinished) {
+			if (controlsRef.current && !userHasControl && inView) {
 				const controls = controlsRef.current;
 				animationRef.current = gsap.to(controls.object.position, {
 					x: 0,
@@ -93,22 +94,13 @@ export default function ProjectSummary() {
 				});
 			}
 		});
-	}, [transitionFinished, userHasControl, projectIndex]);
+	}, [inView, userHasControl, projectIndex]);
 
 	const handlePointerEnter = () => setEnableZoom(true);
 	const handlePointerLeave = () => setEnableZoom(false);
-	const handleTransitionComplete = () => {
-		setTransitionFinished(true); // Set to true when transition finishes
-	};
 
 	return (
-		<motion.div
-			initial="offscreen"
-			whileInView="onscreen"
-			viewport={{ once: true, amount: 0.5 }}
-			variants={fadeInVariants}
-			onAnimationComplete={handleTransitionComplete}
-		>
+		<div ref={observerRef}>
 			<div className='text-center relative top-16 md:top-28'>
 				<h2 className='text-3xl font-bold tracking-tight'>Selected Projects</h2>
 				<p className='text-lg text-muted-foreground'>You can move the Macbook!</p>
@@ -127,7 +119,7 @@ export default function ProjectSummary() {
 										position={[0, -2, 0]}
 										rotation={[0, 0, 0]}
 										texturePath={project.texturePath}
-										transitionFinished={transitionFinished}
+										inView={inView}
 										key={projectIndex}
 										onPointerEnter={handlePointerEnter}
 										onPointerLeave={handlePointerLeave}
@@ -139,7 +131,7 @@ export default function ProjectSummary() {
 										position={[0, -2, 0]}
 										rotation={[0, 0, 0]}
 										texturePath={project.texturePath}
-										transitionFinished={transitionFinished}
+										inView={inView}
 										key={projectIndex}
 										onPointerEnter={handlePointerEnter}
 										onPointerLeave={handlePointerLeave}
@@ -214,6 +206,6 @@ export default function ProjectSummary() {
 					</Button>
 				</div>
 			)}
-		</motion.div>
+		</div>
 	)
 }
