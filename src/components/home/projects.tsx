@@ -1,5 +1,5 @@
-import { Center, OrbitControls, OrbitControlsProps, PerspectiveCamera } from '@react-three/drei';
-import { Canvas, useThree } from '@react-three/fiber';
+import { Center, OrbitControls, PerspectiveCamera } from '@react-three/drei';
+import { Canvas } from '@react-three/fiber';
 import { Suspense, useEffect, useRef, useState } from 'react';
 import CanvasLoader from '../ui/canvas-loader';
 import { MacbookProVideo, MacbookProImage } from '@/model';
@@ -10,11 +10,9 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { ChevronLeft, ChevronRight, Github } from 'lucide-react';
 import { gsap } from 'gsap';
-import { ForwardRefComponent } from '@react-three/drei/helpers/ts-utils';
 import { useGSAP } from '@gsap/react';
-import { fadeInVariants } from '@/utils/transitions';
-import { motion, useInView } from 'framer-motion';
-import { SiAmazonwebservices, SiFlask, SiMysql, SiNextdotjs, SiNodedotjs, SiPayloadcms, SiReact, SiReactHex, SiTrpc, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
+import { useInView } from 'framer-motion';
+import { SiFlask, SiNextdotjs, SiPayloadcms, SiReact, SiTrpc, SiTypescript } from '@icons-pack/react-simple-icons';
 
 const iconClassName = "scale-75 mr-1 rounded-sm";
 const projects = [
@@ -158,7 +156,7 @@ export default function ProjectSummary() {
 						/>
 					</Canvas>
 				</div>
-				<div className="flex flex-col items-start p-8">
+				<div className="flex flex-col items-start p-4">
 					{/* <Badge className={`${projectIndex != 0 && 'opacity-0 select-none'} my-2 mt-6`}>New</Badge> */}
 					<p className="flex gap-2 flex-row flex-wrap items-center text-2xl mt-6">
 						{project.name}

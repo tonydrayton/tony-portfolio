@@ -1,13 +1,10 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Timeline } from "../ui/timeline";
-import { SiAmazonwebservices, SiAmazonwebservicesHex, SiFigma, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiMysqlHex, SiNextdotjs, SiNodedotjs, SiNodedotjsHex, SiPython, SiPythonHex, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from "@icons-pack/react-simple-icons";
+import { SiAmazonwebservices, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiNextdotjs, SiNodedotjs, SiPython, SiReact, SiTypescript } from "@icons-pack/react-simple-icons";
 import { ClassValue } from "clsx";
-import { BentoCard, BentoGrid } from "../ui/bento-grid";
-import MailgunEventDocumentationImage from "../../../public/assets/experience/mailgun_event_documentation.png";
 import { CalendarDaysIcon, HourglassIcon, PersonStanding } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "../ui/card";
-import DrBeachPhoto from "../../../public/assets/me/dr_beach.jpg";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { WakatimeSummaryResult } from "@/lib/types";
 import { useEffect, useState } from "react";
 import AnimatedShinyText from "../ui/animated-shiny-text";

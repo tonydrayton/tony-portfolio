@@ -1,6 +1,6 @@
 import { Github, Linkedin } from "lucide-react";
 import { ModeToggle } from "./ui/ModeToggle";
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from "react";
 import { useDebounce } from 'use-debounce';
 import { useResumeStore } from "@/stores/useResumeStore";
