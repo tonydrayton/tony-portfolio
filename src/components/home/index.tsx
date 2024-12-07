@@ -1,9 +1,9 @@
 "use client";
 import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
-import { Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
 import { TextGenerateEffect } from "../ui/generate-effect";
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ShinyAnchor } from "../ui/shiny-button";
 import MailTo from "../MailTo";
 import { Button } from "../ui/button";
@@ -11,7 +11,7 @@ import Container from "../Container";
 import About from "./about";
 import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useResumeStore } from "@/stores/useResumeStore";
 
 export default function Home() {
@@ -28,6 +28,8 @@ export default function Home() {
 	// 	};
 	// }, [socket, initializeSocket]);
 	const { resume, setResume } = useResumeStore();
+	const aboutSectionRef = useRef<HTMLDivElement | null>(null);
+	const aboutSectionInView = useInView(aboutSectionRef, { once: true, amount: 0.1 });
 
 	useEffect(() => {
 			getResumeURL();
@@ -43,6 +45,8 @@ export default function Home() {
 			console.error('Error fetching or opening PDF', error);
 		}
 	};
+
+	console.log({aboutSectionInView})
 
 	return (
 		<>
@@ -136,10 +140,40 @@ export default function Home() {
 						</div>
 					</div>
 				</MotionBlurFade>
+				<motion.div
+				className={cn(
+					"relative -bottom-80",
+				)}
+				initial={{
+					opacity: 0,
+					y: 10
+				}}
+				animate={
+					aboutSectionInView
+					? {
+						opacity: 0,
+						y: 10
+					}
+					: {
+						opacity: 1,
+						y: 0,
+						transition: {
+							duration: 0.75,
+							delay: 5,
+							ease: 'easeInOut',
+							repeat: Infinity,
+							repeatType: 'reverse'
+						}
+					}
+				}
+				>
+					<ChevronDown className="scale-125" />
+					<span className="sr-only">Scroll down</span>
+				</motion.div>
 			</Container>
 
 			<Container className="flex-col items-center justify-start" id="about">
-				<About />
+				<About aboutSectionRef={aboutSectionRef} />
 			</Container>
 
 			<Container className="mt-20 flex-col items-center" id="projects" >

@@ -90,7 +90,11 @@ const data = [
 	},
 ];
 
-export default function About() {
+export default function About({
+	aboutSectionRef
+}: {
+	aboutSectionRef: React.RefObject<HTMLDivElement>
+}) {
 	const [wakatimeStats, setWakatimeStats] = useState<WakatimeSummaryResult | null>(null);
 
 	const getWakatimeStats = async () => {
@@ -103,10 +107,8 @@ export default function About() {
 		getWakatimeStats().then(data => setWakatimeStats(data)).catch(err => console.error(err));
 	}, []);
 
-
-
 	return (
-		<Tabs defaultValue="about" className="lg:max-w-[80rem] mt-20">
+		<Tabs defaultValue="about" className="lg:max-w-[80rem] mt-20" ref={aboutSectionRef}>
 			<TabsList className="grid grid-cols-2 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
 				<TabsTrigger value="about">About</TabsTrigger>
 				<TabsTrigger value="experience">Experience</TabsTrigger>
