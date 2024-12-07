@@ -3,7 +3,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
 import { Timeline } from "../ui/timeline";
 import { SiAmazonwebservices, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiNextdotjs, SiNodedotjs, SiPython, SiReact, SiTypescript } from "@icons-pack/react-simple-icons";
 import { ClassValue } from "clsx";
-import { CalendarDaysIcon, HourglassIcon, PersonStanding } from "lucide-react";
+import { CalendarDaysIcon, HourglassIcon, PersonStanding, SquareArrowOutUpRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { WakatimeSummaryResult } from "@/lib/types";
 import { useEffect, useState } from "react";
@@ -123,18 +123,19 @@ export default function About({
 							<div className="flex flex-col gap-2">
 								<span>{"Hey, I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
 								<div className="mt-6 flex flex-col gap-2">
-									<Badge className="w-fit" variant="secondary">Currently</Badge>
+									<Badge className="w-fit" variant="default">Currently</Badge>
 									<span>
 										{"Working on "}
-										<span className="font-semibold">DragonGPT</span>
+										<span className="font-medium">DragonGPT</span>
 										{", an AI powered chatbot for Drexel students."}
 									</span>
 									<Button variant="ringHover" asChild>
-										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank">Check out the live demo</Link>
+										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1">
+											Check out the live demo
+											<SquareArrowOutUpRight className="scale-75" />
+										</Link>
 									</Button>
 								</div>
-
-
 							</div>
 						</CardContent>
 					</Card>

@@ -8,7 +8,7 @@ import { MinimumWidth } from '@/lib/types';
 import { Separator } from '@radix-ui/themes';
 import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
-import { ChevronLeft, ChevronRight, Github } from 'lucide-react';
+import { ArrowUpRight, ChevronLeft, ChevronRight, Github } from 'lucide-react';
 import { gsap } from 'gsap';
 import { useGSAP } from '@gsap/react';
 import { useInView } from 'framer-motion';
@@ -171,7 +171,7 @@ export default function ProjectSummary() {
 					{project.skills && (
 						<div className='mt-2 flex flex-wrap gap-2 items-start justify-start'>
 							{project.skills.map((skill, index) => (
-								<Badge key={index} className="transition-all duration-300 dark:border-neutral-700" variant="outline">
+								<Badge key={index} className="transition-all duration-300 dark:border-neutral-700" variant="secondary">
 									{skill.icon} {skill.name}
 								</Badge>
 							))}
@@ -190,9 +190,9 @@ export default function ProjectSummary() {
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
-						<Button variant="ringHover" className='w-fit flex flex-row gap-2' asChild>
+						<Button variant="expandIcon" Icon={ArrowUpRight} iconPlacement='right' className='w-fit flex flex-row' asChild>
 							<a href={project.link?.url} target="_blank">
-								{project.link?.icon}{project.link?.text}
+								{project.link?.text}
 							</a>
 						</Button>
 

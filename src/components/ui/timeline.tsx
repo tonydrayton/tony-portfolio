@@ -64,7 +64,7 @@ export const Timeline = ({ data }: { data: TimelineEntry[] }) => {
 							</h3>
 							<div className="hidden md:block">
 								{item.skills.map((skill, index) => (
-									<Badge key={index} className="m-1 transition-all duration-300 dark:border-neutral-700" variant="outline">
+									<Badge key={index} className="m-1 transition-all duration-300 dark:border-neutral-700" variant="secondary">
 										{skill.icon} {skill.name}
 									</Badge>
 								))}
