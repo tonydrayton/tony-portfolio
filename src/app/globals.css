@@ -75,6 +75,13 @@ body {
 		--chart-4: 43 74% 66%;
 		--chart-5: 27 87% 67%;
 		--radius: 0.5rem;
+
+		--horizontal-size: 50px;
+		--vertical-size: 50px;
+		--mask-visible: #000;
+		--mask-invisible: transparent;
+		--shadow-horizontal: linear-gradient(to right, var(--mask-invisible) 0%, var(--mask-visible) var(--horizontal-size), var(--mask-visible) calc(100% - var(--horizontal-size)), var(--mask-invisible) 100%);
+    	--shadow-vertical: linear-gradient(to bottom, var(--mask-invisible) 0%, var(--mask-visible) var(--vertical-size), var(--mask-visible) calc(100% - var(--vertical-size)), var(--mask-invisible) 100%);
 	}
 
 	.dark {
@@ -103,4 +110,11 @@ body {
 		--chart-4: 280 65% 60%;
 		--chart-5: 340 75% 55%;
 	}
+}
+
+.mask {
+	mask-image: var(--shadow-horizontal), var(--shadow-vertical);
+	-webkit-mask-image: var(--shadow-horizontal), var(--shadow-vertical);
+	mask-composite: intersect;
+	-webkit-mask-composite: destination-in;
 }

@@ -13,39 +13,68 @@ import NumberTicker from "../ui/number-ticker";
 import Link from "next/link";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
+import Marquee from "../ui/marquee";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 
-const aboutSkills = [
+interface Skill {
+	icon: JSX.Element;
+	name: string;
+	description: string;
+}
+
+const aboutSkills: Skill[] = [
 	{
-		icon: <SiTypescript className="scale-75" />,
+		icon: <SiTypescript className="h-10 w-10 peer-hover:text-blue-400" />,
 		name: "TypeScript",
 		description: "JavaScript with syntax for types"
 	},
 	{
-		icon: <SiNodedotjs className="scale-75" />,
+		icon: <SiNodedotjs className="h-10 w-10" />,
 		name: "Node.js",
 		description: "JavaScript runtime environment"
 	},
 	{
-		icon: <SiReact className="scale-75" />,
+		icon: <SiReact className="h-10 w-10" />,
 		name: "React",
 		description: "Library for web user interfaces"
 	},
 	{
-		icon: <SiNextdotjs className="scale-75" />,
+		icon: <SiNextdotjs className="h-10 w-10" />,
 		name: "Next.js",
 		description: "Framework for React"
 	},
 	{
-		icon: <SiPython className="scale-75" />,
+		icon: <SiPython className="h-10 w-10" />,
 		name: "Python",
 		description: "Programming language"
 	},
 	{
-		icon: <SiGit className="scale-75" />,
+		icon: <SiGit className="h-10 w-10" />,
 		name: "Git",
 		description: "Version Control"
 	}
 ]
+
+const SkillCard = ({ skill }: { skill: Skill }) => {
+	return (
+		<TooltipProvider>
+			<Tooltip>
+				<TooltipTrigger className="cursor-default">
+					<div className="flex flex-col justify-center items-center border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow-md peer">
+						{skill.icon}
+						<span className="text-muted-foreground text-xs">{skill.name}</span>
+					</div>
+				</TooltipTrigger>
+				<TooltipContent>
+					{skill.description}
+				</TooltipContent>
+			</Tooltip>
+		</TooltipProvider>
+	)
+}
+
+const firstSkills = aboutSkills.slice(0, aboutSkills.length / 2);
+const secondSkills = aboutSkills.slice(aboutSkills.length / 2);
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"
 const data = [
@@ -65,26 +94,26 @@ const data = [
 					</span>
 					, I designed and implemented a webhook mail handler which handles all transactional and event mail for the platform
 				</p> */}
-					<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
-						<CardHeader>
-							<CardTitle className="flex flex-row gap-2 items-center text-xl">
-								<SiMailgun color={SiMailgunHex} /> Webhook Handler
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
-						</CardContent>
-					</Card>
-					<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
-						<CardHeader>
-							<CardTitle className="flex flex-row gap-2 items-center text-xl">
-								<PersonStanding /> Events
-							</CardTitle>
-						</CardHeader>
-						<CardContent>
-							{"Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion and Drexel's 50-year reunion of the Class of 1973, as support staff"}
-						</CardContent>
-					</Card>
+				<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+					<CardHeader>
+						<CardTitle className="flex flex-row gap-2 items-center text-xl">
+							<SiMailgun color={SiMailgunHex} /> Webhook Handler
+						</CardTitle>
+					</CardHeader>
+					<CardContent>
+						Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
+					</CardContent>
+				</Card>
+				<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+					<CardHeader>
+						<CardTitle className="flex flex-row gap-2 items-center text-xl">
+							<PersonStanding /> Events
+						</CardTitle>
+					</CardHeader>
+					<CardContent>
+						{"Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion and Drexel's 50-year reunion of the Class of 1973, as support staff"}
+					</CardContent>
+				</Card>
 			</div>
 		),
 	},
@@ -117,20 +146,27 @@ export default function About({
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
 					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
 						<CardHeader>
+							{/* <div className="mask hover:[mask-image:unset] transition-all">
+								<img
+								src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=2805&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+								alt="Background"
+								className="rounded-lg"
+								/>
+							</div> */}
 							<CardTitle className="text-2xl">Background</CardTitle>
 						</CardHeader>
 						<CardContent className="flex flex-row gap-4">
 							<div className="flex flex-col gap-2">
-								<span>{"Hey, I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
+								<span>{"I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
 								<div className="mt-6 flex flex-col gap-2">
-									<Badge className="w-fit" variant="default">Currently</Badge>
+									{/* <Badge className="w-fit text-muted-foreground" variant="secondary">Currently</Badge> */}
 									<span>
-										{"Working on "}
+										{"Currently working on "}
 										<span className="font-medium">DragonGPT</span>
 										{", an AI powered chatbot for Drexel students."}
 									</span>
-									<Button variant="ringHover" asChild>
-										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1">
+									<Button variant="outline" asChild>
+										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1 shadow-sleek drop-shadow-sm dark:border-none dark:bg-[linear-gradient(to_bottom,hsla(0,0%,100%,.05),transparent_50%)]">
 											Check out the live demo
 											<SquareArrowOutUpRight className="scale-75" />
 										</Link>
@@ -139,13 +175,13 @@ export default function About({
 							</div>
 						</CardContent>
 					</Card>
-					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2 overflow-hidden">
 						<CardHeader>
 							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
 						</CardHeader>
 						<CardContent>
-						These are the technologies I frequently use
-							<div className="mt-4 grid grid-cols-2 gap-4">
+							These are the technologies I frequently use
+							{/* <div className="mt-4 grid grid-cols-2 gap-4">
 								{aboutSkills.map((skill, index) => (
 									<div key={index} className="flex flex-row gap-1">
 										{skill.icon}
@@ -155,6 +191,21 @@ export default function About({
 										</div>
 									</div>
 								))}
+							</div> */}
+							<div className="mt-4 relative flex flex-col overflow-hidden">
+								<Marquee pauseOnHover>
+									{firstSkills.map((skill, index) => (
+										<SkillCard skill={skill} key={index} />
+									))}
+								</Marquee>
+								<Marquee reverse pauseOnHover>
+									{secondSkills.map((skill, index) => (
+										<SkillCard skill={skill} key={index} />
+
+									))}
+								</Marquee>
+								<div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-white dark:from-background"></div>
+								<div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-white dark:from-background"></div>
 							</div>
 						</CardContent>
 					</Card>
@@ -163,7 +214,7 @@ export default function About({
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<HourglassIcon />Hours
-									</CardTitle>
+								</CardTitle>
 								<p className="text-xs text-muted-foreground">Coded since last year</p>
 							</CardHeader>
 							<CardContent className="flex items-center justify-center text-3xl font-mono">
@@ -180,7 +231,7 @@ export default function About({
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<CalendarDaysIcon />Daily
-									</CardTitle>
+								</CardTitle>
 							</CardHeader>
 							<CardContent className="flex items-center justify-center text-lg md:text-3xl font-mono">
 								{wakatimeStats
@@ -193,8 +244,6 @@ export default function About({
 							</CardContent>
 						</Card>
 					</div>
-
-
 				</div>
 			</TabsContent>
 			<TabsContent value="experience" className="lg:max-w-[80rem]">
@@ -207,6 +256,7 @@ export default function About({
 						<span>☘️ Currently looking for a new position!</span>
 					</AnimatedShinyText>
 				</div> */}
+
 				<Timeline data={data} />
 			</TabsContent>
 		</Tabs>

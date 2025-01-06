@@ -47,8 +47,6 @@ export default function Home() {
 		}
 	};
 
-	console.log({aboutSectionInView})
-
 	return (
 		<>
 			<Container className="flex-col items-center min-h-screen">
