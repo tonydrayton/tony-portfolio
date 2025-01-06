@@ -13,6 +13,7 @@ import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
 import { useEffect, useRef } from "react";
 import { useResumeStore } from "@/stores/useResumeStore";
+import { Separator } from "../ui/separator";
 
 export default function Home() {
 	// Initiate a socket connection to the Lanyard API, not using atm
@@ -176,7 +177,8 @@ export default function Home() {
 				<About aboutSectionRef={aboutSectionRef} />
 			</Container>
 
-			<Container className="mt-20 flex-col items-center" id="projects" >
+			<Separator orientation="horizontal" className="mt-20" />
+			<Container className="flex-col items-center bg-[linear-gradient(to_bottom,hsla(0,0%,100%,.05),transparent_50%)]" id="projects" >
 				<ProjectSummary />
 			</Container>
 

@@ -198,16 +198,15 @@ export default function About({
 				</div>
 			</TabsContent>
 			<TabsContent value="experience" className="lg:max-w-[80rem]">
-				<div
+				{/* <div
 					className={cn(
 						"group shadow-sm w-fit mx-auto rounded-full border border-black/5 bg-green-200/60 text-base text-white transition-all ease-in hover:bg-neutral-200 dark:border-white/5 dark:bg-green-900/40 dark:hover:bg-neutral-800",
 					)}
 				>
 					<AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out text-green-600 dark:text-green-500 hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 text-sm sm:text-base">
 						<span>☘️ Currently looking for a new position!</span>
-						{/* <ArrowRightIcon className="ml-1 size-3 transition-transform duration-300 ease-in-out group-hover:translate-x-0.5" /> */}
 					</AnimatedShinyText>
-				</div>
+				</div> */}
 				<Timeline data={data} />
 			</TabsContent>
 		</Tabs>
