@@ -141,7 +141,7 @@ export default function Home() {
 				</MotionBlurFade>
 				<motion.div
 				className={cn(
-					"relative -bottom-80",
+					"relative -bottom-52",
 				)}
 				initial={{
 					opacity: 0,
