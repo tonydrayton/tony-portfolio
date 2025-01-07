@@ -158,20 +158,19 @@ export default function About({
 						<CardContent className="flex flex-row gap-4">
 							<div className="flex flex-col gap-2">
 								<span>{"I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
-								<div className="mt-6 flex flex-col gap-2">
-									{/* <Badge className="w-fit text-muted-foreground" variant="secondary">Currently</Badge> */}
-									<span>
-										{"Currently working on "}
-										<span className="font-medium">DragonGPT</span>
-										{", an AI powered chatbot for Drexel students."}
-									</span>
-									<Button variant="default" asChild>
-										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1">
-											Check out the live demo
-											<SquareArrowOutUpRight className="scale-75" />
-										</Link>
-									</Button>
-								</div>
+								<span>{"∙ Interning at "}
+									<span className="inline font-semibold dark:animate-gradient dark:bg-gradient-to-r dark:from-[#ffaa40] dark:via-[#ff40f9] dark:to-[#ffaa40] dark:bg-[length:var(--bg-size)_100%] dark:bg-clip-text dark:text-transparent drop-shadow-md">Comcast</span>
+									{" as a Software Engineer this spring."}
+								</span>
+								<span>
+									{"∙ Currently working on DragonGPT, an AI powered chatbot for Drexel students."}
+								</span>
+								<Button variant="default" asChild>
+									<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1 mt-2">
+										Check out the live demo
+										<SquareArrowOutUpRight className="scale-75" />
+									</Link>
+								</Button>
 							</div>
 						</CardContent>
 					</Card>

@@ -118,13 +118,19 @@ const config: Config = {
     				to: {
     					transform: 'translateY(calc(-100% - var(--gap)))'
     				}
-    			}
+    			},
+				gradient: {
+					to: {
+					  backgroundPosition: "var(--bg-size) 0",
+					},
+				},
     		},
     		animation: {
     			marquee: 'marquee var(--duration) infinite linear',
     			'shine': 'shine 8s ease-in-out infinite',
     			'shiny-text': 'shiny-text 8s infinite',
-    			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite'
+    			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
+				gradient: "gradient 2s linear infinite",
     		}
     	}
     },
