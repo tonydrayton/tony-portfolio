@@ -138,9 +138,9 @@ export default function About({
 
 	return (
 		<Tabs defaultValue="about" className="lg:max-w-[80rem] mt-20" ref={aboutSectionRef}>
-			<TabsList className="grid grid-cols-2 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
-				<TabsTrigger value="about">About</TabsTrigger>
-				<TabsTrigger value="experience">Experience</TabsTrigger>
+			<TabsList className="rounded-xl grid grid-cols-2 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
+				<TabsTrigger value="about" className="rounded-lg">About</TabsTrigger>
+				<TabsTrigger value="experience" className="rounded-lg">Experience</TabsTrigger>
 			</TabsList>
 			<TabsContent value="about" className="lg:max-w-[80rem] p-4 flex flex-col">
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
@@ -165,8 +165,8 @@ export default function About({
 										<span className="font-medium">DragonGPT</span>
 										{", an AI powered chatbot for Drexel students."}
 									</span>
-									<Button variant="outline" asChild>
-										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1 shadow-sleek drop-shadow-sm dark:border-none dark:bg-[linear-gradient(to_bottom,hsla(0,0%,100%,.05),transparent_50%)]">
+									<Button variant="default" asChild>
+										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1">
 											Check out the live demo
 											<SquareArrowOutUpRight className="scale-75" />
 										</Link>

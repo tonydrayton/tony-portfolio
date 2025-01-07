@@ -190,7 +190,7 @@ export default function ProjectSummary() {
 							<span className='sr-only'>Previous</span>
 						</Button>}
 
-						<Button variant="expandIcon" Icon={ArrowUpRight} iconPlacement='right' className='w-fit flex flex-row' asChild>
+						<Button variant="default" Icon={ArrowUpRight} iconPlacement='right' className='w-fit flex flex-row' asChild>
 							<a href={project.link?.url} target="_blank">
 								{project.link?.text}
 							</a>
