@@ -159,7 +159,7 @@ export default function About({
 							<div className="flex flex-col gap-2">
 								<span>{"I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
 								<span>{"∙ Interning at "}
-									<span className="inline font-semibold dark:animate-gradient dark:bg-gradient-to-r dark:from-[#ffaa40] dark:via-[#ff40f9] dark:to-[#ffaa40] dark:bg-[length:var(--bg-size)_100%] dark:bg-clip-text dark:text-transparent drop-shadow-md">Comcast</span>
+									<span className="inline font-semibold drop-shadow-md">Comcast</span>
 									{" as a Software Engineer this spring."}
 								</span>
 								<span>
