@@ -57,7 +57,7 @@ const aboutSkills: Skill[] = [
 
 const SkillCard = ({ skill }: { skill: Skill }) => {
 	return (
-		<TooltipProvider>
+		<TooltipProvider delayDuration={50}>
 			<Tooltip>
 				<TooltipTrigger className="cursor-default">
 					<div className="flex flex-col justify-center items-center border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow-md peer">
@@ -65,7 +65,10 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 						<span className="text-muted-foreground text-xs">{skill.name}</span>
 					</div>
 				</TooltipTrigger>
-				<TooltipContent>
+				<TooltipContent className={cn(
+					"backdrop-blur border bg-black/50 text-white border-neutral-300",
+					"dark:bg-white/5 dark:text-white dark:border-neutral-700",
+					)}>
 					{skill.description}
 				</TooltipContent>
 			</Tooltip>
