@@ -109,7 +109,7 @@ export default function ProjectSummary() {
 			</div>
 			<div className='flex flex-col w-full md:w-[unset] md:flex-row items-center'>
 				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none md:mx-6'>
-					<Canvas>
+					<Canvas className='rounded-2xl'>
 						<ambientLight intensity={1} />
 						<directionalLight position={[10, 10, 5]} intensity={3} />
 						<PerspectiveCamera makeDefault position={[0, 0, 5]} fov={75} />
