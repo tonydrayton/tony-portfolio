@@ -62,7 +62,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-[100svh]">
+		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-svh">
 			<body className={`h-full ${inter.className}`}>
 				<ThemeProvider attribute="class" defaultTheme="light">
 					<Theme grayColor="mauve">

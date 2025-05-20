@@ -66,7 +66,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 					</div>
 				</TooltipTrigger>
 				<TooltipContent className={cn(
-					"backdrop-blur border bg-black/50 text-white border-neutral-300",
+					"backdrop-blur-sm border bg-black/50 text-white border-neutral-300",
 					"dark:bg-white/5 dark:text-white dark:border-neutral-700",
 					)}>
 					{skill.description}
@@ -97,7 +97,7 @@ const data = [
 					</span>
 					, I designed and implemented a webhook mail handler which handles all transactional and event mail for the platform
 				</p> */}
-				<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+				<Card className="col-span-3 lg:col-span-2 bg-(--color-background) dark:shadow-sleek dark:border-none">
 					<CardHeader>
 						<CardTitle className="flex flex-row gap-2 items-center text-xl">
 							<SiMailgun color={SiMailgunHex} /> Webhook Handler
@@ -107,7 +107,7 @@ const data = [
 						Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
 					</CardContent>
 				</Card>
-				<Card className="col-span-3 lg:col-span-2 bg-[var(--color-background)] dark:shadow-sleek dark:border-none">
+				<Card className="col-span-3 lg:col-span-2 bg-(--color-background) dark:shadow-sleek dark:border-none">
 					<CardHeader>
 						<CardTitle className="flex flex-row gap-2 items-center text-xl">
 							<PersonStanding /> Events
@@ -140,16 +140,16 @@ export default function About({
 	}, []);
 
 	return (
-		<Tabs defaultValue="about" className="lg:max-w-[80rem] mt-20" ref={aboutSectionRef}>
-			<TabsList className="rounded-xl grid grid-cols-2 mx-auto lg:w-[30rem] md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
+		<Tabs defaultValue="about" className="lg:max-w-7xl mt-20" ref={aboutSectionRef}>
+			<TabsList className="rounded-xl grid grid-cols-2 mx-auto lg:w-120 md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
 				<TabsTrigger value="about" className="rounded-lg">About</TabsTrigger>
 				<TabsTrigger value="experience" className="rounded-lg">Experience</TabsTrigger>
 			</TabsList>
-			<TabsContent value="about" className="lg:max-w-[80rem] p-4 flex flex-col">
+			<TabsContent value="about" className="lg:max-w-7xl p-4 flex flex-col">
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
-					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+					<Card className="col-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
 						<CardHeader>
-							{/* <div className="mask hover:[mask-image:unset] transition-all">
+							{/* <div className="mask hover:mask-[unset] transition-all">
 								<img
 								src="https://images.unsplash.com/photo-1517059224940-d4af9eec41b7?q=80&w=2805&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 								alt="Background"
@@ -177,7 +177,7 @@ export default function About({
 							</div>
 						</CardContent>
 					</Card>
-					<Card className="col-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2 overflow-hidden">
+					<Card className="col-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2 overflow-hidden">
 						<CardHeader>
 							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
 						</CardHeader>
@@ -206,13 +206,13 @@ export default function About({
 
 									))}
 								</Marquee>
-								<div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r from-white dark:from-background"></div>
-								<div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l from-white dark:from-background"></div>
+								<div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-linear-to-r from-white dark:from-background"></div>
+								<div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-linear-to-l from-white dark:from-background"></div>
 							</div>
 						</CardContent>
 					</Card>
 					<div className="col-span-1 grid grid-cols-2 sm:grid-rows-2 sm:grid-cols-none gap-2">
-						<Card className="col-span-1 sm:row-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+						<Card className="col-span-1 sm:row-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<HourglassIcon />Hours
@@ -229,7 +229,7 @@ export default function About({
 								}
 							</CardContent>
 						</Card>
-						<Card className="col-span-1 sm:row-span-1 bg-[var(--color-background)] dark:shadow-sleek dark:border-none p-2">
+						<Card className="col-span-1 sm:row-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<CalendarDaysIcon />Daily
@@ -248,13 +248,13 @@ export default function About({
 					</div>
 				</div>
 			</TabsContent>
-			<TabsContent value="experience" className="lg:max-w-[80rem]">
+			<TabsContent value="experience" className="lg:max-w-7xl">
 				{/* <div
 					className={cn(
-						"group shadow-sm w-fit mx-auto rounded-full border border-black/5 bg-green-200/60 text-base text-white transition-all ease-in hover:bg-neutral-200 dark:border-white/5 dark:bg-green-900/40 dark:hover:bg-neutral-800",
+						"group shadow-xs w-fit mx-auto rounded-full border border-black/5 bg-green-200/60 text-base text-white transition-all ease-in hover:bg-neutral-200 dark:border-white/5 dark:bg-green-900/40 dark:hover:bg-neutral-800",
 					)}
 				>
-					<AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out text-green-600 dark:text-green-500 hover:text-neutral-600 hover:duration-300 hover:dark:text-neutral-400 text-sm sm:text-base">
+					<AnimatedShinyText className="inline-flex items-center justify-center px-4 py-1 transition ease-out text-green-600 dark:text-green-500 hover:text-neutral-600 hover:duration-300 dark:hover:text-neutral-400 text-sm sm:text-base">
 						<span>☘️ Currently looking for a new position!</span>
 					</AnimatedShinyText>
 				</div> */}

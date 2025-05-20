@@ -56,7 +56,7 @@ export default function Home() {
 					duration={2}
 					repeatDelay={1}
 					className={cn(
-						"[mask-image:radial-gradient(350px_circle_at_50%_50%,white,transparent)] md:[mask-image:radial-gradient(500px_circle_at_50%_50%,white,transparent)]",
+						"mask-[radial-gradient(350px_circle_at_50%_50%,white,transparent)] md:mask-[radial-gradient(500px_circle_at_50%_50%,white,transparent)]",
 						"inset-0 absolute skew-y-12 h-screen opacity-90",
 					)}
 				/>
@@ -180,7 +180,7 @@ export default function Home() {
 				<ProjectSummary />
 			</Container>
 
-			<div className="shrink-0 bg-border h-[1px] w-full my-10" />
+			<div className="shrink-0 bg-border h-px w-full my-10" />
 			<footer className="flex flex-col justify-center items-center w-full p-4 text-center">
 				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
 				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">Shoot me an email at

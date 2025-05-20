@@ -108,7 +108,7 @@ export default function ProjectSummary() {
 				<p className='text-lg text-muted-foreground'>You can move the Macbook!</p>
 			</div>
 			<div className='flex flex-col w-full md:w-[unset] md:flex-row items-center'>
-				<div className='md:h-[40rem] md:w-[40rem] w-96 h-96 select-none md:mx-6'>
+				<div className='md:h-160 md:w-160 w-96 h-96 select-none md:mx-6'>
 					<Canvas className='rounded-2xl'>
 						<ambientLight intensity={1} />
 						<directionalLight position={[10, 10, 5]} intensity={3} />
