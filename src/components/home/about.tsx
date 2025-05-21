@@ -1,20 +1,19 @@
 import Image from "next/image";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Timeline } from "../ui/timeline";
-import { SiAmazonwebservices, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiNextdotjs, SiNodedotjs, SiPython, SiReact, SiTypescript } from "@icons-pack/react-simple-icons";
+import { SiAmazonwebservices, SiApachecassandra, SiApachecassandraHex, SiCommonworkflowlanguage, SiGit, SiMailgun, SiMailgunHex, SiMysql, SiNextdotjs, SiNodedotjs, SiNodedotjsHex, SiPython, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from "@icons-pack/react-simple-icons";
 import { ClassValue } from "clsx";
-import { CalendarDaysIcon, HourglassIcon, PersonStanding, SquareArrowOutUpRight } from "lucide-react";
+import { CalendarDaysIcon, HourglassIcon, SquareArrowOutUpRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { WakatimeSummaryResult } from "@/lib/types";
-import { useEffect, useState } from "react";
-import AnimatedShinyText from "../ui/animated-shiny-text";
+import { CSSProperties, useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import NumberTicker from "../ui/number-ticker";
 import Link from "next/link";
-import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import Marquee from "../ui/marquee";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { AnimatedDBCard, EventsCard, MailCard } from "./experience/feature-cards";
+import AnimatedShinyText from "../ui/animated-shiny-text";
 
 interface Skill {
 	icon: JSX.Element;
@@ -68,7 +67,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 				<TooltipContent className={cn(
 					"backdrop-blur-sm border bg-black/50 text-white border-neutral-300",
 					"dark:bg-white/5 dark:text-white dark:border-neutral-700",
-					)}>
+				)}>
 					{skill.description}
 				</TooltipContent>
 			</Tooltip>
@@ -80,46 +79,31 @@ const firstSkills = aboutSkills.slice(0, aboutSkills.length / 2);
 const secondSkills = aboutSkills.slice(aboutSkills.length / 2);
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"
-const data = [
+const experienceData = [
+	{
+		logo: "/comcast_logo.png",
+		title: "Software Engineer Intern",
+		workplace: { name: "Comcast", url: "https://www.xfinity.com" },
+		date: "April 2025 - Present",
+		skills: [{ icon: <SiTypescript className={iconClassName} fill={SiTypescriptHex} />, name: "TypeScript" }, { icon: <SiApachecassandra className={iconClassName} fill={SiApachecassandraHex} />, name: "Cassandra" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
+		cards: [
+			<AnimatedDBCard />,
+			<div className="max-w-sm flex justify-center items-center p-2">
+				+ more to come
+			</div>
+		]
+	},
 	{
 		logo: "/alumniq_logo.png",
 		title: "Junior Software Engineer",
 		workplace: { name: "AlumnIQ", url: "https://www.alumniq.com" },
 		date: "April 2024 - Sep. 2024",
-		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNodedotjs className={iconClassName} />, name: "Node.js" }, { icon: <SiMysql className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
-		content: (
-			<div className="grid grid-cols-3 lg:grid-cols-4 gap-4">
-				{/* <p className="text-neutral-800 dark:text-neutral-200 text-sm md:text-base font-normal mb-8">
-					Using the
-					<span className="inline-flex items-baseline">
-						<SiMailgun color={SiMailgunHex} className="scale-50 md:scale-75 rounded-sm relative top-2" />
-						Mailgun API
-					</span>
-					, I designed and implemented a webhook mail handler which handles all transactional and event mail for the platform
-				</p> */}
-				<Card className="col-span-3 lg:col-span-2 bg-(--color-background) dark:shadow-sleek dark:border-none">
-					<CardHeader>
-						<CardTitle className="flex flex-row gap-2 items-center text-xl">
-							<SiMailgun color={SiMailgunHex} /> Webhook Handler
-						</CardTitle>
-					</CardHeader>
-					<CardContent>
-						Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
-					</CardContent>
-				</Card>
-				<Card className="col-span-3 lg:col-span-2 bg-(--color-background) dark:shadow-sleek dark:border-none">
-					<CardHeader>
-						<CardTitle className="flex flex-row gap-2 items-center text-xl">
-							<PersonStanding /> Events
-						</CardTitle>
-					</CardHeader>
-					<CardContent>
-						{"Went to inperson Alumni reunion events, such as the annual UPenn Alumni Reunion and Drexel's 50-year reunion of the Class of 1973, as support staff"}
-					</CardContent>
-				</Card>
-			</div>
-		),
-	},
+		skills: [{ icon: <Image src="/logos/coldfusion.png" alt="ColdFusion logo" width={25} height={25} className={iconClassName} />, name: "ColdFusion" }, { icon: <SiMysql className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
+		cards: [
+			<MailCard />,
+			<EventsCard />,
+		]
+	}
 ];
 
 export default function About({
@@ -248,7 +232,7 @@ export default function About({
 					</div>
 				</div>
 			</TabsContent>
-			<TabsContent value="experience" className="lg:max-w-7xl">
+			<TabsContent value="experience" className="max-w-full px-2 md:px-6 lg:max-w-7xl">
 				{/* <div
 					className={cn(
 						"group shadow-xs w-fit mx-auto rounded-full border border-black/5 bg-green-200/60 text-base text-white transition-all ease-in hover:bg-neutral-200 dark:border-white/5 dark:bg-green-900/40 dark:hover:bg-neutral-800",
@@ -259,8 +243,50 @@ export default function About({
 					</AnimatedShinyText>
 				</div> */}
 
-				<Timeline data={data} />
+				<div className="mt-10 flex flex-col gap-10 md:gap-8 w-full">
+					{experienceData.map((exp, index) => (
+						<div className="flex flex-col md:flex-row md:gap-4" key={index}>
+							<div className="sticky w-40 pt-1 text-sm text-muted-foreground">{exp.date}</div>
+							<div className="flex flex-col gap-2">
+								<p className="text-lg font-semibold tracking-tight">{exp.title} @
+									<Link 
+										href={exp.workplace.url} 
+										target="_blank" 
+										className={cn(
+											"ml-1 text-primary/70",
+											"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
+											"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
+											"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
+										)}
+										style={{
+											"--shiny-width": "75px",
+										} as CSSProperties}
+									>
+										{exp.workplace.name}
+									</Link>
+								</p>
+								{/* <div className="flex flex-row flex-wrap gap-2 mb-2">
+									{exp.skills.map((skill, index) => (
+										<Badge variant="outline" className="flex flex-row gap-1 items-center" key={index}>
+											{skill.icon}
+											{skill.name}
+										</Badge>
+									))}
+								</div> */}
+								<div className="flex flex-col md:flex-row gap-4 max-w-3xl">
+									{exp.cards.map((card, index) => (
+										<>{card}</>
+									))}
+								</div>
+							</div>
+
+						</div>
+					))}
+					<div className="w-[1px] bg-muted-foreground/50" />
+				</div>
 			</TabsContent>
 		</Tabs>
 	)
 }
+
+
