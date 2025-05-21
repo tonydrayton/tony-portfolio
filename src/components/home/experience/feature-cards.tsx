@@ -4,11 +4,11 @@ import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { SiAmazonwebservices, SiMailgun, SiMailgunHex, SiReact, SiReactHex } from '@icons-pack/react-simple-icons';
+import { SiAmazonwebservices, SiMailgun, SiMailgunHex, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useId, useRef, useState } from 'react';
+import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
 
 // export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
@@ -43,7 +43,7 @@ const IntegrationCard = React.forwardRef<HTMLDivElement, {
 }>((props, forwardedRef) => {
 	const { children, className, position, isCenter = false } = props;
 	return (
-		<div ref={forwardedRef} className={cn('z-50 bg-neutral-100 dark:bg-neutral-900 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
+		<div ref={forwardedRef} className={cn('z-20 bg-neutral-100 dark:bg-neutral-900 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
 			<div className={cn('relative z-20 m-auto size-fit *:size-6', isCenter && '*:size-8')}>{children}</div>
 		</div>
 	)
@@ -243,7 +243,7 @@ export function AnimatedDBCard() {
 
 	return (
 		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
-			<div className="pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+			<div className="select-none pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
 						width={20}
@@ -326,7 +326,7 @@ export function MailCard() {
 
 	return (
 		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
-			<div className="pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
 						width={20}
@@ -384,14 +384,15 @@ export function EventsCard() {
 	const windowSize = useWindowSize();
 	const isDesktop = windowSize.width >= MinimumWidth.Medium;
 	const ref = useRef(null);
-	const isInView = useInView(ref, { amount: 0.5 });
+	const isInView = useInView(ref, { amount: 0.8 });
 
 	useEffect(() => {
 		if (isDesktop) {
 			if (isHovered) {
 				animate(".chat-container", {
 					opacity: 1,
-					filter: "blur(0px)"
+					filter: "blur(0px)",
+					transform: "translateY(0)"
 				}, {
 					duration: 0.75,
 					delay: stagger(1)
@@ -400,7 +401,8 @@ export function EventsCard() {
 		} else if (isInView) {
 			animate(".chat-container", {
 				opacity: 1,
-				filter: "blur(0px)"
+				filter: "blur(0px)",
+				transform: "translateY(0)"
 			}, {
 				duration: 0.75,
 				delay: stagger(1)
@@ -415,7 +417,7 @@ export function EventsCard() {
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
 			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
-			<div className="pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
 						width={20}
@@ -436,9 +438,9 @@ export function EventsCard() {
 			</div>
 			<motion.ul
 				ref={scope}
-				className="overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6"
+				className="overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6 pointer-events-none select-none"
 			>
-				<motion.li className="chat-container flex flex-row gap-4 items-center" style={{ filter: "blur(10px)", opacity: 0 }}>
+				<motion.li className="chat-container flex flex-row gap-4 items-center" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
 							src="/person-2.webp"
@@ -452,7 +454,7 @@ export function EventsCard() {
 						<p className="text-xs">Hi, could we get some help over at booth 3?</p>
 					</div>
 				</motion.li>
-				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4" style={{ filter: "blur(10px)", opacity: 0 }}>
+				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="border border-border rounded-xl p-2 bg-border/70">
 						<p className="text-xs">{"Of course, we'll be right over."}</p>
 					</div>
@@ -467,6 +469,152 @@ export function EventsCard() {
 					</div>
 				</motion.li>
 			</motion.ul>
+		</div>
+	)
+}
+
+export function UpdateFunctionsCard() {
+	const [scope, animate] = useAnimate();
+	const [isHovered, setIsHovered] = useState(false);
+	const windowSize = useWindowSize();
+	const isDesktop = windowSize.width >= MinimumWidth.Medium;
+	const ref = useRef(null);
+	const isInView = useInView(ref, { amount: 1, once: true });
+	const ranAnimation = useRef(false);
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const functions = useMemo(() => [
+		{ name: "query.ts", status: "error" },
+		{ name: "auth.ts", status: "error" },
+		{ name: "api.ts", status: "error" },
+	], []);
+
+	const animateFunction = async (index: number) => {
+		if (index >= functions.length) return;
+
+		// Move current function to active position
+		await animate(`.function${index}-container`, {
+			filter: "blur(0px)",
+			transform: `translateY(${index * 5}px) scale(1)`,
+			zIndex: 5
+		}, { duration: 0.3 });
+
+		// Hide error icon
+		await animate(`.function${index}-error`, {
+			display: "none"
+		}, { duration: 0 });
+
+		// Show loader
+		await animate(`.function${index}-loader`, {
+			opacity: 1,
+			display: "block"
+		}, { duration: 1 });
+
+		// Change name color and show success
+		await animate(`.function${index}-name`, {
+			color: "#00c951"
+		}, {
+			duration: 0.25,
+			delay: 3,
+		});
+
+		// Hide loader and show success
+		await animate(`.function${index}-loader`, {
+			opacity: 0,
+			display: "none"
+		}, { duration: 0 });
+
+		await animate(`.function${index}-success`, {
+			opacity: 1,
+			display: "block"
+		}, { duration: 0.25 });
+
+		await animate(`.function${index}-state`, {
+			opacity: 1,
+			filter: "blur(0px)"
+		}, { duration: 0.25 });
+
+		if (index + 1 < functions.length) {
+			// Move current function down
+			await animate(`.function${index}-container`, {
+				transform: `translateY(0px) scale(${0.80 + (index * 0.05)})`,
+				filter: "blur(1px)",
+				zIndex: index
+			}, { duration: 0.3 });
+
+			// Start animation for next function
+			setTimeout(() => {
+				animateFunction(index + 1);
+			}, 750);
+		} else {
+			// When all items are complete, reset their positions
+			for (let i = 0; i < functions.length; i++) {
+				await animate(`.function${i}-container`, {
+					transform: `translateY(${i * 5}px)`,
+					filter: "blur(0px)",
+					zIndex: 5 - i
+				}, { duration: 0.3, delay: (functions.length - 1 - i) * 0.1 });
+			}
+		}
+
+		setCurrentIndex(index + 1);
+	};
+
+	useEffect(() => {
+		if(isDesktop && isHovered && !ranAnimation.current) {
+			ranAnimation.current = true;
+			animateFunction(currentIndex);
+		} else if(!isDesktop && isInView && !ranAnimation.current) {
+			ranAnimation.current = true;
+			animateFunction(currentIndex);
+		}
+	}, [scope, animate, isHovered, isDesktop, isInView, currentIndex]);
+
+	return (
+		<div
+			ref={ref}
+			className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden"
+			onMouseEnter={() => isDesktop && setIsHovered(true)}
+			onMouseLeave={() => isDesktop && setIsHovered(false)}
+		>
+			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
+					<GridPattern
+						width={20}
+						height={20}
+						x="-12"
+						y="4"
+						squares={p}
+						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
+					/>
+				</div>
+			</div>
+			<div className="flex flex-col px-4 gap-8">
+				<CircleFadingArrowUpIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">Updated Functions</p>
+			</div>
+			<div className="px-4 mt-1 mb-4">
+				<p className="text-primary/80 text-balance text-sm">{"Modernized AWS Lambda infrastructure by migrating 100+ functions from CommonJS to ESM, upgrading to Node.js 20 LTS, and replacing legacy dependencies with modern alternatives to improve performance and maintainability"}</p>
+			</div>
+			<motion.div ref={scope} className="pointer-events-none select-none relative mx-auto w-fit items-center flex flex-col mb-6">
+				{functions.map((func, index) => (
+					<div key={index} className={`function${index}-container flex flex-row gap-2 items-center`}
+						style={{
+							transform: index === 0 ? 'translateY(0) scale(1)' : `translateY(-${(index * 5) / 4}rem) scale(${1 - (index * 0.05)})`,
+							filter: index === 0 ? 'blur(0px)' : 'blur(1px)',
+							zIndex: functions.length - index
+						}}>
+						<div className="border border-border rounded-lg bg-background p-2 flex flex-row gap-2">
+							<SiTypescript className="h-4 w-4" fill={SiTypescriptHex} />
+							<p className={`text-xs font-mono function${index}-name`} style={{ color: "#fb2c36"}}>{func.name}</p>
+							<CircleXIcon className={`h-4 w-4 text-red-500 function${index}-error`} />
+							<LoaderCircleIcon className={`h-4 w-4 animate-spin function${index}-loader`} style={{ opacity: 0, display: "none" }} />
+							<CircleCheckIcon className={`h-4 w-4 text-green-500 function${index}-success`} style={{ opacity: 0, display: "none" }} />
+						</div>
+						<p className={`text-xs text-green-500 function${index}-state`} style={{ opacity: 0, filter: "blur(10px)"}}>update successful</p>
+					</div>
+				))}
+			</motion.div>
 		</div>
 	)
 }
