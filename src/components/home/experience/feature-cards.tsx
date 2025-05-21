@@ -1,14 +1,15 @@
 import { AnimatedBeam } from '@/components/ui/animated-beam';
 import { TextGenerateEffect } from '@/components/ui/generate-effect';
+import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal';
 import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiMailgunHex, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon, HeartPlusIcon, FlaskConical } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useId, useRef, useState, useMemo } from 'react';
+import { useEffect, useId, useRef, useState, useMemo, useCallback } from 'react';
 import React from 'react';
 
 // export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
@@ -242,7 +243,7 @@ export function AnimatedDBCard() {
 
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
+		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden">
 			<div className="select-none pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -325,7 +326,7 @@ export function MailCard() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
+		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden">
 			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -413,7 +414,7 @@ export function EventsCard() {
 	return (
 		<div
 			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden"
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
 			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
@@ -430,17 +431,17 @@ export function EventsCard() {
 				</div>
 			</div>
 			<div className="flex flex-col px-4 gap-8">
-				<TicketsIcon className="h-5 w-5" />
-				<p className="text-lg font-medium">Events</p>
+				<HeartPlusIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">Support Staff</p>
 			</div>
 			<div className="px-4 mt-1 mb-4">
-				<p className="text-primary/80 text-balance text-sm">{"Went to in-person Alumni reunion events, such as the annual UPenn Alumni Weekend and Drexel's 50-year reunion of the Class of 1973 as support staff"}</p>
+				<p className="text-primary/80 text-balance text-sm">{"Provided on-site support at prestigious alumni events including UPenn's Alumni Weekend and Drexel's 50-year Class of 1973 reunion, while managing customer support tickets to ensure seamless event experiences"}</p>
 			</div>
 			<motion.ul
 				ref={scope}
 				className="overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6 pointer-events-none select-none"
 			>
-				<motion.li className="chat-container flex flex-row gap-4 items-center" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+				<motion.li className="chat-container flex flex-row gap-4 items-center px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
 							src="/person-2.webp"
@@ -451,12 +452,12 @@ export function EventsCard() {
 						/>
 					</div>
 					<div className="border border-border rounded-xl p-2 bg-background flex items-center">
-						<p className="text-xs">Hi, could we get some help over at booth 3?</p>
+						<p className="text-xs">{"Our event website is experiencing issues for attendees"}</p>
 					</div>
 				</motion.li>
-				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4 px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="border border-border rounded-xl p-2 bg-border/70">
-						<p className="text-xs">{"Of course, we'll be right over."}</p>
+						<p className="text-xs">{"We've identified the issue and are deploying a fix"}</p>
 					</div>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
@@ -561,10 +562,10 @@ export function UpdateFunctionsCard() {
 	};
 
 	useEffect(() => {
-		if(isDesktop && isHovered && !ranAnimation.current) {
+		if (isDesktop && isHovered && !ranAnimation.current) {
 			ranAnimation.current = true;
 			animateFunction(currentIndex);
-		} else if(!isDesktop && isInView && !ranAnimation.current) {
+		} else if (!isDesktop && isInView && !ranAnimation.current) {
 			ranAnimation.current = true;
 			animateFunction(currentIndex);
 		}
@@ -573,7 +574,7 @@ export function UpdateFunctionsCard() {
 	return (
 		<div
 			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden"
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
 			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
@@ -606,15 +607,85 @@ export function UpdateFunctionsCard() {
 						}}>
 						<div className="border border-border rounded-lg bg-background p-2 flex flex-row gap-2">
 							<SiTypescript className="h-4 w-4" fill={SiTypescriptHex} />
-							<p className={`text-xs font-mono function${index}-name`} style={{ color: "#fb2c36"}}>{func.name}</p>
+							<p className={`text-xs font-mono function${index}-name`} style={{ color: "#fb2c36" }}>{func.name}</p>
 							<CircleXIcon className={`h-4 w-4 text-red-500 function${index}-error`} />
 							<LoaderCircleIcon className={`h-4 w-4 animate-spin function${index}-loader`} style={{ opacity: 0, display: "none" }} />
 							<CircleCheckIcon className={`h-4 w-4 text-green-500 function${index}-success`} style={{ opacity: 0, display: "none" }} />
 						</div>
-						<p className={`text-xs text-green-500 function${index}-state`} style={{ opacity: 0, filter: "blur(10px)"}}>update successful</p>
+						<p className={`text-xs text-green-500 function${index}-state`} style={{ opacity: 0, filter: "blur(10px)" }}>update successful</p>
 					</div>
 				))}
 			</motion.div>
+		</div>
+	)
+}
+
+export function TestsCard() {
+
+	return (
+		<div
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
+		>
+			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
+					<GridPattern
+						width={20}
+						height={20}
+						x="-12"
+						y="4"
+						squares={p}
+						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
+					/>
+				</div>
+			</div>
+			<div className="flex flex-col px-4 gap-8">
+				<FlaskConical className="h-5 w-5" />
+				<p className="text-lg font-medium">Comprehensive Testing</p>
+			</div>
+			<div className="px-4 mt-1 mb-4">
+				<p className="text-primary/80 text-balance text-sm">
+					Added over 300 tests across various platform services, ensuring code reliability and preventing regressions with comprehensive unit, integration, and end-to-end tests
+				</p>
+			</div>
+			<div className="overflow-hidden mask-b-from-95% relative">
+				<div className="pointer-events-none select-none translate-x-10 translate-y-4 h-40 relative">
+					<Terminal className="absolute inset-0">
+						<TypingAnimation>&gt; make test</TypingAnimation>
+						<AnimatedSpan delay={1500} className="flex flex-row gap-1" >
+							<span className="bg-green-500/50 dark:bg-green-500 text-black w-fit">PASS</span>
+							<span className="">cool.test.js</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={1500} className="text-green-500">
+							<span>✔ Tony is a genius.</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={2000} className="text-green-500">
+							<span>✔ Tony is awesome.</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={2500} className="text-green-500">
+							<span>✔ Tony is great.</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={3000} className="flex flex-row gap-1">
+							<span className="font-bold">Test suites:</span>
+							<span className="text-green-500">3 passed,</span>
+							<span className="">3 total</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={3500} className="flex flex-row gap-1">
+							<span className="font-bold">Time:</span>
+							<span className="text-yellow-600 dark:text-yellow-500">1.5s</span>
+						</AnimatedSpan>
+
+						<AnimatedSpan delay={4000} className="text-muted-foreground">
+							<span>Done in 2.5s.</span>
+						</AnimatedSpan>
+
+					</Terminal>
+				</div>
+			</div>
 		</div>
 	)
 }

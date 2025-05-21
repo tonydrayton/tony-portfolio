@@ -12,7 +12,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import Marquee from "../ui/marquee";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { AnimatedDBCard, EventsCard, MailCard, UpdateFunctionsCard } from "./experience/feature-cards";
+import { AnimatedDBCard, EventsCard, MailCard, UpdateFunctionsCard, TestsCard } from "./experience/feature-cards";
 
 interface Skill {
 	icon: JSX.Element;
@@ -101,7 +101,8 @@ const experienceData = [
 		cards: [
 			<MailCard key={0} />,
 			<EventsCard key={1} />,
-			<UpdateFunctionsCard key={2} />
+			<UpdateFunctionsCard key={2} />,
+			<TestsCard key={3} />
 		]
 	}
 ];
