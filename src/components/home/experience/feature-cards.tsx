@@ -1,12 +1,15 @@
+import { AnimatedBeam } from '@/components/ui/animated-beam';
+import { TextGenerateEffect } from '@/components/ui/generate-effect';
 import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiMailgunHex, SiReact, SiReactHex } from '@icons-pack/react-simple-icons';
-import { motion, useAnimation, useInView } from 'framer-motion';
+import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
 import { DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useId, useRef, useState } from 'react';
+import React from 'react';
 
 // export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
 // 	const p = genRandomPattern();
@@ -32,26 +35,21 @@ import { useEffect, useId, useRef, useState } from 'react';
 // 	);
 // }
 
-const IntegrationCard = ({ children, className, position, isCenter = false }: { children: React.ReactNode; className?: string; position?: 'left-top' | 'left-middle' | 'left-bottom' | 'right-top' | 'right-middle' | 'right-bottom'; isCenter?: boolean }) => {
+const IntegrationCard = React.forwardRef<HTMLDivElement, {
+	children: React.ReactNode;
+	className?: string;
+	position?: 'left-top' | 'left-middle' | 'left-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
+	isCenter?: boolean;
+}>((props, forwardedRef) => {
+	const { children, className, position, isCenter = false } = props;
 	return (
-		<div className={cn('bg-border/40 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
+		<div ref={forwardedRef} className={cn('z-50 bg-neutral-100 dark:bg-neutral-900 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
 			<div className={cn('relative z-20 m-auto size-fit *:size-6', isCenter && '*:size-8')}>{children}</div>
-			{position && !isCenter && (
-				<div
-					className={cn(
-						'bg-linear-to-r to-muted-foreground/25 absolute z-10 h-px',
-						position === 'left-top' && 'left-full top-1/2 w-[130px] origin-left rotate-[25deg]',
-						position === 'left-middle' && 'left-full top-1/2 w-[80px] origin-left',
-						position === 'left-bottom' && 'left-full top-1/2 w-[130px] origin-left rotate-[-25deg]',
-						position === 'right-top' && 'bg-linear-to-l right-full top-1/2 w-[130px] origin-right rotate-[-25deg]',
-						position === 'right-middle' && 'bg-linear-to-l right-full top-1/2 w-[80px] origin-right',
-						position === 'right-bottom' && 'bg-linear-to-l right-full top-1/2 w-[130px] origin-right rotate-[25deg]'
-					)}
-				/>
-			)}
 		</div>
 	)
-}
+});
+
+IntegrationCard.displayName = 'IntegrationCard';
 
 function GridPattern({
 	width,
@@ -95,7 +93,7 @@ const p = genRandomPattern()
 export function AnimatedDBCard() {
 	const motionControls = useAnimation();
 	const ref = useRef(null);
-	const isInView = useInView(ref, { amount: 0.1, });
+	const isInView = useInView(ref, { amount: 0.5, once: true });
 
 	const [showMacTyping, setShowMacTyping] = useState(false);
 	const [showModelTyping, setShowModelTyping] = useState(false);
@@ -273,7 +271,9 @@ export function AnimatedDBCard() {
 						translateX: 0,
 						translateY: 0,
 					}}
-					className="border border-border shadow-sm p-4 rounded-xl bg-border/30 pointer-events-none select-none translate-x-10 translate-y-4 flex flex-col gap-2">
+					className="border border-border shadow-sm p-4 rounded-xl bg-border/30 pointer-events-none select-none translate-x-10 translate-y-4 flex flex-col gap-2 relative"
+				>
+					<div className="absolute inset-[35%] block rounded-full bg-white/15 blur-3xl" />
 					<p className="text-xs">Mac Address</p>
 					<div className="border border-border bg-background rounded-lg p-2 text-xs">
 						{showMacTyping ? (
@@ -320,6 +320,10 @@ export function AnimatedDBCard() {
 }
 
 export function MailCard() {
+	const fromRef = useRef<HTMLDivElement>(null);
+	const toRef = useRef<HTMLDivElement>(null);
+	const containerRef = useRef<HTMLDivElement>(null);
+
 	return (
 		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
 			<div className="pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
@@ -341,10 +345,9 @@ export function MailCard() {
 			<div className="px-4 mt-1 mb-4">
 				<p className="text-primary/80 text-balance text-sm">Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform</p>
 			</div>
-			<div className="overflow-hidden relative mx-auto w-fit items-center flex justify-between pt-4 pb-10 px-4">
-				{/* <div className="bg-radial from-transparent to-75% to-muted dark:to-background absolute inset-0 z-10" /> */}
+			<div ref={containerRef} className="overflow-hidden relative mx-auto items-center flex justify-between pt-4 pb-10 px-6">
 				<div className="space-y-6">
-					<IntegrationCard position="left-middle">
+					<IntegrationCard ref={fromRef} position="left-middle">
 						<SiReact className="h-10 w-10" />
 					</IntegrationCard>
 				</div>
@@ -354,10 +357,21 @@ export function MailCard() {
 					</IntegrationCard>
 				</div>
 				<div className="space-y-6">
-					<IntegrationCard position="right-middle">
+					<IntegrationCard ref={toRef} position="right-middle">
 						<SiAmazonwebservices className="h-10 w-10" />
 					</IntegrationCard>
 				</div>
+
+				<AnimatedBeam
+					containerRef={containerRef}
+					fromRef={fromRef}
+					toRef={toRef}
+					className="z-10 absolute inset-0"
+					gradientStartColor='#FFFFFF'
+					gradientStopColor='#565656'
+					duration={5}
+					delay={1}
+				/>
 				<div className="bg-radial absolute inset-0 z-10" />
 			</div>
 		</div>
@@ -365,8 +379,42 @@ export function MailCard() {
 }
 
 export function EventsCard() {
+	const [scope, animate] = useAnimate();
+	const [isHovered, setIsHovered] = useState(false);
+	const windowSize = useWindowSize();
+	const isDesktop = windowSize.width >= MinimumWidth.Medium;
+	const ref = useRef(null);
+	const isInView = useInView(ref, { amount: 0.5 });
+
+	useEffect(() => {
+		if (isDesktop) {
+			if (isHovered) {
+				animate(".chat-container", {
+					opacity: 1,
+					filter: "blur(0px)"
+				}, {
+					duration: 0.75,
+					delay: stagger(1)
+				});
+			}
+		} else if (isInView) {
+			animate(".chat-container", {
+				opacity: 1,
+				filter: "blur(0px)"
+			}, {
+				duration: 0.75,
+				delay: stagger(1)
+			});
+		}
+	}, [scope, animate, isHovered, isDesktop, isInView]);
+
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden">
+		<div
+			ref={ref}
+			className="border border-border pt-4 rounded-lg bg-background shadow-sm max-w-sm relative overflow-hidden"
+			onMouseEnter={() => isDesktop && setIsHovered(true)}
+			onMouseLeave={() => isDesktop && setIsHovered(false)}
+		>
 			<div className="pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -386,6 +434,39 @@ export function EventsCard() {
 			<div className="px-4 mt-1 mb-4">
 				<p className="text-primary/80 text-balance text-sm">{"Went to in-person Alumni reunion events, such as the annual UPenn Alumni Weekend and Drexel's 50-year reunion of the Class of 1973 as support staff"}</p>
 			</div>
+			<motion.ul
+				ref={scope}
+				className="overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6"
+			>
+				<motion.li className="chat-container flex flex-row gap-4 items-center" style={{ filter: "blur(10px)", opacity: 0 }}>
+					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
+						<Image
+							src="/person-2.webp"
+							alt='Person'
+							width={216}
+							height={252}
+							className='object-cover pointer-events-none select-none'
+						/>
+					</div>
+					<div className="border border-border rounded-xl p-2 bg-background flex items-center">
+						<p className="text-xs">Hi, could we get some help over at booth 3?</p>
+					</div>
+				</motion.li>
+				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4" style={{ filter: "blur(10px)", opacity: 0 }}>
+					<div className="border border-border rounded-xl p-2 bg-border/70">
+						<p className="text-xs">{"Of course, we'll be right over."}</p>
+					</div>
+					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
+						<Image
+							src="/alumniq_logo.png"
+							alt='AlumnIQ Logo'
+							width={216}
+							height={252}
+							className='object-cover pointer-events-none select-none'
+						/>
+					</div>
+				</motion.li>
+			</motion.ul>
 		</div>
 	)
 }
