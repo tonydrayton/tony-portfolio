@@ -540,7 +540,7 @@ export function UpdateFunctionsCard() {
 				transform: `translateY(0px) scale(${0.80 + (index * 0.05)})`,
 				filter: "blur(1px)",
 				zIndex: index
-			}, { duration: 0.3 });
+			}, { duration: 0.3, delay: 1 });
 
 			// Start animation for next function
 			setTimeout(() => {
