@@ -133,37 +133,41 @@ export default function About({
 		getWakatimeStats().then(data => setWakatimeStats(data)).catch(err => console.error(err));
 	}, []);
 
-	const p = genRandomPattern(5);
-
 	return (
+		<div className="min-h-screen relative mx-auto px-4 w-full max-w-6xl md:max-w-xl lg:max-w-4xl xl:max-w-4xl">
+		<div className="w-full -mb-8" >
+			<h3 className="text-5xl font-semibold tracking-tight text-left">about me</h3>
+		</div>
 		<div className={cn(
-			"min-h-screen relative mx-auto px-2 w-full max-w-6xl md:max-w-xl lg:max-w-3xl xl:max-w-3xl",
 			"before:md:absolute before:md:inset-y-0 before:md:-left-12 before:md:w-px before:md:bg-[linear-gradient(to_bottom,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))]",
-			"after:md:bg-[linear-gradient(to_bottom,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))] after:md:absolute after:md:inset-y-0 after:md:-right-12 after:md:w-px")}>
+			"after:md:bg-[linear-gradient(to_bottom,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))] after:md:absolute after:md:inset-y-0 after:md:-right-12 after:md:w-px"
+		)}>
 			<div className="my-14 relative before:md:bg-[linear-gradient(to_right,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))]  before:md:absolute before:md:-inset-x-32 before:md:bottom-0 before:md:h-px" />
 			<div className={cn(
-				"overflow-hidden relative",
-				"w-full p-8 border border-border rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
+				"overflow-hidden relative md:w-[42rem] lg:w-[62rem]",
+				"p-8 border border-border rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
 				"md:mx-0 md:-left-12 md:border-0 md:rounded-none md:absolute"
 			)}>
 				<p className="text-3xl font-semibold tracking-tight">hey,</p>
-				<p className="text-xl font-medium tracking-tight">my name is Tony</p>
+				<p className="text-xl font-semibold tracking-tight">my name is Tony</p>
 				<div className="mt-4 flex flex-col gap-0">
-					<ParagraphText>{"I’m a software engineer and Computer Science student at Drexel University"}</ParagraphText>
+					<ParagraphText>{"I'm a software engineer and Computer Science student at Drexel University"}</ParagraphText>
 					<ParagraphText>{"I love to learn and build things that make life easier"}</ParagraphText>
 				</div>
 				<div className="h-px w-full bg-border my-4" />
 				<p className="text-2xl font-semibold tracking-tight mb-4">currently</p>
 				<div className="flex flex-col gap-1 md:gap-1 lg:gap-0">
 					<div className="flex flex-row flex-wrap gap-x-1 items-center">
-						<ParagraphText>{"∙ I’m working as a Software Engineer Intern at "}</ParagraphText>
+						{["∙", "I'm", "working", "as", "a", "Software", "Engineer", "Intern", "at"].map((text, index) => (
+							<ParagraphText key={index} className="">{text}</ParagraphText>
+						))}
 						<Link href="https://www.xfinity.com" target="_blank" className="text-primary/70 hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out">
-							<div className="font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center hover:from-border/80">
+							<div className="text-primary font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center hover:from-border/80">
 								<Image src="/logos/comcast.png" alt="Comcast logo" width={15} height={15} className="inline mr-1" />
 								Comcast
 							</div>
 						</Link>
-						{["ending", "in", "September", "of", "2025"].map((text, index) => (
+						{["which", "is", "ending", "in", "September", "of", "2025"].map((text, index) => (
 							<ParagraphText key={index} className="">{text}</ParagraphText>
 						))}
 					</div>
@@ -171,7 +175,7 @@ export default function About({
 					<div className="flex flex-row flex-wrap items-center">
 						<ParagraphText>∙ Finished the demo of</ParagraphText>
 						<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="mx-2 text-primary/70 hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out">
-							<div className="font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center hover:from-border/80">
+							<div className="text-primary font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center hover:from-border/80">
 								<Image src="/logos/dragongpt.webp" alt="DragonGPT logo" width={15} height={15} className="inline mr-1" />
 								DragonGPT
 							</div>
@@ -182,7 +186,7 @@ export default function About({
 				<p className="text-2xl font-semibold tracking-tight mb-4">my go-tos</p>
 				<div className="flex flex-col gap-4">
 					<div>
-						<p className="text-base text-muted-foreground font-mono mb-2">languages</p>
+						<p className="text-sm text-muted-foreground font-mono mb-2">languages</p>
 						<div className="flex flex-row flex-wrap gap-2">
 							{aboutSkills.languages.map((skill, index) => (
 								<SkillCard skill={skill} key={index} />
@@ -190,7 +194,7 @@ export default function About({
 						</div>
 					</div>
 					<div>
-						<p className="text-base text-muted-foreground font-mono mb-2">libraries</p>
+						<p className="text-sm text-muted-foreground font-mono mb-2">libraries</p>
 						<div className="flex flex-row flex-wrap gap-2">
 							{aboutSkills.libraries.map((skill, index) => (
 								<SkillCard skill={skill} key={index} />
@@ -198,7 +202,7 @@ export default function About({
 						</div>
 					</div>
 					<div>
-						<p className="text-base text-muted-foreground font-mono mb-2">tools</p>
+						<p className="text-sm text-muted-foreground font-mono mb-2">tools</p>
 						<div className="flex flex-row flex-wrap gap-2">
 							{aboutSkills.tools.map((skill, index) => (
 								<SkillCard skill={skill} key={index} />
@@ -235,6 +239,7 @@ export default function About({
 				
 			</div>
 			<div className="my-14 relative before:md:bg-[linear-gradient(to_right,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))]  before:md:absolute before:md:-inset-x-32 before:md:-bottom-[48em] before:md:h-px" />
+		</div>
 		</div>
 		// <Tabs defaultValue="about" className="lg:max-w-7xl mt-20" ref={aboutSectionRef}>
 		// 	<TabsList className="rounded-xl grid grid-cols-2 mx-auto lg:w-120 md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">

@@ -16,7 +16,7 @@ const experienceData = [
 		skills: [{ icon: <SiTypescript className={iconClassName} fill={SiTypescriptHex} />, name: "TypeScript" }, { icon: <SiApachecassandra className={iconClassName} fill={SiApachecassandraHex} />, name: "Cassandra" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		cards: [
 			<AnimatedDBCard key={0} />,
-			<div key={1} className="max-w-sm flex justify-center items-center p-2">
+			<div key={1} className="md:max-w-sm flex justify-center items-center p-2">
 				+ more to come
 			</div>
 		]
@@ -38,7 +38,7 @@ const experienceData = [
 
 export default function ExperienceSection() {
 	return (
-		<div className="max-w-full px-2 md:px-6 lg:max-w-7xl">
+		<div className="max-w-full w-full md:w-fit px-4 md:px-6 lg:max-w-7xl">
 			<div className="mt-10 flex flex-col gap-10 md:gap-8 w-full">
 				<div className="relative">
 					<h3 className="text-5xl font-semibold tracking-tight mb-4 md:mb-10">experience</h3>
