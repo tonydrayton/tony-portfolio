@@ -14,6 +14,7 @@ import AnimatedGridPattern from "../ui/animated-grid-pattern";
 import { useEffect, useRef } from "react";
 import { useResumeStore } from "@/stores/useResumeStore";
 import { Separator } from "../ui/separator";
+import SideNav from "../side-nav";
 
 export default function Home() {
 	// Initiate a socket connection to the Lanyard API, not using atm
@@ -49,6 +50,7 @@ export default function Home() {
 
 	return (
 		<>
+			<SideNav />
 			<Container className="flex-col items-center min-h-screen">
 				<AnimatedGridPattern
 					numSquares={10}
@@ -181,12 +183,12 @@ export default function Home() {
 			</Container>
 
 			<div className="shrink-0 bg-border h-px w-full my-10" />
-			<footer className="flex flex-col justify-center items-center w-full p-4 text-center">
+			<footer className="flex flex-col justify-center items-center w-full p-4 text-center" id="contact">
 				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
-				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">Shoot me an email at
+				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">
 					<MailTo mailto="mailto:tonydrayton43@gmail.com" className="">
 						<Button variant="linkHover1" className="text-base sm:text-xl p-0 font-normal">
-							tonydrayton43@gmail.com
+							Email me
 						</Button>
 					</MailTo>
 					</span>
