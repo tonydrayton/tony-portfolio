@@ -146,18 +146,6 @@ export default function About({
 				"w-full p-8 border border-border rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
 				"md:mx-0 md:-left-12 md:border-0 md:rounded-none md:absolute"
 			)}>
-				<div className="select-none pointer-events-none absolute -top-0 left-1/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-					<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-						<GridPattern
-							width={45}
-							height={45}
-							x="-12"
-							y="4"
-							squares={p}
-							className="fill-transparent dark:fill-foreground/5 stroke-foreground/5 absolute inset-0 h-full w-full mix-blend-overlay"
-						/>
-					</div>
-				</div>
 				<p className="text-3xl font-semibold tracking-tight">hey,</p>
 				<p className="text-xl font-medium tracking-tight">my name is Tony</p>
 				<div className="mt-4 flex flex-col gap-0">
@@ -219,7 +207,6 @@ export default function About({
 					</div>
 				</div>
 				<div className="h-px w-full bg-border my-4" />
-
 				<p className="text-2xl font-semibold tracking-tight my-4">other stats</p>
 				<div>
 					<div className="flex flex-row items-center gap-1">
@@ -232,7 +219,6 @@ export default function About({
 							: "--"
 						}
 						<p>hours coded since last year</p>
-
 					</div>
 					<div className="flex flex-row items-center gap-1">
 						<CalendarDaysIcon className="h-4 w-4" />
@@ -246,7 +232,9 @@ export default function About({
 						<p>of average daily coding time</p>
 					</div>
 				</div>
+				
 			</div>
+			<div className="my-14 relative before:md:bg-[linear-gradient(to_right,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))]  before:md:absolute before:md:-inset-x-32 before:md:-bottom-[48em] before:md:h-px" />
 		</div>
 		// <Tabs defaultValue="about" className="lg:max-w-7xl mt-20" ref={aboutSectionRef}>
 		// 	<TabsList className="rounded-xl grid grid-cols-2 mx-auto lg:w-120 md:w-80 w-72 bg-black/5 dark:bg-white/5 transition-all duration-300">
