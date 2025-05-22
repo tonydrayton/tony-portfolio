@@ -243,7 +243,7 @@ export function AnimatedDBCard() {
 
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden">
+		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden">
 			<div className="select-none pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -326,7 +326,7 @@ export function MailCard() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden">
+		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden">
 			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -414,7 +414,7 @@ export function EventsCard() {
 	return (
 		<div
 			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
 			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
@@ -574,7 +574,7 @@ export function UpdateFunctionsCard() {
 	return (
 		<div
 			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
 			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
@@ -624,7 +624,7 @@ export function TestsCard() {
 
 	return (
 		<div
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm max-w-sm relative overflow-hidden"
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
 		>
 			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
