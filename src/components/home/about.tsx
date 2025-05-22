@@ -145,7 +145,7 @@ export default function About({
 			<div className="my-14 relative before:md:bg-[linear-gradient(to_right,--theme(--color-border/.3),--theme(--color-border)_200px,--theme(--color-border)_calc(100%-200px),--theme(--color-border/.3))]  before:md:absolute before:md:-inset-x-32 before:md:bottom-0 before:md:h-px" />
 			<div className={cn(
 				"overflow-hidden relative md:w-[42rem] lg:w-[62rem]",
-				"p-8 border border-border rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
+				"p-4 md:p-8 border border-border rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
 				"md:mx-0 md:-left-12 md:border-0 md:rounded-none md:absolute"
 			)}>
 				<p className="text-3xl font-semibold tracking-tight">hey,</p>
