@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useDebounce } from 'use-debounce';
 import { useResumeStore } from "@/stores/useResumeStore";
 
-const sections = ['About', 'Projects'];
+const sections = ['About', 'Experience', 'Projects'];
 
 export default function Nav() {
 	const { resume } = useResumeStore();

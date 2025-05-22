@@ -14,6 +14,7 @@ import AnimatedGridPattern from "../ui/animated-grid-pattern";
 import { useEffect, useRef } from "react";
 import { useResumeStore } from "@/stores/useResumeStore";
 import { Separator } from "../ui/separator";
+import ExperienceSection from "./experience";
 
 export default function Home() {
 	// Initiate a socket connection to the Lanyard API, not using atm
@@ -173,6 +174,10 @@ export default function Home() {
 
 			<Container className="flex-col items-center justify-start" id="about">
 				<About aboutSectionRef={aboutSectionRef} />
+			</Container>
+
+			<Container className="flex-col items-center justify-start" id="experience">
+				<ExperienceSection />
 			</Container>
 
 			<Separator orientation="horizontal" className="mt-20" />
