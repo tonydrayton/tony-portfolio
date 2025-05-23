@@ -40,11 +40,11 @@ export default function Nav() {
 				// 	duration: 0.4,
 				// 	ease: 'easeInOut'
 				// }}
-				className="fixed left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
+				className="fixed 2xl:hidden bottom-0 sm:bottom-[unset] left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
 				<div
 					className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out duration-100">
 					<div
-						className="justify-center sm:justify-between m-auto p-0.5 mt-1 sm:px-4 flex h-full w-fit sm:w-full max-w-full items-center rounded-2xl border border-black/20 dark:border-white/20 bg-background/10 px-2 backdrop-blur-xl backdrop-filter shadow-xs">
+						className="justify-center sm:justify-between m-auto p-0.5 mt-1 sm:px-4 flex h-full w-fit sm:w-full max-w-full items-center rounded-2xl border border-black/20 dark:border-white/20 bg-background/80 px-2 backdrop-blur-xl backdrop-filter shadow-xs">
 						<div className="items-center justify-center mx-2 gap-4 flex flex-row">
 							{sections.map((section, index) => (
 								<a key={index} href={`#${section.toLowerCase()}`} className="relative text-sm sm:text-base dark:text-white/80 dark:hover:text-white transition-all duration-300 ease-in-out drop-shadow-md group dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.3)]">
