@@ -16,6 +16,7 @@ import { useResumeStore } from "@/stores/useResumeStore";
 import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
+import SocialSideNav from "../social-side-nav";
 
 export default function Home() {
 	// Initiate a socket connection to the Lanyard API, not using atm
@@ -52,6 +53,7 @@ export default function Home() {
 	return (
 		<>
 			<SideNav />
+			<SocialSideNav />
 			<Container className="flex-col items-center min-h-screen">
 				<AnimatedGridPattern
 					numSquares={10}
@@ -192,8 +194,8 @@ export default function Home() {
 				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
 				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">
 					<MailTo mailto="mailto:tonydrayton43@gmail.com" className="">
-						<Button variant="linkHover1" className="text-base sm:text-xl p-0 font-normal">
-							Email me
+						<Button variant="linkHover1" className="text-base sm:text-xl p-0 font-normal cursor-pointer">
+							Get in touch with me
 						</Button>
 					</MailTo>
 					</span>
