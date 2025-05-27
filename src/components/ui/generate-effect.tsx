@@ -8,11 +8,13 @@ export const TextGenerateEffect = ({
 	className,
 	filter = true,
 	duration = 0.5,
+	onComplete = () => {},
 }: {
 	words: string;
 	className?: string;
 	filter?: boolean;
 	duration?: number;
+	onComplete?: () => void;
 }) => {
 	const [scope, animate] = useAnimate();
 	let wordsArray = words.split(" ");
@@ -26,6 +28,7 @@ export const TextGenerateEffect = ({
 			{
 				duration: duration ? duration : 1,
 				delay: stagger(0.15, { startDelay: 0.5 }),
+				onComplete
 			}
 		);
 	}, [scope.current]);

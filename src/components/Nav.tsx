@@ -3,12 +3,10 @@ import { ModeToggle } from "./ui/ModeToggle";
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
 import { useState } from "react";
 import { useDebounce } from 'use-debounce';
-import { useResumeStore } from "@/stores/useResumeStore";
 
 const sections = ['About', 'Experience', 'Projects'];
 
 export default function Nav() {
-	const { resume } = useResumeStore();
 	const { scrollYProgress } = useScroll();
 	const [visible, setVisible] = useState(true);
 	const [debouncedVisible] = useDebounce(visible, 100);
@@ -27,19 +25,7 @@ export default function Nav() {
 	});
 
 	return (
-		// <AnimatePresence mode="wait">
 			<header
-				// layout
-				// initial={{
-				// 	y: -100,
-				// }}
-				// animate={{
-				// 	y: visible ? 0 : -100,
-				// }}
-				// transition={{
-				// 	duration: 0.4,
-				// 	ease: 'easeInOut'
-				// }}
 				className="fixed 2xl:hidden bottom-0 sm:bottom-[unset] left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
 				<div
 					className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out duration-100">
@@ -68,7 +54,7 @@ export default function Nav() {
 									backgroundSize: '200% 100%',
 									backgroundImage: 'linear-gradient(to right, #gray500, #ffffff)',
 								}}
-								href={resume}
+								href="/assets/resumes/Tony_Drayton_10_25_24.pdf"
 								target="_blank"
 							>
 								Resume

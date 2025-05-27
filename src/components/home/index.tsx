@@ -1,18 +1,17 @@
 "use client";
 import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
-import { ChevronDown, Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
+import { ChevronDown, Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
 import { TextGenerateEffect } from "../ui/generate-effect";
-import { motion, useInView } from "framer-motion";
-import { ShinyAnchor } from "../ui/shiny-button";
+import { animate, motion, useInView } from "framer-motion";
+import { ShinyAnchor, ShinyButton } from "../ui/shiny-button";
 import MailTo from "../MailTo";
 import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
 import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
-import { useEffect, useRef } from "react";
-import { useResumeStore } from "@/stores/useResumeStore";
+import { useRef } from "react";
 import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
@@ -31,24 +30,9 @@ export default function Home() {
 	// 		useUserStore.getState().clearHeartbeat();
 	// 	};
 	// }, [socket, initializeSocket]);
-	const { resume, setResume } = useResumeStore();
 	const aboutSectionRef = useRef<HTMLDivElement | null>(null);
 	const aboutSectionInView = useInView(aboutSectionRef, { once: true, amount: 0.1 });
-
-	useEffect(() => {
-			getResumeURL();
-	}, []);
-
-	const getResumeURL = async () => {
-		try {
-			const response = await fetch('/api/getLatestResume');
-				const blob = await response.blob();
-				const url = URL.createObjectURL(blob);
-				setResume(url);
-		} catch (error) {
-			console.error('Error fetching or opening PDF', error);
-		}
-	};
+	const hasAnimatedRef = useRef(false);
 
 	return (
 		<>
@@ -67,64 +51,38 @@ export default function Home() {
 				/>
 				<MotionBlurFade>
 					<div className="flex md:flex-row flex-col items-center gap-4 md:gap-10">
-						{/* <Tilt transitionSpeed={1000}>
-
-							<Image
-								src={me1}
-								width={100}
-								alt="Tony"
-								className="w-40 rounded-full shadow-lg"
-							/>
-						</Tilt> */}
-
 						<div className="flex flex-col gap-4 md:gap-2 items-center md:items-start">
 							<div className="flex flex-row items-center gap-2">
 								<h1 className="text-3xl">Tony Drayton</h1>
-								{/* {userData && statusMap[userData.discord_status]
-									? (
-										<TooltipProvider>
-											<Tooltip>
-												<TooltipTrigger asChild>
-													<Circle
-														fill={getStatusColor(userData.discord_status)}
-														color=""
-														size={15}
-														className="ml-2 transition-all" />
-												</TooltipTrigger>
-												<TooltipContent className="transition-all">
-													{statusMap[userData.discord_status].text}
-												</TooltipContent>
-											</Tooltip>
-										</TooltipProvider>
-									)
-									:
-									<Circle
-										fill="gray"
-										color=""
-										size={15}
-										className="ml-2 transition-all" />} */}
 							</div>
 							<p className="text-muted-foreground flex flex-row gap-2">
 								<MapPinIcon /> Philadelphia, PA
 							</p>
-							<TextGenerateEffect className="max-w-72 my-2 text-center md:text-left" words="A computer science student that loves frontend development" />
+							<TextGenerateEffect 
+								className="max-w-72 my-2 text-center md:text-left" 
+								words="A computer science student that loves frontend development" 
+								onComplete={() => {
+									if (!hasAnimatedRef.current) {
+										hasAnimatedRef.current = true;
+										animate(".hero-items", {
+											opacity: 1,
+											filter: 'blur(0px)',
+										}, {
+											duration: 0.75,
+											ease: 'easeInOut',
+											delay: 1,
+										})
+									}
+								}}
+							/>
 							<motion.div
 								initial={{
 									opacity: 0,
 									filter: 'blur(10px)'
 								}}
-								animate={{
-									opacity: 1,
-									filter: 'blur(0px)',
-									transition: {
-										duration: 0.75,
-										delay: 1.9,
-										ease: 'easeInOut'
-									}
-								}}
-								className="flex flex-row gap-2"
+								className="hero-items flex flex-row gap-2"
 							>
-								<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href={resume} target="_blank">
+								<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href="/assets/resumes/Tony_Drayton_10_25_24" target="_blank">
 										Resume
 								</ShinyAnchor>
 								<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
@@ -185,19 +143,23 @@ export default function Home() {
 			</Container>
 
 			<Separator orientation="horizontal" className="mt-20" />
-			<Container className="flex-col items-center bg-[linear-gradient(to_bottom,hsla(0,0%,100%,.05),transparent_50%)]" id="projects" >
+			<Container className="flex-col items-center" id="projects" >
 				<ProjectSummary />
 			</Container>
 
 			<div className="shrink-0 bg-border h-px w-full my-10" />
-			<footer className="flex flex-col justify-center items-center w-full p-4 text-center" id="contact">
-				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring a frontend developer?</span>
+			<footer className="flex flex-col gap-4 justify-center items-center w-full p-4 text-center" id="contact">
+				<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring?</span>
 				<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">
-					<MailTo mailto="mailto:tonydrayton43@gmail.com" className="">
-						<Button variant="linkHover1" className="text-base sm:text-xl p-0 font-normal cursor-pointer">
+						<ShinyButton
+						className="bg-neutral-50/80 dark:bg-neutral-900/80 hover:cursor-pointer" 
+						onClick={(e) => {
+							e.preventDefault();
+							window.location.href = "mailto:tonydrytn@gmail.com"
+						}}>
+							<SendIcon className="size-4" />
 							Get in touch with me
-						</Button>
-					</MailTo>
+						</ShinyButton>
 					</span>
 				<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
 			</footer>

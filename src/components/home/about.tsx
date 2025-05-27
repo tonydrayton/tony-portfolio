@@ -23,7 +23,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 		<TooltipProvider delayDuration={50}>
 			<Tooltip>
 				<TooltipTrigger className="cursor-default">
-					<div className="flex flex-col justify-center items-center border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow-md peer">
+					<div className="flex flex-col justify-center items-center border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow-md dark:shadow-white/10 peer">
 						{skill.icon}
 						<span className="text-muted-foreground text-xs">{skill.name}</span>
 					</div>
@@ -92,7 +92,7 @@ export default function About({
 	}, []);
 
 	return (
-		<div className="lg:max-w-7xl md:px-6 mt-20" ref={aboutSectionRef}>
+		<div className="lg:max-w-7xl md:px-6" ref={aboutSectionRef}>
 			<div className="lg:max-w-7xl p-4 flex flex-col gap-4 md:gap-0">
 				<div className="w-full">
 					<h3 className="text-5xl font-semibold tracking-tight text-left">about me</h3>
@@ -103,8 +103,8 @@ export default function About({
 							<CardTitle className="text-2xl">Background</CardTitle>
 						</CardHeader>
 						<CardContent className="flex flex-row gap-4">
-							<div className="flex flex-col gap-2">
-								<span>{"I'm Tony Drayton, a third year Computer Science student at Drexel University."}</span>
+							<div className="text-primary/80 flex flex-col gap-2">
+								<span>{"∙ I'm Tony Drayton, a third year Computer Science student at Drexel University"}</span>
 								<div className="flex flex-row flex-wrap gap-1">
 									{["∙", "Working", "at"].map((text, index) => (
 										<p key={index} className="">{text}</p>
@@ -113,7 +113,7 @@ export default function About({
 										<Image src="/logos/comcast.png" alt="Comcast logo" width={15} height={15} className="inline mr-1" />
 										Comcast
 									</Badge>
-									{["as", "a", "Software", "Engineer", "Intern", "this", "spring"].map((text, index) => (
+									{["as", "a", "Software", "Engineer", "Intern"].map((text, index) => (
 										<p key={index} className="">{text}</p>
 									))}
 								</div>
@@ -143,7 +143,7 @@ export default function About({
 							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
 						</CardHeader>
 						<CardContent>
-							These are the technologies I frequently use
+							<p className="text-primary/80">These are the technologies I frequently use</p>
 							<div className="mt-4 relative flex flex-col overflow-hidden">
 								<Marquee pauseOnHover>
 									{firstSkills.map((skill, index) => (

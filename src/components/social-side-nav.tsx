@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { FileCheckIcon, Github, Linkedin, Mail, MoonIcon, SunIcon } from "lucide-react";
-import { ModeToggle } from "./ui/ModeToggle";
+import { FileCheckIcon, Github, Linkedin, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 

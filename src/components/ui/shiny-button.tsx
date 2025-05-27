@@ -47,7 +47,7 @@ export const ShinyButton = React.forwardRef<HTMLButtonElement, ShinyButtonProps>
 				)}
 			>
 				<span
-					className="relative block size-full text-sm tracking-wide text-[rgb(0,0,0,100%)] dark:font-light dark:text-[rgb(255,255,255,100%)]"
+					className="relative flex flex-row items-center gap-3 size-full text-sm tracking-wide text-[rgb(0,0,0,100%)] dark:font-light dark:text-[rgb(255,255,255,100%)]"
 					style={{
 						maskImage:
 							"linear-gradient(-75deg,hsl(var(--primary)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--primary)) calc(var(--x) + 100%))",
@@ -81,12 +81,12 @@ export const ShinyAnchor = React.forwardRef<HTMLAnchorElement, ShinyAnchorProps>
 				{...animationProps}
 				{...props}
 				className={cn(
-					"relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:scale-110 hover:shadow-sm dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)]",
+					"relative rounded-lg px-6 py-2 font-medium backdrop-blur-xl transition-all duration-300 ease-in-out hover:scale-110 hover:shadow-sm dark:bg-[radial-gradient(circle_at_50%_0%,hsl(var(--primary)/10%)_0%,transparent_60%)] dark:hover:shadow-[0_0_20px_hsl(var(--primary)/10%)]",
 					className,
 				)}
 			>
 				<span
-					className="relative block size-full text-sm tracking-wide text-[rgb(0,0,0,100%)] dark:font-light dark:text-[rgb(255,255,255,100%)]"
+					className="relative size-full text-sm tracking-wide text-[rgb(0,0,0,100%)] dark:font-light dark:text-[rgb(255,255,255,100%)] flex flex-row items-center gap-4"
 					style={{
 						maskImage:
 							"linear-gradient(-75deg,hsl(var(--primary)) calc(var(--x) + 20%),transparent calc(var(--x) + 30%),hsl(var(--primary)) calc(var(--x) + 100%))",
