@@ -11,6 +11,7 @@ import { Button } from "../ui/button";
 import Marquee from "../ui/marquee";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
 import { Badge } from "../ui/badge";
+import CardContainer from "../card-container";
 
 interface Skill {
 	icon: JSX.Element;
@@ -23,7 +24,7 @@ const SkillCard = ({ skill }: { skill: Skill }) => {
 		<TooltipProvider delayDuration={50}>
 			<Tooltip>
 				<TooltipTrigger className="cursor-default">
-					<div className="flex flex-col justify-center items-center border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow-md dark:shadow-white/10 peer">
+					<div className="flex flex-col justify-center items-center bg-bakcground/50 border dark:border-neutral-800 rounded-lg p-4 w-28 gap-2 shadow dark:shadow-white/10 peer">
 						{skill.icon}
 						<span className="text-muted-foreground text-xs">{skill.name}</span>
 					</div>
@@ -94,57 +95,56 @@ export default function About({
 	return (
 		<div className="lg:max-w-7xl md:px-6" ref={aboutSectionRef}>
 			<div className="lg:max-w-7xl p-4 flex flex-col gap-4 md:gap-0">
-				<div className="w-full">
-					<h3 className="text-5xl font-semibold tracking-tight text-left">about me</h3>
-				</div>
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
-					<Card className="col-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
-						<CardHeader>
-							<CardTitle className="text-2xl">Background</CardTitle>
-						</CardHeader>
-						<CardContent className="flex flex-row gap-4">
-							<div className="text-primary/80 flex flex-col gap-2">
-								<span>{"∙ I'm Tony Drayton, a third year Computer Science student at Drexel University"}</span>
-								<div className="flex flex-row flex-wrap gap-1">
-									{["∙", "Working", "at"].map((text, index) => (
-										<p key={index} className="">{text}</p>
-									))}
-									<Badge variant="outline" className="w-fit font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center gap-1 hover:from-border/80">
-										<Image src="/logos/comcast.png" alt="Comcast logo" width={15} height={15} className="inline mr-1" />
-										Comcast
-									</Badge>
-									{["as", "a", "Software", "Engineer", "Intern"].map((text, index) => (
-										<p key={index} className="">{text}</p>
-									))}
+					<Card className="col-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
+						<CardContainer>
+							<CardHeader>
+								<CardTitle className="text-2xl">Background</CardTitle>
+							</CardHeader>
+							<CardContent className="flex flex-row gap-4">
+								<div className="text-primary/80 flex flex-col gap-2">
+									<span>{"∙ I'm Tony Drayton, a third year Computer Science student at Drexel University"}</span>
+									<div className="flex flex-row flex-wrap gap-1">
+										{["∙", "Working", "at"].map((text, index) => (
+											<p key={index} className="">{text}</p>
+										))}
+										<Badge variant="outline" className="w-fit font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center gap-1 hover:from-border/80">
+											<Image src="/logos/comcast.png" alt="Comcast logo" width={15} height={15} className="inline mr-1" />
+											Comcast
+										</Badge>
+										{["as", "a", "Software", "Engineer", "Intern"].map((text, index) => (
+											<p key={index} className="">{text}</p>
+										))}
+									</div>
+									<div className="flex flex-row flex-wrap gap-1">
+										{["∙", "Currently", "working", "on"].map((text, index) => (
+											<p key={index} className="">{text}</p>
+										))}
+										<Badge variant="outline" className="w-fit font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center gap-1 hover:from-border/80">
+											<Image src="/logos/dragongpt.webp" alt="DragonGPT logo" width={15} height={15} className="inline mr-1" />
+											DragonGPT
+										</Badge>
+										{["an", "AI", "powered", "chatbot", "for", "Drexel", "students"].map((text, index) => (
+											<p key={index} className="">{text}</p>
+										))}
+									</div>
+									<Button variant="default" asChild>
+										<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1 mt-2">
+											Check out the live demo
+											<SquareArrowOutUpRight className="scale-75" />
+										</Link>
+									</Button>
 								</div>
-								<div className="flex flex-row flex-wrap gap-1">
-									{["∙", "Currently", "working", "on"].map((text, index) => (
-										<p key={index} className="">{text}</p>
-									))}
-									<Badge variant="outline" className="w-fit font-semibold border border-border shadow rounded-lg bg-linear-to-br from-border/50 to-background px-2 py-1 text-xs flex items-center gap-1 hover:from-border/80">
-										<Image src="/logos/dragongpt.webp" alt="DragonGPT logo" width={15} height={15} className="inline mr-1" />
-										DragonGPT
-									</Badge>
-									{["an", "AI", "powered", "chatbot", "for", "Drexel", "students"].map((text, index) => (
-										<p key={index} className="">{text}</p>
-									))}
-								</div>
-								<Button variant="default" asChild>
-									<Link href="https://dragon-gpt-fe.vercel.app/" target="_blank" className="flex flex-row gap-1 mt-2">
-										Check out the live demo
-										<SquareArrowOutUpRight className="scale-75" />
-									</Link>
-								</Button>
-							</div>
-						</CardContent>
+							</CardContent>
+						</CardContainer>
 					</Card>
-					<Card className="col-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2 overflow-hidden">
+
+					<Card className="col-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0 overflow-hidden">
+						<CardContainer>
 						<CardHeader>
 							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
 						</CardHeader>
-						<CardContent>
-							<p className="text-primary/80">These are the technologies I frequently use</p>
-							<div className="mt-4 relative flex flex-col overflow-hidden">
+						<CardContent className="!px-0">
 								<Marquee pauseOnHover>
 									{firstSkills.map((skill, index) => (
 										<SkillCard skill={skill} key={index} />
@@ -156,13 +156,12 @@ export default function About({
 
 									))}
 								</Marquee>
-								<div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-linear-to-r from-white dark:from-background"></div>
-								<div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-linear-to-l from-white dark:from-background"></div>
-							</div>
 						</CardContent>
+						</CardContainer>
 					</Card>
 					<div className="col-span-1 grid grid-cols-2 sm:grid-rows-2 sm:grid-cols-none gap-2">
-						<Card className="col-span-1 sm:row-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
+						<Card className="col-span-1 sm:row-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
+							<CardContainer>
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<HourglassIcon />Hours
@@ -178,8 +177,10 @@ export default function About({
 									: "--"
 								}
 							</CardContent>
+							</CardContainer>
 						</Card>
-						<Card className="col-span-1 sm:row-span-1 bg-(--color-background) dark:shadow-sleek dark:border-none p-2">
+						<Card className="col-span-1 sm:row-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
+							<CardContainer>
 							<CardHeader>
 								<CardTitle className="text-2xl flex flex-row items-center gap-2">
 									<CalendarDaysIcon />Daily
@@ -194,6 +195,7 @@ export default function About({
 									: "--"
 								}
 							</CardContent>
+							</CardContainer>
 						</Card>
 					</div>
 				</div>

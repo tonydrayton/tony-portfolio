@@ -656,19 +656,19 @@ export function TestsCard() {
 							<span className="">cool.test.js</span>
 						</AnimatedSpan>
 
-						<AnimatedSpan delay={1500} className="text-green-500">
+						<AnimatedSpan delay={2000} className="text-green-500">
 							<span>✔ Tony is a genius.</span>
 						</AnimatedSpan>
 
-						<AnimatedSpan delay={2000} className="text-green-500">
+						<AnimatedSpan delay={2500} className="text-green-500">
 							<span>✔ Tony is awesome.</span>
 						</AnimatedSpan>
 
-						<AnimatedSpan delay={2500} className="text-green-500">
+						<AnimatedSpan delay={3000} className="text-green-500">
 							<span>✔ Tony is great.</span>
 						</AnimatedSpan>
 
-						<AnimatedSpan delay={3000} className="flex flex-row gap-1">
+						<AnimatedSpan delay={3500} className="flex flex-row gap-1">
 							<span className="font-bold">Test suites:</span>
 							<span className="text-green-500">3 passed,</span>
 							<span className="">3 total</span>
