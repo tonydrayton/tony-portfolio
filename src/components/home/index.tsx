@@ -82,7 +82,7 @@ export default function Home() {
 								}}
 								className="hero-items flex flex-row gap-2"
 							>
-								<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href="/assets/resumes/Tony_Drayton_10_25_24" target="_blank">
+								<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href="/assets/resumes/Tony_Drayton_10_25_24.pdf" target="_blank">
 										Resume
 								</ShinyAnchor>
 								<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
