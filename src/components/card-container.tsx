@@ -10,7 +10,7 @@ export default function CardContainer({
 	return (
 		<div className={cn(
 			//base styles
-			"z-10 w-full h-full p-2 rounded-xl relative bg-background dark:bg-gradient-to-br backdrop-blur-md border backdrop-saturate-150 translate-z-0 shadow-md will-change-transform",
+			"z-10 w-full h-full p-2 rounded-xl relative bg-background dark:bg-gradient-to-br backdrop-blur-md border backdrop-saturate-150 translate-z-0 will-change-transform",
 			//light mode styles
 			"text-black/90 before:absolute before:inset-0 before:bg-gradient-to-br before:from-black/[0.02] before:to-black/[0.01] before:opacity-0 before:transition-opacity before:pointer-events-none ",
 			//dark mode styles
