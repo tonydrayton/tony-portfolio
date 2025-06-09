@@ -1,40 +1,15 @@
 import { AnimatedBeam } from '@/components/ui/animated-beam';
-import { TextGenerateEffect } from '@/components/ui/generate-effect';
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal';
 import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { SiAmazonwebservices, SiMailgun, SiMailgunHex, SiReact, SiReactHex, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
+import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, TicketsIcon, HeartPlusIcon, FlaskConical } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useId, useRef, useState, useMemo, useCallback } from 'react';
+import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
-
-// export function FeatureCard({ feature, className, ...props }: FeatureCardPorps) {
-// 	const p = genRandomPattern();
-
-// 	return (
-// 		<div className={cn('relative overflow-hidden p-6', className)} {...props}>
-// 			<div className="pointer-events-none absolute top-0 left-1/2 -mt-2 -ml-20 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-// 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-// 					<GridPattern
-// 						width={20}
-// 						height={20}
-// 						x="-12"
-// 						y="4"
-// 						squares={p}
-// 						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-// 					/>
-// 				</div>
-// 			</div>
-// 			<feature.icon className="text-foreground/75 size-6" strokeWidth={1} aria-hidden />
-// 			<h3 className="mt-10 text-sm md:text-base">{feature.title}</h3>
-// 			<p className="text-muted-foreground relative z-20 mt-2 text-xs font-light">{feature.description}</p>
-// 		</div>
-// 	);
-// }
 
 const IntegrationCard = React.forwardRef<HTMLDivElement, {
 	children: React.ReactNode;

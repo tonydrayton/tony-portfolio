@@ -1,25 +1,21 @@
 "use client";
 import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
-import { ChevronDown, Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
-import { TextGenerateEffect } from "../ui/generate-effect";
-import { animate, motion, useInView, Variants } from "framer-motion";
+import { Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
+import { motion, Variants } from "framer-motion";
 import { ShinyAnchor, ShinyButton } from "../ui/shiny-button";
 import MailTo from "../MailTo";
 import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
 import ProjectSummary from "./projects";
-import AnimatedGridPattern from "../ui/animated-grid-pattern";
-import { CSSProperties, lazy, Suspense, useEffect, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
 import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
-import { Spotlight } from "../ui/spotlight";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
-import dynamic from "next/dynamic";
 import ChromeGrid from "../ui/chrome-grid";
 
 const childVariants: Variants = {
@@ -39,21 +35,8 @@ export default function Home() {
 
 		return () => clearTimeout(timer);
 	}, []);
-	// Initiate a socket connection to the Lanyard API, not using atm
-	// const { socket, initializeSocket, userData } = useUserStore();
 
-	// useEffect(() => {
-	// 	if (!socket) {
-	// 		initializeSocket();
-	// 	}
-	// 	return () => {
-	// 		console.log('Clearing heartbeat');
-	// 		useUserStore.getState().clearHeartbeat();
-	// 	};
-	// }, [socket, initializeSocket]);
 	const aboutSectionRef = useRef<HTMLDivElement | null>(null);
-	const aboutSectionInView = useInView(aboutSectionRef, { once: true, amount: 0.1 });
-	const hasAnimatedRef = useRef(false);
 
 	return (
 		<main className="overflow-hidden">
@@ -63,7 +46,6 @@ export default function Home() {
 				<motion.div variants={childVariants} className="h-svh w-screen relative">
 					{!isLoading && <ChromeGrid />}
 					<Container className="absolute top-0 flex-col items-center !justify-start">
-						{/* <Spotlight /> */}
 						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-16 sm:mt-32 md:mt-28 lg:px-6 lg:max-w-7xl">
 							<div className="lg:max-w-3xl flex flex-col gap-1 md:gap-2 items-start">
 								<p className="text-muted-foreground flex flex-row gap-2">

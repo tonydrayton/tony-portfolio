@@ -63,14 +63,6 @@ export default function ExperienceSection() {
 										{exp.workplace.name}
 									</Link>
 								</p>
-								{/* <div className="flex flex-row flex-wrap gap-2 mb-2">
-										{exp.skills.map((skill, index) => (
-											<Badge variant="outline" className="flex flex-row gap-1 items-center" key={index}>
-												{skill.icon}
-												{skill.name}
-											</Badge>
-										))}
-									</div> */}
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
 									{exp.cards.map((card, index) => (
 										<>{card}</>
