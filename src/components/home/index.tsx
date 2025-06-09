@@ -18,6 +18,7 @@ import ExperienceSection from "./experience";
 import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
 import { Spotlight } from "../ui/spotlight";
+import { ChromeGrid } from "../ui/chrome-grid";
 
 const childVariants: Variants = {
 	hidden: { y: 6, opacity: 0, filter: `blur(6px)` },
@@ -46,10 +47,11 @@ export default function Home() {
 			<SideNav />
 			<SocialSideNav />
 			<MotionBlurFade>
-				<motion.div variants={childVariants}>
-					<Container className="flex-col items-center !justify-start">
-						<Spotlight />
-						<div className="flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-16 sm:mt-32 md:mt-28 lg:px-6 lg:max-w-7xl">
+				<motion.div variants={childVariants} className="h-svh w-screen relative">
+					<ChromeGrid />
+					<Container className="absolute top-0 flex-col items-center !justify-start">
+						{/* <Spotlight /> */}
+						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-16 sm:mt-32 md:mt-28 lg:px-6 lg:max-w-7xl">
 							<div className="lg:max-w-3xl flex flex-col gap-1 md:gap-2 items-start">
 								<p className="text-muted-foreground flex flex-row gap-2">
 									<MapPinIcon /> Philadelphia, PA
