@@ -11,7 +11,7 @@ import Container from "../Container";
 import About from "./about";
 import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
-import { useRef } from "react";
+import { CSSProperties, useRef } from "react";
 import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
@@ -19,6 +19,7 @@ import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
 import { Spotlight } from "../ui/spotlight";
 import { ChromeGrid } from "../ui/chrome-grid";
+import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 
 const childVariants: Variants = {
 	hidden: { y: 6, opacity: 0, filter: `blur(6px)` },
@@ -70,7 +71,56 @@ export default function Home() {
 									</h1>
 								</div>
 
-								<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm Tony Drayton, a computer science student by day and developer by night"}</p>
+								<div className="flex flex-row items-center gap-1">
+									<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm"}</p>
+									<HoverCard openDelay={200}>
+										<div className="flex items-center gap-3">
+											<div className="space-y-0.5">
+												<HoverCardTrigger asChild>
+													<p>
+														<a
+															className={cn(
+																"text-lg lg:text-xl text-left text-primary/80",
+																"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
+																"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
+																"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
+															)}
+															href="#"
+															style={{
+																"--shiny-width": "50px",
+															} as CSSProperties}
+														>
+															{"Tony Drayton,"}
+														</a>
+													</p>
+												</HoverCardTrigger>
+											</div>
+										</div>
+										<HoverCardContent className="">
+											<div className="space-y-3">
+												<div className="flex items-center gap-3">
+													<img
+														className="shrink-0 object-top rounded-full pointer-events-none select-none"
+														src="assets/me/IMG_4698.jpg"
+														width={40}
+														height={40}
+														alt="Avatar"
+													/>
+													<div className="space-y-0.5">
+														<p className="text-sm font-medium">Tony Drayton</p>
+														<p className="text-muted-foreground text-xs">@tony</p>
+													</div>
+												</div>
+												<p className="text-muted-foreground text-sm">
+													Computer science student at{" "}
+													<strong className="text-foreground font-medium">Drexel University</strong>.
+													Anticipated graduation in 2027.
+												</p>
+											</div>
+										</HoverCardContent>
+									</HoverCard>
+									<p className="text-lg lg:text-xl text-left text-primary/80">{"a computer science student by day and developer by night"}</p>
+								</div>
 								<div className="hero-items mt-2 flex flex-row gap-2">
 									<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href="/assets/resumes/Tony_Drayton_10_25_24" target="_blank">
 										Resume
@@ -109,7 +159,7 @@ export default function Home() {
 				</Container>
 
 				<Separator orientation="horizontal" className="mt-20" />
-				
+
 				<Container className="flex-col items-center" id="projects" >
 					<ProjectSummary />
 				</Container>
