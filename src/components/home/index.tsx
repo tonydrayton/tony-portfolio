@@ -85,7 +85,7 @@ export default function Home() {
 										mailto="mailto:tonydrayton43@gmail.com" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
 									>
 										<Button variant="ghost" className="p-0 h-[unset]">
-											<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100" />
+											<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100 cursor-pointer" />
 										</Button>
 									</MailTo>
 								</div>

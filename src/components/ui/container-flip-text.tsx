@@ -66,9 +66,9 @@ export function ContainerTextFlip({
       transition={{ duration: animationDuration / 2000 }}
       className={cn(
         "relative inline-block rounded-lg lg:pt-2 lg:pb-3 text-center text-4xl font-bold text-black dark:text-white",
-        "[background:linear-gradient(to_bottom,#f3f4f6,#e5e7eb)]",
+        "[background:linear-gradient(to_bottom,#fdfdfe,#eff1f4)]",
         "shadow-[inset_0_-1px_#d1d5db,inset_0_0_0_1px_#d1d5db,_0_4px_8px_#d1d5db]",
-        "dark:[background:linear-gradient(to_bottom,#44464a,#1f2123)]",
+        "dark:[background:linear-gradient(to_bottom,#202123,#121314)]",
         "dark:shadow-[inset_0_-1px_#10171e,inset_0_0_0_1px_hsl(204.98deg,33.59%,74.79%,.24),_0_4px_8px_#00000052]",
         className,
       )}

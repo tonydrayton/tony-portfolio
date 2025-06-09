@@ -86,7 +86,7 @@ export default function SocialSideNav() {
 								"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground group",
 								"transition-all duration-300",
 								isOpen
-									? "hover:bg-accent cursor-pointer"
+									? "hover:bg-accent/50 hover:backdrop-blur-md cursor-pointer"
 									: "pointer-events-none opacity-50"
 							)}
 							variant="ghost"
@@ -108,7 +108,7 @@ export default function SocialSideNav() {
 									"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground group",
 									"transition-all duration-300",
 									isOpen
-										? "hover:bg-accent cursor-pointer"
+										? "hover:bg-accent/50 hover:backdrop-blur-md cursor-pointer"
 										: "pointer-events-none opacity-50"
 								)}
 							>
