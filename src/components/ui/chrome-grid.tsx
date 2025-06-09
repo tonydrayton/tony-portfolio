@@ -202,7 +202,7 @@ function GridOfBoxes() {
 export default function ChromeGrid() {
   return (
     <div
-        className="h-full w-full bg-background relative -z-10 mask-l-from-background mask-b-from-100 mask-top-left invert dark:invert-0 delay-200 animate-fade-in"
+        className="h-full w-full bg-black dark:bg-background relative -z-10 mask-t-from-background sm:mask-l-from-background sm:mask-l-from-70% sm:mask-left sm:mask-t-from-[unset] mask-b-from-100 invert dark:invert-0 delay-200 animate-fade-in"
     >
 
       <Canvas camera={{ 

@@ -59,7 +59,8 @@ export default function Home() {
 		<main className="overflow-hidden">
 			<SideNav />
 			<SocialSideNav />
-				<div className="h-svh w-screen relative">
+			<MotionBlurFade>
+				<motion.div variants={childVariants} className="h-svh w-screen relative">
 					{!isLoading && <ChromeGrid />}
 					<Container className="absolute top-0 flex-col items-center !justify-start">
 						{/* <Spotlight /> */}
@@ -82,7 +83,7 @@ export default function Home() {
 									</h1>
 								</div>
 
-								<div className="flex flex-row items-center gap-1">
+								<div className="flex flex-row flex-wrap items-center gap-x-1">
 									<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm"}</p>
 									<HoverCard openDelay={200}>
 										<div className="flex items-center gap-3">
@@ -130,7 +131,9 @@ export default function Home() {
 											</div>
 										</HoverCardContent>
 									</HoverCard>
-									<p className="text-lg lg:text-xl text-left text-primary/80">{"a computer science student by day and developer by night"}</p>
+									{["a", "computer", "science", "student", "by", "day", "and", "developer", "by", "night"].map((word, index) => (
+										<span key={index} className="text-lg lg:text-xl text-left text-primary/80">{word}</span>
+									))}
 								</div>
 								<div className="hero-items mt-2 flex flex-row gap-2">
 									<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href="/assets/resumes/Tony_Drayton_10_25_24" target="_blank">
@@ -153,15 +156,13 @@ export default function Home() {
 							</div>
 						</div>
 					</Container>
-				</div>
+				</motion.div>
 
 				<div className="my-20" />
 
-				<div>
-					<Container className="flex-col items-center justify-start" id="experience">
-						<ExperienceSection />
-					</Container>
-				</div>
+				<Container className="flex-col items-center justify-start" id="experience">
+					<ExperienceSection />
+				</Container>
 
 				<Separator orientation="horizontal" className="mt-20" />
 
@@ -191,6 +192,7 @@ export default function Home() {
 					</span>
 					<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
 				</footer>
+			</MotionBlurFade>
 		</main>
 	)
 }
