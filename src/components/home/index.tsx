@@ -17,6 +17,7 @@ import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import ChromeGrid from "../ui/chrome-grid";
+import Image from "next/image";
 
 const childVariants: Variants = {
 	hidden: { y: 6, opacity: 0, filter: `blur(6px)` },
@@ -46,7 +47,7 @@ export default function Home() {
 				<motion.div variants={childVariants} className="h-svh w-screen relative">
 					{!isLoading && <ChromeGrid />}
 					<Container className="absolute top-0 flex-col items-center !justify-start">
-						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-16 sm:mt-32 md:mt-28 lg:px-6 lg:max-w-7xl">
+						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-24 sm:mt-32 md:mt-60 lg:px-6 lg:max-w-7xl">
 							<div className="lg:max-w-3xl flex flex-col gap-1 md:gap-2 items-start">
 								<p className="text-muted-foreground flex flex-row gap-2">
 									<MapPinIcon /> Philadelphia, PA
@@ -93,9 +94,9 @@ export default function Home() {
 										<HoverCardContent className="">
 											<div className="space-y-3">
 												<div className="flex items-center gap-3">
-													<img
+													<Image
 														className="shrink-0 object-top rounded-full pointer-events-none select-none"
-														src="assets/me/IMG_4698.jpg"
+														src="/assets/me/IMG_4698.jpg"
 														width={40}
 														height={40}
 														alt="Avatar"

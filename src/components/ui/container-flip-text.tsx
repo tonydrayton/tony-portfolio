@@ -36,8 +36,7 @@ export function ContainerTextFlip({
 
   const updateWidthForWord = () => {
     if (textRef.current) {
-      console.log({windowSize, isDesktop})
-      // Add some paddin  g to the text width (30px on each side)
+      // Add some padding to the text width
       // @ts-ignore
       const textWidth = isDesktop ? textRef.current.scrollWidth + 30 : textRef.current.scrollWidth + 15;
       setWidth(textWidth);
@@ -65,7 +64,7 @@ export function ContainerTextFlip({
       animate={{ width }}
       transition={{ duration: animationDuration / 2000 }}
       className={cn(
-        "relative inline-block rounded-lg pb-1 lg:pt-2 lg:pb-3 text-center text-4xl font-bold text-black dark:text-white backdrop-blur-lg",
+        "relative inline-block rounded-lg pb-1 lg:pt-2 lg:pb-3 text-center text-4xl font-semibold text-black dark:text-white backdrop-blur-3xl",
         "[background:linear-gradient(to_bottom,#fdfdfe52,#eff1f455)]",
         "shadow-[inset_0_-1px_#d1d5db,inset_0_0_0_1px_#d1d5db,_0_4px_8px_#d1d5db]",
         "dark:[background:linear-gradient(to_bottom,#20212324,#12131425)]",
