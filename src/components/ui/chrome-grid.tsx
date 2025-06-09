@@ -4,7 +4,7 @@ import React, { useRef, useState, useMemo, useEffect } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import { ExtrudeGeometry, Shape } from 'three'
 import * as THREE from 'three'
-
+import { motion } from 'framer-motion'
 interface BoxProps {
   position: [number, number, number];
   width?: number;
@@ -199,9 +199,11 @@ function GridOfBoxes() {
   );
 }
 
-export function ChromeGrid() {
+export default function ChromeGrid() {
   return (
-    <div className="h-full w-full bg-black relative -z-10 mask-l-from-background mask-b-from-100 mask-top-left invert dark:invert-0">
+    <div
+        className="h-full w-full bg-background relative -z-10 mask-l-from-background mask-b-from-100 mask-top-left invert dark:invert-0 delay-200 animate-fade-in"
+    >
 
       <Canvas camera={{ 
         position: [-9.31, 12, 24.72], 

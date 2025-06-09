@@ -11,22 +11,34 @@ import Container from "../Container";
 import About from "./about";
 import ProjectSummary from "./projects";
 import AnimatedGridPattern from "../ui/animated-grid-pattern";
-import { CSSProperties, useRef } from "react";
+import { CSSProperties, lazy, Suspense, useEffect, useRef, useState } from "react";
 import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
 import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
 import { Spotlight } from "../ui/spotlight";
-import { ChromeGrid } from "../ui/chrome-grid";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
+import dynamic from "next/dynamic";
+import ChromeGrid from "../ui/chrome-grid";
 
 const childVariants: Variants = {
 	hidden: { y: 6, opacity: 0, filter: `blur(6px)` },
 	visible: { y: 0, opacity: 1, filter: `blur(0px)` },
 };
 
+
 export default function Home() {
+	const [isLoading, setIsLoading] = useState(true);
+
+	// Wait for animations to finish before displaying the 3D grid
+	useEffect(() => {
+		const timer = setTimeout(() => {
+			setIsLoading(false);
+		}, 500);
+
+		return () => clearTimeout(timer);
+	}, []);
 	// Initiate a socket connection to the Lanyard API, not using atm
 	// const { socket, initializeSocket, userData } = useUserStore();
 
@@ -47,9 +59,8 @@ export default function Home() {
 		<main className="overflow-hidden">
 			<SideNav />
 			<SocialSideNav />
-			<MotionBlurFade>
-				<motion.div variants={childVariants} className="h-svh w-screen relative">
-					<ChromeGrid />
+				<div className="h-svh w-screen relative">
+					{!isLoading && <ChromeGrid />}
 					<Container className="absolute top-0 flex-col items-center !justify-start">
 						{/* <Spotlight /> */}
 						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-16 sm:mt-32 md:mt-28 lg:px-6 lg:max-w-7xl">
@@ -142,15 +153,15 @@ export default function Home() {
 							</div>
 						</div>
 					</Container>
-				</motion.div>
+				</div>
 
 				<div className="my-20" />
 
-				<motion.div variants={childVariants}>
+				<div>
 					<Container className="flex-col items-center justify-start" id="experience">
 						<ExperienceSection />
 					</Container>
-				</motion.div>
+				</div>
 
 				<Separator orientation="horizontal" className="mt-20" />
 
@@ -180,7 +191,6 @@ export default function Home() {
 					</span>
 					<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
 				</footer>
-			</MotionBlurFade>
 		</main>
 	)
 }
