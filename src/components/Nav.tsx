@@ -1,90 +1,121 @@
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, MenuIcon, XIcon } from "lucide-react";
 import { ModeToggle } from "./ui/ModeToggle";
 import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDebounce } from 'use-debounce';
+import Link from "next/link";
+import Logo from "../app/android-chrome-512x512.png";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 const sections = ['About', 'Experience', 'Projects'];
 
-export default function Nav() {
-	const { scrollYProgress } = useScroll();
-	const [visible, setVisible] = useState(true);
-	const [debouncedVisible] = useDebounce(visible, 100);
+const menuItems = [
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'Projects', href: '#projects' },
+]
 
-	useMotionValueEvent(scrollYProgress, "change", (current) => {
-		if (typeof current === "number") {
-			let direction = current! - scrollYProgress.getPrevious()!;
-			if (scrollYProgress.get() > 0.1) {
-				if (direction < 0) {
-					setVisible(true);
-				} else {
-					setVisible(false);
-				}
-			}
+export default function Nav() {
+	const [menuState, setMenuState] = useState(false)
+	const [isScrolled, setIsScrolled] = useState(false)
+
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 50)
 		}
-	});
+		window.addEventListener('scroll', handleScroll)
+		return () => window.removeEventListener('scroll', handleScroll)
+	}, [])
 
 	return (
-			<header
-				className="fixed 2xl:hidden bottom-0 sm:bottom-[unset] left-0 w-full p-2 mb-2 sm:p-4 sm:mb-0 z-50 ">
-				<div
-					className="m-auto flex h-full w-full max-w-sm items-center sm:max-w-xl transition-all ease-in-out duration-100">
-					<div
-						className="justify-center sm:justify-between m-auto p-0.5 mt-1 sm:px-4 flex h-full w-fit sm:w-full max-w-full items-center rounded-2xl border border-black/20 dark:border-white/20 bg-background/80 px-2 backdrop-blur-xl backdrop-filter shadow-xs">
-						<div className="items-center justify-center mx-2 gap-4 flex flex-row">
-							{sections.map((section, index) => (
-								<a key={index} href={`#${section.toLowerCase()}`} className="relative text-sm sm:text-base dark:text-white/80 dark:hover:text-white transition-all duration-300 ease-in-out drop-shadow-md group dark:[text-shadow:1px_1px_3px_rgba(0,0,0,0.3)]">
-									{section}
-									<span
-										className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
-									/>
-								</a>
-							))}
-							<motion.a
-								initial={{ backgroundPosition: '0% 50%' }}
-								animate={{ backgroundPosition: '100% 50%' }}
-								transition={{
-									duration: 3,
-									ease: 'easeInOut',
-									repeat: Infinity,
-									repeatType: 'reverse'
-								}}
-								className="group relative font-semibold text-sm sm:text-base rounded-lg bg-linear-to-r from-neutral-700 to-neutral-500 dark:from-neutral-500 dark:to-neutral-200 bg-clip-text text-transparent drop-shadow-md"
-								style={{
-									backgroundSize: '200% 100%',
-									backgroundImage: 'linear-gradient(to right, #gray500, #ffffff)',
-								}}
-								href="/assets/resumes/Tony_Drayton_10_25_24.pdf"
-								target="_blank"
-							>
-								Resume
-								<span className="sr-only">Open Resume</span>
-								<span
-									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-150 ease-in-out group-hover:w-full group-hover:bg-black bg-linear-to-r dark:group-hover:bg-white dark:from-neutral-500 dark:to-neutral-200 from-neutral-700 to-neutral-300 group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
+		<header>
+			<nav
+				data-state={menuState && 'active'}
+				className="fixed z-20 w-full px-2 group">
+				<div className={cn('mx-auto mt-2 max-w-6xl px-6 transition-all duration-300 lg:px-12', isScrolled && 'bg-background/50 max-w-4xl rounded-2xl border backdrop-blur-lg lg:px-5')}>
+					<div className="relative flex flex-wrap items-center justify-between gap-6 py-3 lg:gap-0 lg:py-4">
+						<div className="flex w-full justify-between lg:w-auto">
+							<Link
+								href="/"
+								aria-label="home"
+								className="flex items-center space-x-2">
+								<Image
+									src={Logo}
+									alt="Logo"
 								/>
+							</Link>
 
-							</motion.a>
+							<button
+								onClick={() => setMenuState(!menuState)}
+								aria-label={menuState == true ? 'Close Menu' : 'Open Menu'}
+								className="relative z-20 -m-2.5 -mr-4 block cursor-pointer p-2.5 lg:hidden">
+								<MenuIcon className="in-data-[state=active]:rotate-180 group-data-[state=active]:scale-0 group-data-[state=active]:opacity-0 m-auto size-6 duration-200" />
+								<XIcon className="group-data-[state=active]:rotate-0 group-data-[state=active]:scale-100 group-data-[state=active]:opacity-100 absolute inset-0 m-auto size-6 -rotate-180 scale-0 opacity-0 duration-200" />
+							</button>
 						</div>
-						<div className="gap-1 flex flex-row justify-center items-center">
-							<ModeToggle />
 
-							<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
-								<Github className="size-4 sm:size-5" />
-								<span
-									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
-								/>
-							</a>
-							<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
-								<Linkedin className="size-4 sm:size-5" />
-								<span
-									className="absolute left-0 -bottom-3 h-0.5 bg-transparent transition-all duration-200 ease-in-out group-hover:w-full group-hover:bg-black dark:group-hover:bg-white group-hover:shadow-[0_0_8px_rgba(255,255,255,0.8)] w-0"
-								/>
-							</a>
+						<div className="absolute inset-0 m-auto hidden size-fit lg:block">
+							<ul className="flex gap-8 text-sm">
+								{menuItems.map((item, index) => (
+									<li key={index}>
+										<Link
+											href={item.href}
+											className="text-muted-foreground hover:text-accent-foreground block duration-150">
+											<span>{item.name}</span>
+										</Link>
+									</li>
+								))}
+							</ul>
+						</div>
+
+						<div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl border p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:border-transparent lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
+							<div className="lg:hidden">
+								<ul className="space-y-6 text-base">
+									{menuItems.map((item, index) => (
+										<li key={index}>
+											<Link
+												href={item.href}
+												className="text-muted-foreground hover:text-accent-foreground block duration-150">
+												<span>{item.name}</span>
+											</Link>
+										</li>
+									))}
+								</ul>
+							</div>
+							<div className="flex w-full flex-col space-y-3 sm:flex-row sm:gap-3 sm:space-y-0 md:w-fit">
+								<Button
+									asChild
+									variant="outline"
+									size="sm"
+									className={cn(isScrolled && 'lg:hidden')}>
+									<Link href="#">
+										<span>Login</span>
+									</Link>
+								</Button>
+								<Button
+									asChild
+									size="sm"
+									className={cn(isScrolled && 'lg:hidden')}>
+									<Link href="#">
+										<span>Sign Up</span>
+									</Link>
+								</Button>
+								<Button
+									asChild
+									size="sm"
+									className={cn(isScrolled ? 'lg:inline-flex' : 'hidden')}>
+									<Link href="#">
+										<span>Get Started</span>
+									</Link>
+								</Button>
+							</div>
 						</div>
 					</div>
 				</div>
-			</header>
-		// </AnimatePresence>
+			</nav>
+		</header>
 	)
 
 }
