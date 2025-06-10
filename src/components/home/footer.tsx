@@ -31,20 +31,20 @@ const footerLinks: FooterSection[] = [
 
 export function Footer() {
     return (
-        <footer className="md:rounded-t-6xl relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-t bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/8%),transparent)] px-6 py-12 lg:py-16">
+        <footer className="md:rounded-t-6xl relative w-full max-w-6xl mx-auto flex flex-col items-center justify-center rounded-t-4xl border-t bg-[radial-gradient(35%_128px_at_50%_0%,theme(backgroundColor.white/8%),transparent)] px-6 py-12 lg:py-16" id="contact">
             <div className="bg-foreground/20 absolute top-0 right-1/2 left-1/2 h-px w-1/3 -translate-x-1/2 -translate-y-1/2 rounded-full blur" />
 
-            <div className="grid w-full gap-8 xl:grid-cols-3 xl:gap-8">
+            <div className="grid w-full gap-2 sm:gap-8 xl:grid-cols-3 xl:gap-8">
                 <AnimatedContainer className="">
                     <Logo size={40} />
                     <p className="text-muted-foreground mt-4 text-sm">
                         © {new Date().getFullYear()} Tony Drayton
                     </p>
                     <p className='text-muted-foreground mt-0.5 text-sm'>All rights reserved.</p>
-                    <AnimatedShinyText className='mt-0 sm:mt-6 text-sm text-left mx-0' shimmerWidth={30}>Built with love.</AnimatedShinyText>
+                    <AnimatedShinyText className='mt-0.5 sm:mt-6 text-sm text-left mx-0' shimmerWidth={30}>Built with love.</AnimatedShinyText>
                 </AnimatedContainer>
 
-                <div className="mt-10 grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2 xl:mt-0">
+                <div className="mt-2 sm:mt-0 grid grid-cols-2 gap-8 md:grid-cols-4 xl:col-span-2 xl:mt-0">
                     {footerLinks.map((section, index) => (
                         <AnimatedContainer key={section.label} delay={0.1 + index * 0.1}>
                             <div className="mb-10 md:mb-0">

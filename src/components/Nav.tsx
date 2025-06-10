@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
+import { AnimatedGroup } from "./ui/animated-group";
 
 const menuItems = [
-	{ name: 'About', href: '#about' },
 	{ name: 'Experience', href: '#experience' },
-	{ name: 'Projects', href: '#projects' },
+	{ name: 'Contact', href: '#contact' },
 ]
 
 export default function Nav() {
@@ -59,24 +59,25 @@ export default function Nav() {
 								))}
 							</ul>
 						</div>
-
-						<div className="bg-background group-data-[state=active]:block lg:group-data-[state=active]:flex mb-6 hidden w-full flex-wrap items-center justify-end space-y-8 rounded-3xl p-6 shadow-2xl shadow-zinc-300/20 md:flex-nowrap lg:m-0 lg:flex lg:w-fit lg:gap-6 lg:space-y-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent">
-							<div className="lg:hidden">
-								<ul className="space-y-6 text-base">
-									{menuItems.map((item, index) => (
-										<li key={index}>
-											<Link
-												href={item.href}
-												className="text-muted-foreground hover:text-accent-foreground block duration-150">
-												<span>{item.name}</span>
-											</Link>
-										</li>
-									))}
-								</ul>
-							</div>
-						</div>
 					</div>
 				</div>
+				<AnimatedGroup
+					as="ul"
+					initial={'hidden'}
+					animate={menuState ? 'visible' : 'hidden'}
+					className="bg-background/50 backdrop-blur-lg border mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-2xl p-6 shadow-2xl shadow-zinc-300/20 mt-4 md:flex-nowrap lg:hidden lg:m-0 lg:w-fit lg:gap-6 lg:space-y-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent text-base"
+					preset="blur-slide"
+				>
+					{menuItems.map((item, index) => (
+						<li key={index}>
+							<Link
+								href={item.href}
+								className="text-muted-foreground hover:text-accent-foreground block duration-150">
+								<span>{item.name}</span>
+							</Link>
+						</li>
+					))}
+				</AnimatedGroup>
 			</nav>
 		</header>
 	)
