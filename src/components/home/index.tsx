@@ -26,12 +26,14 @@ const childVariants: Variants = {
 
 
 export default function Home() {
-	const [isLoading, setIsLoading] = useState(true);
+	const [showGrid, setShowGrid] = useState(false);
 
 	// Wait for animations to finish before displaying the 3D grid
 	useEffect(() => {
 		const timer = setTimeout(() => {
-			setIsLoading(false);
+			setTimeout(() => {
+				setShowGrid(true);
+			}, 500);
 		}, 500);
 
 		return () => clearTimeout(timer);
@@ -45,7 +47,7 @@ export default function Home() {
 			<SocialSideNav />
 			<MotionBlurFade>
 				<motion.div variants={childVariants} className="h-svh w-screen relative">
-					{!isLoading && <ChromeGrid />}
+					{showGrid && <ChromeGrid />}
 					<Container className="absolute top-0 flex-col items-center !justify-start">
 						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-24 sm:mt-32 md:mt-60 lg:px-6 lg:max-w-7xl">
 							<div className="lg:max-w-3xl flex flex-col gap-1 md:gap-2 items-start">
