@@ -49,6 +49,7 @@ export const metadata: Metadata = {
 	twitter: twitter,
 	icons: {
 		apple: '/logo.png',
+		icon: '/logo.png'
 	},
 };
 

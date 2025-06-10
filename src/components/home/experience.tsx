@@ -41,7 +41,7 @@ export default function ExperienceSection() {
 		<div className="max-w-full w-full px-4 md:px-14 lg:max-w-4xl">
 			<div className="mt-10 flex flex-col gap-10 md:gap-8 w-full">
 				<div className="relative">
-					<h2 className="text-3xl lg:text-5xl font-semibold tracking-tight mb-8">Technical Experience</h2>
+					<h2 className="text-3xl lg:text-5xl font-semibold tracking-tight mb-4">Experience</h2>
 					{experienceData.map((exp, index) => (
 						<div className="flex flex-col mb-4" key={index}>
 							<div className="w-40 pt-1 text-sm text-muted-foreground h-fit">{exp.date}</div>
