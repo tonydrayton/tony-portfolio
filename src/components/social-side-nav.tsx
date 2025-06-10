@@ -83,10 +83,10 @@ export default function SocialSideNav() {
 					<li>
 						<Button
 							className={cn(
-								"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground group",
+								"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground border border-transparent group",
 								"transition-all duration-300",
 								isOpen
-									? "hover:bg-accent cursor-pointer"
+									? "hover:bg-accent/50 hover:backdrop-blur-md hover:border-border cursor-pointer"
 									: "pointer-events-none opacity-50"
 							)}
 							variant="ghost"
@@ -105,10 +105,10 @@ export default function SocialSideNav() {
 								target="_blank"
 								rel="noopener noreferrer"
 								className={cn(
-									"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground group",
+									"flex items-center justify-between gap-2 px-3 py-2 rounded-md text-sm text-muted-foreground hover:text-accent-foreground border border-transparent group",
 									"transition-all duration-300",
 									isOpen
-										? "hover:bg-accent cursor-pointer"
+										? "hover:bg-accent/50 hover:backdrop-blur-md hover:border-border cursor-pointer"
 										: "pointer-events-none opacity-50"
 								)}
 							>

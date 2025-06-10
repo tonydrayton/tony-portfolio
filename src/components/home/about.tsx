@@ -94,7 +94,7 @@ export default function About({
 
 	return (
 		<div className="lg:max-w-7xl md:px-6" ref={aboutSectionRef}>
-			<div className="lg:max-w-7xl p-4 flex flex-col gap-4 md:gap-0">
+			<div className="p-4 flex flex-col gap-4 md:gap-0">
 				<div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:mt-10">
 					<Card className="col-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
 						<CardContainer>

@@ -44,8 +44,8 @@ export default function MotionBlurFade({
 	const shouldAnimate = !isVisible || isInViewport;
 
 	const defaultMotionVariants: Variants = {
-		hidden: { y: verticalOffset, opacity: 0, filter: `blur(${blur})` },
-		visible: { y: -verticalOffset, opacity: 1, filter: `blur(0px)` },
+		hidden: { opacity: 0, filter: `blur(${blur})` },
+		visible: { opacity: 1, filter: `blur(0px)` },
 	};
 
 	const appliedVariants = animationVariants || defaultMotionVariants;
@@ -59,9 +59,10 @@ export default function MotionBlurFade({
 				exit="hidden"
 				variants={appliedVariants}
 				transition={{
-					delay: 0.04 + animationDelay,
+					delay: 0.05 + animationDelay,
 					duration: animationDuration,
 					ease: "easeOut",
+					staggerChildren: 0.6
 				}}
 				className={className}
 				style={style}

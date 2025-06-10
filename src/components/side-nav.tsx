@@ -11,10 +11,9 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-	{ id: "about", label: "About", shortcut: 1 },
+	{ id: "hero", label: "Go to top", shortcut: 1 },
 	{ id: "experience", label: "Experience", shortcut: 2 },
-	{ id: "projects", label: "Projects", shortcut: 3 },
-	{ id: "contact", label: "Contact", shortcut: 4 },
+	{ id: "contact", label: "Contact", shortcut: 3 },
 ];
 
 export default function SideNav() {
@@ -82,10 +81,10 @@ export default function SideNav() {
 							<a
 								href={isOpen ? `#${item.id}` : undefined}
 								className={cn(
-									"flex items-center gap-2 px-3 py-2 rounded-md text-sm !text-muted-foreground hover:bg-accent hover:text-accent-foreground group",
+									"flex items-center gap-2 px-3 py-2 rounded-md border border-transparent text-sm !text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground group",
 									"transition-all duration-300",
 									isOpen
-										? "hover:bg-accent cursor-pointer"
+										? "hover:bg-accent/50 hover:backdrop-blur-md hover:border-border cursor-pointer"
 										: "pointer-events-none opacity-50"
 								)}
 								onClick={(e) => {

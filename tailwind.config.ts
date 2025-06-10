@@ -124,6 +124,10 @@ const config: Config = {
 					  backgroundPosition: "var(--bg-size) 0",
 					},
 				},
+				fadeIn: {
+					'0%': { opacity: "0" },
+					'100%': { opacity: "1" }
+				}
     		},
     		animation: {
     			marquee: 'marquee var(--duration) infinite linear',
@@ -131,6 +135,7 @@ const config: Config = {
     			'shiny-text': 'shiny-text 8s infinite',
     			'marquee-vertical': 'marquee-vertical var(--duration) linear infinite',
 				gradient: "gradient 2s linear infinite",
+				fadeIn: "fadeIn 2s ease-in-out"
     		}
     	}
     },
