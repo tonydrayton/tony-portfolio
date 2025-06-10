@@ -84,7 +84,7 @@ export default function Home() {
 			<MotionBlurFade>
 				<motion.div variants={childVariants} className="h-svh w-screen relative">
 					{showGrid && canHandleGrid && <ChromeGrid />}
-					<Container className="absolute top-0 flex-col items-center !justify-start pointer-events-none">
+					<Container className="absolute top-0 flex-col items-center !justify-start pointer-events-none" id="hero">
 						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 mt-24 sm:mt-32 md:mt-76 lg:px-6 lg:max-w-7xl">
 							<div className="lg:max-w-3xl flex flex-col gap-1 md:gap-2 items-start">
 								<p className="text-muted-foreground flex flex-row gap-2 pointer-events-auto">

@@ -1,17 +1,13 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import '@radix-ui/themes/styles.css';
 import { Theme } from "@radix-ui/themes";
 import { ThemeProvider } from "next-themes";
-import Head from "next/head";
 import { OpenGraph } from "next/dist/lib/metadata/types/opengraph-types";
 import { Twitter } from "next/dist/lib/metadata/types/twitter-types";
-import { tealHex } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
-
-const icon = 'https://art.pixilart.com/sr231aafbb1e176.png';
 
 const openGraph: OpenGraph = {
 	title: "Tony Drayton",
@@ -19,10 +15,10 @@ const openGraph: OpenGraph = {
 	locale: "en_US",
 	type: "website",
 	url: "https://tonydrayton.dev",
-	siteName: "Tony Drayton", // Author on Discord
+	siteName: "Tony Drayton",
 	images: [
 		{
-			url: icon,
+			url: '/logo.png',
 			width: 480,
 			height: 480,
 			alt: "Tony Drayton"
@@ -38,7 +34,7 @@ const twitter: Twitter = {
 	site: "@tonydrayton",
 	images: [
 		{
-			url: icon,
+			url: '/logo.png',
 			width: 480,
 			height: 480,
 			alt: "Tony Drayton"
@@ -52,8 +48,8 @@ export const metadata: Metadata = {
 	openGraph: openGraph,
 	twitter: twitter,
 	icons: {
-		apple: icon
-	}
+		apple: '/logo.png',
+	},
 };
 
 export default function RootLayout({
@@ -64,7 +60,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-svh">
 			<body className={`h-full ${inter.className}`}>
-				<ThemeProvider attribute="class" defaultTheme="dark">
+				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<Theme grayColor="mauve">
 						{children}
 					</Theme>

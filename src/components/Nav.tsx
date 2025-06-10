@@ -15,12 +15,17 @@ export default function Nav() {
 	const [isScrolled, setIsScrolled] = useState(false)
 
 	useEffect(() => {
+		const threshold = 40;
+		if(window.scrollY > threshold) {
+			setIsScrolled(true)
+		}
+
 		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 50)
+			setIsScrolled(window.scrollY > threshold)
 		}
 		window.addEventListener('scroll', handleScroll)
 		return () => window.removeEventListener('scroll', handleScroll)
-	}, [])
+	}, []);
 
 	return (
 		<header className="block 2xl:hidden">
@@ -75,7 +80,7 @@ export default function Nav() {
 						<li key={index}>
 							<Link
 								href={item.href}
-								className="text-muted-foreground hover:text-accent-foreground block duration-150">
+								className="text-primary sm:text-muted-foreground hover:text-accent-foreground block duration-150">
 								<span>{item.name}</span>
 							</Link>
 						</li>
