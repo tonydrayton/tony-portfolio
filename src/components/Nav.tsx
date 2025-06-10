@@ -65,7 +65,10 @@ export default function Nav() {
 					as="ul"
 					initial={'hidden'}
 					animate={menuState ? 'visible' : 'hidden'}
-					className="bg-background/50 backdrop-blur-lg border mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-2xl p-6 shadow-2xl shadow-zinc-300/20 mt-4 md:flex-nowrap lg:hidden lg:m-0 lg:w-fit lg:gap-6 lg:space-y-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent text-base"
+					className={cn(
+						"bg-background/50 backdrop-blur-lg border mb-6 w-full flex-wrap items-center justify-end space-y-8 rounded-2xl p-6 shadow-2xl shadow-zinc-300/20 mt-4 md:flex-nowrap lg:hidden lg:m-0 lg:w-fit lg:gap-6 lg:space-y-0 lg:bg-transparent lg:p-0 lg:shadow-none dark:shadow-none dark:lg:bg-transparent text-base",
+						menuState ? 'block' : 'hidden',
+					)}
 					preset="blur-slide"
 				>
 					{menuItems.map((item, index) => (
