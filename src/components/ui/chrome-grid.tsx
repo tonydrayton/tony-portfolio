@@ -34,13 +34,14 @@ const createBoxGeometry = (width = 4, length = 4, cornerRadius = 1) => {
   return geometry;
 };
 
-// Pre-create the material
+// Pre-create the material with better memory settings
 const boxMaterial = new THREE.MeshPhysicalMaterial({
   color: "#232323",
   roughness: 0.5,
   metalness: 1,
   clearcoat: 1,
-  clearcoatRoughness: 0
+  clearcoatRoughness: 0,
+  precision: "lowp"
 });
 
 // Pre-create the geometry
@@ -192,7 +193,7 @@ function GridOfBoxes() {
 export default function ChromeGrid() {
   return (
     <div
-      className="h-full w-full bg-black dark:bg-background relative -z-10 mask-t-from-background sm:mask-l-from-background sm:mask-l-from-70% sm:mask-left sm:mask-t-from-[unset] mask-b-from-100 invert dark:invert-0 animate-fade-in"
+      className="h-full w-full bg-black dark:bg-background relative -z-10 mask-t-from-background sm:mask-l-from-background sm:mask-l-from-70% sm:mask-left sm:mask-t-from-[unset] mask-b-from-100 invert dark:invert-0 animate-fade-in select-none"
     >
       <Canvas
         camera={{
@@ -200,8 +201,12 @@ export default function ChromeGrid() {
           rotation: [-0.65, -0.2, -0.13],
           fov: 35
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         performance={{ min: 0.5 }}
+        gl={{
+          powerPreference: 'low-power',
+          antialias: false
+        }}
       >
         <ambientLight intensity={1} />
 
