@@ -1,20 +1,13 @@
-import { Github, Linkedin, MenuIcon, XIcon } from "lucide-react";
-import { ModeToggle } from "./ui/ModeToggle";
-import { motion, useMotionValueEvent, useScroll } from 'framer-motion';
+import { MenuIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
-import { useDebounce } from 'use-debounce';
 import Link from "next/link";
-import Logo from "../app/android-chrome-512x512.png";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Button } from "./ui/button";
-
-const sections = ['About', 'Experience', 'Projects'];
+import Logo from "./logo";
 
 const menuItems = [
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
+	{ name: 'About', href: '#about' },
+	{ name: 'Experience', href: '#experience' },
+	{ name: 'Projects', href: '#projects' },
 ]
 
 export default function Nav() {
@@ -41,12 +34,7 @@ export default function Nav() {
 								href="/"
 								aria-label="home"
 								className="flex items-center space-x-2">
-								<Image
-									src="/logos/site_logo.png"
-									alt="Logo"
-									width={30}
-									height={30}
-								/>
+								<Logo size={35} />
 							</Link>
 
 							<button

@@ -4,7 +4,6 @@ import MotionBlurFade from "../ui/MotionBlurFade";
 import { Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { ShinyAnchor, ShinyButton } from "../ui/shiny-button";
-import MailTo from "../MailTo";
 import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
@@ -17,6 +16,7 @@ import { ContainerTextFlip } from "../ui/container-flip-text";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import ChromeGrid from "../ui/chrome-grid";
 import Image from "next/image";
+import { Footer } from "./sections/footer";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -166,13 +166,13 @@ export default function Home() {
 									<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 										<Linkedin />
 									</a>
-									<MailTo
-										mailto="mailto:tonydrayton43@gmail.com" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
+									<a
+										href="mailto:tonydrytn@gmail.com" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
 									>
 										<Button variant="ghost" className="p-0 h-[unset]">
 											<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100 cursor-pointer" />
 										</Button>
-									</MailTo>
+									</a>
 								</div>
 							</div>
 						</div>
@@ -198,21 +198,7 @@ export default function Home() {
 				</Container> */}
 
 				<div className="shrink-0 bg-border h-px w-full my-10" />
-				<footer className="flex flex-col gap-4 justify-center items-center w-full p-4 text-center" id="contact">
-					<span className="font-bold tracking-tight text-2xl">Looking to collaborate or hiring?</span>
-					<span className="text-base sm:text-xl mb-10 flex flex-row items-center gap-1">
-						<ShinyButton
-							className="bg-neutral-50/80 dark:bg-neutral-900/80 hover:cursor-pointer"
-							onClick={(e) => {
-								e.preventDefault();
-								window.location.href = "mailto:tonydrytn@gmail.com"
-							}}>
-							<SendIcon className="size-4" />
-							Get in touch with me
-						</ShinyButton>
-					</span>
-					<span className="text-muted-foreground w-full text-sm">Built with ❤️‍🔥 by Tony Drayton</span>
-				</footer>
+				<Footer />
 			</MotionBlurFade>
 		</main>
 	)
