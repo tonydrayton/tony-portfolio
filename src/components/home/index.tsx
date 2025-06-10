@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
 import { Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
 import { motion, Variants } from "framer-motion";
-import { ShinyAnchor, ShinyButton } from "../ui/shiny-button";
+import { ShinyAnchor } from "../ui/shiny-button";
 import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
