@@ -363,17 +363,15 @@ export function EventsCard() {
 	const isInView = useInView(ref, { amount: 0.8 });
 
 	useEffect(() => {
-		if (isDesktop) {
-			if (isHovered) {
-				animate(".chat-container", {
-					opacity: 1,
-					filter: "blur(0px)",
-					transform: "translateY(0)"
-				}, {
-					duration: 0.75,
-					delay: stagger(1)
-				});
-			}
+		if (isDesktop && isHovered) {
+			animate(".chat-container", {
+				opacity: 1,
+				filter: "blur(0px)",
+				transform: "translateY(0)"
+			}, {
+				duration: 0.75,
+				delay: stagger(1)
+			});
 		} else if (isInView) {
 			animate(".chat-container", {
 				opacity: 1,
@@ -391,7 +389,6 @@ export function EventsCard() {
 			ref={ref}
 			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
-			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
 			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
@@ -551,7 +548,6 @@ export function UpdateFunctionsCard() {
 			ref={ref}
 			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
 			onMouseEnter={() => isDesktop && setIsHovered(true)}
-			onMouseLeave={() => isDesktop && setIsHovered(false)}
 		>
 			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">

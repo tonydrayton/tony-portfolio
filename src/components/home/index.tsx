@@ -8,7 +8,6 @@ import { Button } from "../ui/button";
 import Container from "../Container";
 import About from "./about";
 import { CSSProperties, useEffect, useRef, useState } from "react";
-import { Separator } from "../ui/separator";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
 import SocialSideNav from "../social-side-nav";
@@ -16,7 +15,8 @@ import { ContainerTextFlip } from "../ui/container-flip-text";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import ChromeGrid from "../ui/chrome-grid";
 import Image from "next/image";
-import { Footer } from "./sections/footer";
+import { Footer } from "./footer";
+import Projects from "./projects-new";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -185,19 +185,20 @@ export default function Home() {
 					<ExperienceSection />
 				</Container>
 
-				<Separator orientation="horizontal" className="mt-20" />
-
-				<Container className="flex-col items-center justify-start" id="about">
+				{/* <Container className="flex-col items-center justify-start" id="about">
 					<About aboutSectionRef={aboutSectionRef} />
-				</Container>
-
-				<Separator orientation="horizontal" className="mt-20" />
+				</Container> */}
 
 				{/* <Container className="flex-col items-center" id="projects" >
 					<ProjectSummary />
 				</Container> */}
 
-				<div className="shrink-0 bg-border h-px w-full my-10" />
+				{/* <Container className="flex-col items-center justify-start" id="projects">
+					<Projects />
+				</Container> */}
+
+				<div className="shrink-0 h-px w-full my-10" />
+
 				<Footer />
 			</MotionBlurFade>
 		</main>

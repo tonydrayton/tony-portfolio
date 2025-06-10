@@ -3,7 +3,7 @@ import { SiAmazonwebservices, SiApachecassandra, SiApachecassandraHex, SiMysql, 
 import { ClassValue } from "clsx";
 import Link from "next/link";
 import { CSSProperties } from "react";
-import { AnimatedDBCard, EventsCard, MailCard, TestsCard, UpdateFunctionsCard } from "./experience/feature-cards";
+import { AnimatedDBCard, EventsCard, MailCard, TestsCard, UpdateFunctionsCard } from "./feature-cards";
 import Image from "next/image";
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"

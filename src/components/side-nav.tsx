@@ -82,10 +82,10 @@ export default function SideNav() {
 							<a
 								href={isOpen ? `#${item.id}` : undefined}
 								className={cn(
-									"flex items-center gap-2 px-3 py-2 rounded-md text-sm !text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground group",
+									"flex items-center gap-2 px-3 py-2 rounded-md border border-transparent text-sm !text-muted-foreground hover:bg-accent/50 hover:text-accent-foreground group",
 									"transition-all duration-300",
 									isOpen
-										? "hover:bg-accent hover:backdrop-blur-md cursor-pointer"
+										? "hover:bg-accent/50 hover:backdrop-blur-md hover:border-border cursor-pointer"
 										: "pointer-events-none opacity-50"
 								)}
 								onClick={(e) => {
