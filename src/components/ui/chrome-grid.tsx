@@ -205,8 +205,11 @@ export default function ChromeGrid() {
         performance={{ min: 0.5 }}
         gl={{
           powerPreference: 'low-power',
-          antialias: false
+          antialias: false,
+          preserveDrawingBuffer: false,
+          alpha: false
         }}
+        onContextMenu={(e) => e.preventDefault()}
       >
         <ambientLight intensity={1} />
 
