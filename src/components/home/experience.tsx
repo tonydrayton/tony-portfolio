@@ -22,7 +22,7 @@ const experienceData = [
 		]
 	},
 	{
-		logo: "/alumniq_logo.png",
+		logo: "/logos/alumniq_logo.png",
 		title: "Junior Software Engineer",
 		workplace: { name: "AlumnIQ", url: "https://www.alumniq.com" },
 		date: "April 2024 - Sep. 2024",

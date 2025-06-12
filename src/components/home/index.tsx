@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
-import { Github, Linkedin, Mail, MapPinIcon, SendIcon } from "lucide-react";
+import { Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { ShinyAnchor } from "../ui/shiny-button";
 import { Button } from "../ui/button";
@@ -12,11 +12,12 @@ import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
 import SocialSideNav from "../social-side-nav";
 import { ContainerTextFlip } from "../ui/container-flip-text";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import ChromeGrid from "../ui/chrome-grid";
 import Image from "next/image";
 import { Footer } from "./footer";
 import Projects from "./projects-new";
+import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvider } from "../ui/hybrid-tooltip";
+import { TooltipProvider } from "../ui/tooltip";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -91,7 +92,7 @@ export default function Home() {
 									<MapPinIcon /> Philadelphia, PA
 								</p>
 								<div className="flex flex-row items-center gap-2">
-									<h1 className="text-3xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2">
+									<h1 className="text-3xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2 dark:mix-blend-difference">
 										Building
 										<ContainerTextFlip
 											words={["bridges", "bonds", "ties", "links"]}
@@ -106,30 +107,29 @@ export default function Home() {
 
 								<div className="flex flex-row flex-wrap items-center gap-x-1">
 									<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm"}</p>
-									<HoverCard openDelay={200}>
+									<TouchProvider>
+										<TooltipProvider>
+									<HybridTooltip delayDuration={200}>
 										<div className="flex items-center gap-3">
 											<div className="space-y-0.5">
-												<HoverCardTrigger asChild>
-													<p className="pointer-events-auto">
-														<a
-															className={cn(
-																"text-lg lg:text-xl text-left text-primary/80",
-																"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
-																"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
-																"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
+												<HybridTooltipTrigger className="pointer-events-auto cursor-pointer">
+													<p
+														className={cn(
+															"text-lg lg:text-xl text-left text-primary/80",
+															"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
+															"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
+															"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
 															)}
-															href="#"
 															style={{
 																"--shiny-width": "50px",
 															} as CSSProperties}
 														>
 															{"Tony Drayton,"}
-														</a>
-													</p>
-												</HoverCardTrigger>
+														</p>
+												</HybridTooltipTrigger>
 											</div>
 										</div>
-										<HoverCardContent className="">
+										<HybridTooltipContent className="dark:bg-background/85">
 											<div className="space-y-3">
 												<div className="flex items-center gap-3">
 													<Image
@@ -138,9 +138,11 @@ export default function Home() {
 														width={40}
 														height={40}
 														alt="Avatar"
+														loading="eager"
+														priority
 													/>
 													<div className="space-y-0.5">
-														<p className="text-sm font-medium">Tony Drayton</p>
+														<p className="text-sm font-medium text-primary">Tony Drayton</p>
 														<p className="text-muted-foreground text-xs">@tony</p>
 													</div>
 												</div>
@@ -150,8 +152,10 @@ export default function Home() {
 													Anticipated graduation in 2027.
 												</p>
 											</div>
-										</HoverCardContent>
-									</HoverCard>
+										</HybridTooltipContent>
+									</HybridTooltip>
+									</TooltipProvider>
+									</TouchProvider>
 									{["a", "computer", "science", "student", "by", "day", "and", "developer", "by", "night"].map((word, index) => (
 										<span key={index} className="text-lg lg:text-xl text-left text-primary/80">{word}</span>
 									))}
@@ -193,9 +197,9 @@ export default function Home() {
 					<ProjectSummary />
 				</Container> */}
 
-				{/* <Container className="flex-col items-center justify-start" id="projects">
+				<Container className="flex-col items-center justify-start" id="projects">
 					<Projects />
-				</Container> */}
+				</Container>
 
 				<div className="shrink-0 h-px w-full my-10" />
 

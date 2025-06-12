@@ -433,7 +433,7 @@ export function EventsCard() {
 					</div>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
-							src="/alumniq_logo.png"
+							src="/logos/alumniq_logo.png"
 							alt='AlumnIQ Logo'
 							width={216}
 							height={252}
