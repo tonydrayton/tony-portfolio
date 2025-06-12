@@ -131,7 +131,7 @@ function AnimatedGroup({
   return (
     <MotionComponent
       initial={initial}
-      animate={animate}
+      whileInView={animate}
       variants={containerVariants}
       className={className}
       exit="hidden"

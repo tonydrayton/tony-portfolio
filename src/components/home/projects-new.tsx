@@ -5,6 +5,7 @@ import Image from "next/image";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvider } from "../ui/hybrid-tooltip";
 import { TooltipProvider } from "../ui/tooltip";
+import { AnimatedGroup } from "../ui/animated-group";
 
 const iconClassName = "size-3 mr-1";
 const projects = [
@@ -98,7 +99,11 @@ export default function Projects() {
 			<div className="mt-10 flex flex-col gap-2 w-full">
 				<h2 className="text-3xl lg:text-4xl font-semibold tracking-tight">Projects</h2>
 				<p className="text-base text-muted-foreground">All of the projects I have worked on, spanning from the past to the present</p>
-				<ul className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border pt-4">
+				<AnimatedGroup 
+					as="ul"
+					preset="blur-slide"
+					className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border pt-4"
+				>
 					{projects.map((project, index) => (
 						<li key={index} className="flex flex-row items-center">
 							<TouchProvider>
@@ -136,7 +141,7 @@ export default function Projects() {
 							<span className="text-xs text-muted-foreground ml-2">{project.date}</span>
 						</li>
 					))}
-				</ul>
+				</AnimatedGroup>
 			</div>
 		</div>
 	)
