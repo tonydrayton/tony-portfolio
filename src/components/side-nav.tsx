@@ -14,7 +14,7 @@ const navItems: NavItem[] = [
 	{ id: "hero", label: "Go to top", shortcut: 1 },
 	{ id: "experience", label: "Experience", shortcut: 2 },
 	{ id: "projects", label: "Projects", shortcut: 3 },
-	{ id: "contact", label: "Contact", shortcut: 4 },
+	{ id: "faq", label: "FAQ", shortcut: 4 },
 ];
 
 export default function SideNav() {

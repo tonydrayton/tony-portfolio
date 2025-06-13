@@ -5,7 +5,7 @@ import { Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { ShinyAnchor } from "../ui/shiny-button";
 import { Button } from "../ui/button";
-import Container from "../Container";
+import { Container } from "../Container";
 import About from "./about";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import SideNav from "../side-nav";
@@ -18,6 +18,7 @@ import { Footer } from "./footer";
 import Projects from "./projects-new";
 import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvider } from "../ui/hybrid-tooltip";
 import { TooltipProvider } from "../ui/tooltip";
+import FAQ from "./faq";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -199,6 +200,10 @@ export default function Home() {
 
 				<Container className="flex-col items-center justify-start" id="projects">
 					<Projects />
+				</Container>
+
+				<Container className="flex-col items-center justify-start" id="faq">
+					<FAQ />
 				</Container>
 
 				<div className="shrink-0 h-px w-full my-10" />

@@ -8,7 +8,7 @@ import { AnimatedGroup } from "./ui/animated-group";
 const menuItems = [
 	{ name: 'Experience', href: '#experience' },
 	{ name: 'Projects', href: '#projects' },
-	{ name: 'Contact', href: '#contact' },
+	{ name: 'FAQ', href: '#faq' },
 ]
 
 export default function Nav() {
