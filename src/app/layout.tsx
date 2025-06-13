@@ -43,6 +43,7 @@ const twitter: Twitter = {
 }
 
 export const metadata: Metadata = {
+	metadataBase: new URL("https://tonydrayton.dev"),
 	title: "Tony Drayton",
 	description: "Portfolio",
 	openGraph: openGraph,
