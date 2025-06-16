@@ -81,7 +81,7 @@ const projects = [
 		role: 'Fullstack Developer',
 		skills: [{ name: "React" }, { name: "MongoDB" }, { name: "Express" }, { name: "Node.js" }],
 		date: 'January - June 2023',
-		description: 'A platform for students at Drexel University to connet with each other and share their music',
+		description: 'A platform for students at Drexel University to connet with each other and share their music. Included features such as direct Spotify integration, scheduling concerts & events, finding other artists, and more.',
 		image: '/projects/musicatdrexel/logo.png',
 		link: {
 			url: 'https://github.com/tonydrayton',
@@ -136,7 +136,7 @@ export default function Projects() {
 										<HybridTooltipTrigger className="text-primary/95 hover:text-primary transition-all duration-200 ease-in-out hover:cursor-pointer">
 											{project.name}
 										</HybridTooltipTrigger>
-										<HybridTooltipContent side="top" className="dark:bg-background/80 flex flex-col gap-2 max-w-80 sm:w-lg!">
+										<HybridTooltipContent side="top" className="flex flex-col gap-2 max-w-80 sm:w-lg!">
 											<div className="flex flex-row items-center gap-2">
 												{project.image && (
 													<a href={project.link.url} target="_blank">
@@ -153,12 +153,12 @@ export default function Projects() {
 												)}
 												<div>
 													<div className="flex flex-row gap-2 items-center">
-														<a href={project.link.url} target="_blank" className="text-base text-primary/90 underline sm:no-underline hover:text-primary sm:hover:underline hover:brightness-120 transition-all duration-200 ease-in-out max-w-24 sm:max-w-40 md:max-w-60 truncate">{project.name}</a>
+														<a href={project.link.url} target="_blank" className="text-base text-primary/90 no-underline underline-offset-2 hover:text-primary hover:underline hover:brightness-120 transition-all duration-200 ease-in-out max-w-40 sm:max-w-40 md:max-w-60 truncate">{project.name}</a>
 													</div>
 													<p className="text-xs text-muted-foreground">{project.role}</p>
 												</div>
 											</div>
-											<p className="text-sm text-primary/90">{project.description}</p>
+											<p className="text-sm text-primary/90 text-balance">{project.description}</p>
 											<p className="text-xs text-muted-foreground">{project.skills.map((skill) => skill.name).join(", ")}</p>
 										</HybridTooltipContent>
 									</HybridTooltip>

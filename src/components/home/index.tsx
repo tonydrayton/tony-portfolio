@@ -93,7 +93,7 @@ export default function Home() {
 									<MapPinIcon /> Philadelphia, PA
 								</p>
 								<div className="flex flex-row items-center gap-2">
-									<h1 className="text-3xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2 dark:mix-blend-difference">
+									<h1 className="text-3xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2">
 										Building
 										<ContainerTextFlip
 											words={["bridges", "bonds", "ties", "links"]}
