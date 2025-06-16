@@ -14,7 +14,7 @@ const projects = [
 		type: 'Website',
 		role: 'Frontend Developer',
 		skills: [{ icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { name: "Azure" }, { name: "OpenAI" }],
-		date: 'October 2024 - March 2025',
+		date: 'Oct. 2024 - March 2025',
 		description: 'A website built for Drexel students, developed by students. You can ask any question you could imagine about Drexel, whether it be about classes or clubs, and you will find your answer here.',
 		image: '/projects/dragongpt/dragongptlogo.webp',
 		link: {
@@ -40,7 +40,7 @@ const projects = [
 		name: 'Test & Survey System',
 		role: 'Developer',
 		skills: [{ name: "Java" }, { name: "JUnit" }, { name: "StarUML" }],
-		date: 'September 2024 - December 2024',
+		date: 'Sept. 2024 - Dec. 2024',
 		description: 'A test and survey system curated for students and teachers to create and manage tests and surveys. Fully developed in a Java backend with an extensive UML to diagram how it functions.',
 		link: {
 			url: 'https://github.com/tonydrayton',
@@ -52,7 +52,7 @@ const projects = [
 		name: 'Mock Banking',
 		role: 'Developer',
 		skills: [{ name: "Java" }, { name: "JUnit" }],
-		date: 'September 2023 - December 2023',
+		date: 'Sept. 2023 - Dec. 2023',
 		description: 'A mock bank system built to simulate a real bank system. It allows users to create accounts, deposit and withdraw money, and view their transaction history.',
 		link: {
 			url: 'https://github.com/tonydrayton',
@@ -80,7 +80,7 @@ const projects = [
 		type: 'Website',
 		role: 'Fullstack Developer',
 		skills: [{ name: "React" }, { name: "MongoDB" }, { name: "Express" }, { name: "Node.js" }],
-		date: 'January - June 2023',
+		date: 'Jan. - June 2023',
 		description: 'A platform for students at Drexel University to connet with each other and share their music. Included features such as direct Spotify integration, scheduling concerts & events, finding other artists, and more.',
 		image: '/projects/musicatdrexel/logo.png',
 		link: {
@@ -92,7 +92,7 @@ const projects = [
 		type: 'Website',
 		role: 'Fullstack Developer',
 		skills: [{ icon: <SiPayloadcms className={iconClassName} />, name: "Payload CMS" }, { icon: <SiTypescript className={iconClassName} />, name: "TypeScript" }, { icon: <SiNextdotjs className={iconClassName} />, name: "Next.js" }, { icon: <SiTrpc className={iconClassName} />, name: "TRPC" }],
-		date: 'December 2022 - January 2023',
+		date: 'Dec. 2022 - Jan. 2023',
 		description: 'A lightweight icon market for users to buy and sell digital icons. Developed fully in TypeScript utilizing Next.js, Payload CMS, and TRPC for backend connectivity.',
 		image: '/projects/digitaliconmarket/logo.png',
 		link: {
@@ -106,7 +106,7 @@ const projects = [
 		type: 'Discord Bot',
 		role: 'Main Developer',
 		skills: [{ name: "Discord.js" }, { name: "Node.js" }, { name: "SQLite" }],
-		date: 'February 2019 - January 2022',
+		date: 'Feb. 2019 - Jan. 2022',
 		description: 'A multipurpose Discord bot built to enhance your Discord experience. At its peak, it was in over 300 servers with over 500,000 users total.',
 		image: '/projects/vaeleth/logo.png',
 		link: {
