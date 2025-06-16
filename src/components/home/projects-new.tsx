@@ -49,7 +49,7 @@ const projects = [
 		},
 	},
 	{
-		name: 'Mock Bank System',
+		name: 'Mock Banking',
 		role: 'Developer',
 		skills: [{ name: "Java" }, { name: "JUnit" }],
 		date: 'September 2023 - December 2023',
@@ -139,15 +139,17 @@ export default function Projects() {
 										<HybridTooltipContent side="top" className="dark:bg-background/80 flex flex-col gap-2 max-w-80 sm:w-lg!">
 											<div className="flex flex-row items-center gap-2">
 												{project.image && (
-													<Image
-														src={project.image}
-														alt={`${project.name} logo`}
-														width={75}
-														height={75}
-														className="w-full max-w-10 rounded-sm bg-transparent object-center object-contain"
-														loading="eager"
-														priority
-													/>
+													<a href={project.link.url} target="_blank">
+														<Image
+															src={project.image}
+															alt={`${project.name} logo`}
+															width={75}
+															height={75}
+															className="w-full max-w-10 rounded-sm bg-transparent object-center object-contain"
+															loading="eager"
+															priority
+														/>
+													</a>
 												)}
 												<div>
 													<div className="flex flex-row gap-2 items-center">

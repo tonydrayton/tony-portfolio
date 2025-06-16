@@ -15,10 +15,14 @@ const experienceData = [
 		date: "April 2025 - Present",
 		skills: [{ icon: <SiTypescript className={iconClassName} fill={SiTypescriptHex} />, name: "TypeScript" }, { icon: <SiApachecassandra className={iconClassName} fill={SiApachecassandraHex} />, name: "Cassandra" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		cards: [
-			<AnimatedDBCard key={0} />,
-			<div key={1} className="md:max-w-sm flex justify-center items-center p-2">
-				+ more to come
-			</div>
+			AnimatedDBCard,
+			(() => {
+				return (
+					<div key={1} className="md:max-w-sm flex justify-center items-center p-2">
+						+ more to come
+					</div>
+				)
+			})
 		]
 	},
 	{
@@ -28,10 +32,10 @@ const experienceData = [
 		date: "April 2024 - Sep. 2024",
 		skills: [{ icon: <Image src="/logos/coldfusion.png" alt="ColdFusion logo" width={25} height={25} className={iconClassName} />, name: "ColdFusion" }, { icon: <SiMysql className={iconClassName} />, name: "MySQL" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		cards: [
-			<MailCard key={0} />,
-			<EventsCard key={1} />,
-			<UpdateFunctionsCard key={2} />,
-			<TestsCard key={3} />
+			MailCard,
+			EventsCard,
+			UpdateFunctionsCard,
+			TestsCard
 		]
 	}
 ];
@@ -64,8 +68,8 @@ export default function ExperienceSection() {
 									</Link>
 								</p>
 								<div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
-									{exp.cards.map((card, index) => (
-										<>{card}</>
+									{exp.cards.map((Card, index) => (
+										<Card key={index} />
 									))}
 								</div>
 							</div>

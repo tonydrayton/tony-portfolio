@@ -3,22 +3,27 @@ import { ContainerContent } from "../Container";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "../ui/accordion";
 import { AnimatedGroup } from "../ui/animated-group";
 import { MagicCard } from "../ui/magic-card";
-import { ActivityIcon, BriefcaseIcon, BuildingIcon, CodeIcon, ZapIcon } from "lucide-react";
+import { ActivityIcon, BriefcaseIcon, BuildingIcon, CodeIcon, HeartIcon, ZapIcon } from "lucide-react";
 
 const faqItems = [
 	{
+		question: "What are all of the languages you know / have used?",
+		answer: "I'm proficient in TypeScript, JavaScript, Python, SQL, Java, and HTML/CSS. I'm also familiar with C and Assembly. A more detailed list can be found in my resume.",
+		icon: CodeIcon
+	},
+	{
 		question: "What technologies are you most comfortable with?",
-		answer: "In terms of comfortability, I would definitely say Frontend Development is my strongest suit. This includes libraries and frameworks such as React, Next.js, TailwindCSS, Figma, etc.",
+		answer: "In terms of comfortability, I would say Frontend Development is my strongest suit. This includes libraries and frameworks such as React, Next.js, TailwindCSS, Figma, etc.",
 		icon: ZapIcon
 	},
 	{
 		question: "What is your preferred coding language?",
 		answer: "I'm a big fan of TypeScript, and have been ever since I learned about it in 2021. Before that I was using JavaScript for majority of my projects.",
-		icon: CodeIcon
+		icon: HeartIcon
 	},
 	{
 		question: "Are you available for hire?",
-		answer: "I'm currently not available for hire, but I'm always open to new opportunities and collaborations.",
+		answer: "I'm currently not available for hire, but I'm always open to new opportunities and collaborations. You can contact me through my email or LinkedIn.",
 		icon: BriefcaseIcon
 	},
 	{
