@@ -2,11 +2,10 @@
 import { cn } from "@/lib/utils";
 import MotionBlurFade from "../ui/MotionBlurFade";
 import { Github, Linkedin, Mail, MapPinIcon } from "lucide-react";
-import { motion, Variants } from "framer-motion";
+import { motion, useInView, Variants } from "framer-motion";
 import { ShinyAnchor } from "../ui/shiny-button";
 import { Button } from "../ui/button";
 import { Container } from "../Container";
-import About from "./about";
 import { CSSProperties, useEffect, useRef, useState } from "react";
 import SideNav from "../side-nav";
 import ExperienceSection from "./experience";
@@ -77,7 +76,8 @@ export default function Home() {
 		return () => clearTimeout(timer);
 	}, [canHandleGrid]);
 
-	const aboutSectionRef = useRef<HTMLDivElement | null>(null);
+	const experienceSectionRef = useRef<HTMLDivElement | null>(null);
+	const experienceSectionInView = useInView(experienceSectionRef, { once: true, amount: 0.9 });
 
 	return (
 		<main className="overflow-hidden">
@@ -180,11 +180,46 @@ export default function Home() {
 									</a>
 								</div>
 							</div>
-						</div>
+						</div>	
 					</Container>
+					<motion.div 
+						className="pointer-events-none relative -top-48 w-full flex justify-center"
+						initial={{ opacity: 0 }}
+						animate={
+							experienceSectionInView ? {
+								opacity: 0,
+							} : {
+								opacity: 1,
+								transition: {
+									duration: 0.75,
+									delay: 5,
+									ease: "easeInOut",
+								}
+							}
+						}
+					>
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" className="lucide lucide-mouse-icon lucide-mouse">
+							<rect x="5" y="2" width="14" height="20" rx="7" />
+							<path d="M12 6v4">
+								<animateTransform
+									attributeName="transform"
+									attributeType="XML"
+									type="translate"
+									from="0 0"
+									to="0 2"
+									dur="1s"
+									repeatCount="indefinite"
+									additive="sum"
+									values="0 0; 0 2; 0 0"
+									keyTimes="0; 0.5; 1"
+								/>
+							</path>
+						</svg>
+						<span className="sr-only">Scroll down</span>
+					</motion.div>		
 				</motion.div>
 
-				<div className="my-20" />
+				<div ref={experienceSectionRef} className="my-20" />
 
 				<Container className="flex-col items-center justify-start" id="experience">
 					<ExperienceSection />
