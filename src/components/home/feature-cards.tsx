@@ -10,6 +10,7 @@ import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, Lo
 import Image from 'next/image';
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
+import { genRandomPattern, GridPattern } from '../ui/grid-pattern';
 
 const IntegrationCard = React.forwardRef<HTMLDivElement, {
 	children: React.ReactNode;
@@ -27,54 +28,29 @@ const IntegrationCard = React.forwardRef<HTMLDivElement, {
 
 IntegrationCard.displayName = 'IntegrationCard';
 
-function GridPattern({
-	width,
-	height,
-	x,
-	y,
-	squares,
-	...props
-}: React.ComponentProps<'svg'> & { width: number; height: number; x: string; y: string; squares?: number[][] }) {
-	const patternId = useId();
-
-	return (
-		<svg aria-hidden="true" {...props}>
-			<defs>
-				<pattern id={patternId} width={width} height={height} patternUnits="userSpaceOnUse" x={x} y={y}>
-					<path d={`M.5 ${height}V.5H${width}`} fill="none" />
-				</pattern>
-			</defs>
-			<rect width="100%" height="100%" strokeWidth={0} fill={`url(#${patternId})`} />
-			{squares && (
-				<svg x={x} y={y} className="overflow-visible">
-					{squares.map(([x, y], index) => (
-						<rect strokeWidth="0" key={index} width={width + 1} height={height + 1} x={x * width} y={y * height} />
-					))}
-				</svg>
-			)}
-		</svg>
-	);
-}
-
-function genRandomPattern(length?: number): number[][] {
-	length = length ?? 5;
-	return Array.from({ length }, () => [
-		Math.floor(Math.random() * 4) + 7, // random x between 7 and 10
-		Math.floor(Math.random() * 6) + 1, // random y between 1 and 6
-	]);
-}
-
-const p = genRandomPattern()
+const p = genRandomPattern();
 
 export function AnimatedDBCard() {
 	const motionControls = useAnimation();
 	const ref = useRef(null);
 	const isInView = useInView(ref, { amount: 0.5, once: true });
+	const windowSize = useWindowSize();
+	const isDesktop = windowSize.width >= MinimumWidth.Medium;
 
+	const [wasHovered, setWasHovered] = useState(false);
 	const [showMacTyping, setShowMacTyping] = useState(false);
 	const [showModelTyping, setShowModelTyping] = useState(false);
 	const [showButtonSubmitting, setShowButtonSubmitting] = useState(false);
 	const animationRef = useRef({ isAnimating: false, timeouts: [] } as { isAnimating: boolean, timeouts: NodeJS.Timeout[] });
+
+	const isAnimationOkay = () => {
+		if (isDesktop && wasHovered && ref.current) {
+			return true;
+		} else if (!isDesktop && isInView && ref.current) {
+			return true;
+		}
+		return false;
+	}
 
 	const keyframes = [
 		{ scale: 1.5, translateX: 100, translateY: 100 },
@@ -107,7 +83,7 @@ export function AnimatedDBCard() {
 	useEffect(() => {
 		const runAnimation = async () => {
 			// Only run if not already animating and in view
-			if (animationRef.current.isAnimating || !isInView || !ref.current) {
+			if (animationRef.current.isAnimating || !isAnimationOkay()) {
 				return;
 			}
 
@@ -129,7 +105,7 @@ export function AnimatedDBCard() {
 					}
 				});
 
-				if (!isInView || !ref.current) {
+				if (!ref.current) {
 					resetAnimation();
 					return;
 				}
@@ -140,7 +116,7 @@ export function AnimatedDBCard() {
 					createTimeout(resolve, 1200);
 				});
 
-				if (!isInView || !ref.current) {
+				if (!ref.current) {
 					resetAnimation();
 					return;
 				}
@@ -154,7 +130,7 @@ export function AnimatedDBCard() {
 					}
 				});
 
-				if (!isInView || !ref.current) {
+				if (!ref.current) {
 					resetAnimation();
 					return;
 				}
@@ -165,7 +141,7 @@ export function AnimatedDBCard() {
 					createTimeout(resolve, 1200);
 				});
 
-				if (!isInView || !ref.current) {
+				if (!ref.current) {
 					resetAnimation();
 					return;
 				}
@@ -176,7 +152,7 @@ export function AnimatedDBCard() {
 					createTimeout(resolve, 2000);
 				});
 
-				if (!isInView || !ref.current) {
+				if (!ref.current) {
 					resetAnimation();
 					return;
 				}
@@ -204,21 +180,22 @@ export function AnimatedDBCard() {
 				// Don't loop automatically, wait for next inView trigger
 			}
 		};
-		// Reset on out of view, start on in view
-		if (!isInView) {
-			resetAnimation();
-		} else if (!animationRef.current.isAnimating) {
+
+		if (!animationRef.current.isAnimating) {
 			runAnimation();
 		}
 
 		return () => {
 			resetAnimation();
 		};
-	}, [isInView, motionControls]);
+	}, [isInView, isDesktop, wasHovered, motionControls]);
 
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden">
+		<div 
+			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
+			onMouseEnter={() => isDesktop && setWasHovered(true)}
+		>
 			<div className="select-none pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
 				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 					<GridPattern
@@ -372,7 +349,7 @@ export function EventsCard() {
 				duration: 0.75,
 				delay: stagger(1)
 			});
-		} else if (isInView) {
+		} else if (!isDesktop && isInView) {
 			animate(".chat-container", {
 				opacity: 1,
 				filter: "blur(0px)",
