@@ -6,11 +6,13 @@ import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
-import { genRandomPattern, GridPattern } from '../ui/grid-pattern';
+import { FeatureCard, FeatureCardGrid, FeatureCardHeader, FeatureCardText } from '../ui/feature-card';
+import { LoadingDots } from '@/components/ui/loading-dots';
+import { TextAnimate } from '@/components/ui/text-animate';
 
 const IntegrationCard = React.forwardRef<HTMLDivElement, {
 	children: React.ReactNode;
@@ -27,8 +29,6 @@ const IntegrationCard = React.forwardRef<HTMLDivElement, {
 });
 
 IntegrationCard.displayName = 'IntegrationCard';
-
-const p = genRandomPattern();
 
 export function AnimatedDBCard() {
 	const motionControls = useAnimation();
@@ -192,29 +192,15 @@ export function AnimatedDBCard() {
 
 
 	return (
-		<div 
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
-			onMouseEnter={() => isDesktop && setWasHovered(true)}
-		>
-			<div className="select-none pointer-events-none absolute -top-40 left-2/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-					<GridPattern
-						width={20}
-						height={20}
-						x="-12"
-						y="4"
-						squares={p}
-						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-					/>
-				</div>
-			</div>
-			<div className="flex flex-col px-4 gap-8">
+		<FeatureCard onMouseEnter={() => isDesktop && setWasHovered(true)}>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
 				<DatabaseIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Cassandra Database UI</p>
-			</div>
-			<div className="px-4">
-				<p className="text-primary/80 text-sm mt-1 mb-4">Developed an interface that queries our Cassandra database for specific devices and displays their data in a humanly readable format</p>
-			</div>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Developed an interface that queries our Cassandra database for specific devices and displays their data in a humanly readable format
+			</FeatureCardText>
 			<div className="overflow-hidden mask-b-from-95% mask-t-from-95%" aria-label='Cassandra Database UI Demo'>
 				<motion.div
 					ref={ref}
@@ -268,7 +254,7 @@ export function AnimatedDBCard() {
 					</button>
 				</motion.div>
 			</div>
-		</div>
+		</FeatureCard>
 	)
 }
 
@@ -278,26 +264,15 @@ export function MailCard() {
 	const containerRef = useRef<HTMLDivElement>(null);
 
 	return (
-		<div className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden">
-			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-					<GridPattern
-						width={20}
-						height={20}
-						x="-12"
-						y="4"
-						squares={p}
-						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-					/>
-				</div>
-			</div>
-			<div className="flex flex-col px-4 gap-8">
+		<FeatureCard>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
 				<MailOpenIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Mail Webhook Handler</p>
-			</div>
-			<div className="px-4 mt-1 mb-4">
-				<p className="text-primary/80 text-balance text-sm">Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform</p>
-			</div>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Designed and implemented a webhook mail handler (AWS Lambda function) using the Mailgun API, which handles all transactional and event mail for the platform
+			</FeatureCardText>
 			<div ref={containerRef} className="overflow-hidden relative mx-auto items-center flex justify-between pt-4 pb-10 px-6">
 				<div className="space-y-6">
 					<IntegrationCard ref={fromRef} position="left-middle">
@@ -327,69 +302,78 @@ export function MailCard() {
 				/>
 				<div className="bg-radial absolute inset-0 z-10" />
 			</div>
-		</div>
+		</FeatureCard>
 	)
 }
 
 export function EventsCard() {
 	const [scope, animate] = useAnimate();
 	const [isHovered, setIsHovered] = useState(false);
+	const [isAnimating, setIsAnimating] = useState(false);
 	const windowSize = useWindowSize();
 	const isDesktop = windowSize.width >= MinimumWidth.Medium;
 	const ref = useRef(null);
 	const isInView = useInView(ref, { amount: 0.8 });
 
-	useEffect(() => {
-		if (isDesktop && isHovered) {
-			animate(".chat-container", {
-				opacity: 1,
-				filter: "blur(0px)",
-				transform: "translateY(0)"
-			}, {
-				duration: 0.75,
-				delay: stagger(1)
-			});
-		} else if (!isDesktop && isInView) {
-			animate(".chat-container", {
-				opacity: 1,
-				filter: "blur(0px)",
-				transform: "translateY(0)"
-			}, {
-				duration: 0.75,
-				delay: stagger(1)
-			});
-		}
-	}, [scope, animate, isHovered, isDesktop, isInView]);
+	// useEffect(() => {
+	// 	if (isDesktop && isHovered) {
+	// 		animate(".chat-container", {
+	// 			opacity: 1,
+	// 			filter: "blur(0px)",
+	// 			transform: "translateY(0)"
+	// 		}, {
+	// 			duration: 0.75,
+	// 			delay: stagger(1)
+	// 		});
+	// 	} else if (!isDesktop && isInView) {
+	// 		animate(".chat-container", {
+	// 			opacity: 1,
+	// 			filter: "blur(0px)",
+	// 			transform: "translateY(0)"
+	// 		}, {
+	// 			duration: 0.75,
+	// 			delay: stagger(1)
+	// 		});
+	// 	}
+	// }, [scope, animate, isHovered, isDesktop, isInView]);
 
 	return (
-		<div
-			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
-			onMouseEnter={() => isDesktop && setIsHovered(true)}
-		>
-			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-					<GridPattern
-						width={20}
-						height={20}
-						x="-12"
-						y="4"
-						squares={p}
-						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-					/>
-				</div>
-			</div>
-			<div className="flex flex-col px-4 gap-8">
+		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
 				<HeartPlusIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Support Staff</p>
-			</div>
-			<div className="px-4 mt-1 mb-4">
-				<p className="text-primary/80 text-balance text-sm">{"Provided on-site support at prestigious alumni events including UPenn's Alumni Weekend and Drexel's 50-year Class of 1973 reunion, while managing customer support tickets to ensure seamless event experiences"}</p>
-			</div>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				{"Provided on-site support at prestigious alumni events including UPenn's Alumni Weekend and Drexel's 50-year Class of 1973 reunion, while managing customer support tickets to ensure seamless event experiences"}
+			</FeatureCardText>
 			<motion.ul
 				ref={scope}
-				className="overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6 pointer-events-none select-none"
+				className={cn("overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6 select-none", isAnimating && "pointer-events-none")}
 			>
+				<motion.div
+					onClick={async () => {
+						setIsAnimating(true);
+
+						animate('.open-chat', {
+							filter: "blur(0px)",
+							opacity: 0
+						}, { duration: 0.25 });
+
+						await new Promise(resolve => setTimeout(resolve, 250));
+
+						animate(`.chat-container`, {
+							opacity: 1,
+							filter: "blur(0px)",
+							transform: "translateY(0)"
+						}, { duration: 0.5, delay: stagger(0.1), ease: "circIn" });
+					}}
+					className="open-chat absolute top-9 z-10 flex flex-row gap-1.5 items-center justify-center bg-gradient-to-b from-black/5 to-[#00000007] dark:bg-white/5 backdrop-blur-sm rounded-xl py-2 px-3 overflow-hidden hover:bg-black/10 active:bg-black/10 dark:hover:bg-white/10 dark:active:bg-white/10 shadow transition-all duration-300 ease-in-out"
+				>
+					<div className="absolute block -top-10 -left-4 inset-0 rounded-full opacity-0 dark:opacity-100 bg-muted-foreground/5 dark:bg-white/15 blur-2xl size-40" />
+					<PlusIcon className="size-4" />
+					<p className="text-sm">Open Chat</p>
+				</motion.div>
 				<motion.li className="chat-container flex flex-row gap-4 items-center px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
@@ -419,7 +403,7 @@ export function EventsCard() {
 					</div>
 				</motion.li>
 			</motion.ul>
-		</div>
+		</FeatureCard>
 	)
 }
 
@@ -521,30 +505,15 @@ export function UpdateFunctionsCard() {
 	}, [scope, animate, isHovered, isDesktop, isInView, currentIndex]);
 
 	return (
-		<div
-			ref={ref}
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
-			onMouseEnter={() => isDesktop && setIsHovered(true)}
-		>
-			<div className="select-none pointer-events-none absolute -top-10 md:-top-20 left-1/3 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-					<GridPattern
-						width={20}
-						height={20}
-						x="-12"
-						y="4"
-						squares={p}
-						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-					/>
-				</div>
-			</div>
-			<div className="flex flex-col px-4 gap-8">
+		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
 				<CircleFadingArrowUpIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Updated Functions</p>
-			</div>
-			<div className="px-4 mt-1 mb-4">
-				<p className="text-primary/80 text-balance text-sm">{"Modernized AWS Lambda infrastructure by migrating 100+ functions from CommonJS to ESM, upgrading to Node.js 20 LTS, and replacing legacy dependencies with modern alternatives to improve performance and maintainability"}</p>
-			</div>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				{"Modernized AWS Lambda infrastructure by migrating 100+ functions from CommonJS to ESM, upgrading to Node.js 20 LTS, and replacing legacy dependencies with modern alternatives to improve performance and maintainability"}
+			</FeatureCardText>
 			<motion.div ref={scope} className="pointer-events-none select-none relative mx-auto w-fit items-center flex flex-col mb-6">
 				{functions.map((func, index) => (
 					<div key={index} className={`function${index}-container flex flex-row gap-2 items-center`}
@@ -564,37 +533,21 @@ export function UpdateFunctionsCard() {
 					</div>
 				))}
 			</motion.div>
-		</div>
+		</FeatureCard>
 	)
 }
 
 export function TestsCard() {
-
 	return (
-		<div
-			className="border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden"
-		>
-			<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
-				<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
-					<GridPattern
-						width={20}
-						height={20}
-						x="-12"
-						y="4"
-						squares={p}
-						className="fill-foreground/5 stroke-foreground/25 absolute inset-0 h-full w-full mix-blend-overlay"
-					/>
-				</div>
-			</div>
-			<div className="flex flex-col px-4 gap-8">
+		<FeatureCard>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
 				<FlaskConical className="h-5 w-5" />
 				<p className="text-lg font-medium">Comprehensive Testing</p>
-			</div>
-			<div className="px-4 mt-1 mb-4">
-				<p className="text-primary/80 text-balance text-sm">
-					Added over 300 tests across various platform services, ensuring code reliability and preventing regressions with comprehensive unit, integration, and end-to-end tests
-				</p>
-			</div>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Added over 300 tests across various platform services, ensuring code reliability and preventing regressions with comprehensive unit, integration, and end-to-end tests
+			</FeatureCardText>
 			<div className="overflow-hidden mask-b-from-95% relative">
 				<div className="pointer-events-none select-none translate-x-10 translate-y-4 h-40 relative">
 					<Terminal className="absolute inset-0">
@@ -634,6 +587,233 @@ export function TestsCard() {
 					</Terminal>
 				</div>
 			</div>
-		</div>
+		</FeatureCard>
+	)
+}
+
+export function ConfigFixCard() {
+	const [scope, animate] = useAnimate();
+	const [isHovered, setIsHovered] = useState(false);
+	const windowSize = useWindowSize();
+	const isDesktop = windowSize.width >= MinimumWidth.Medium;
+	const ref = useRef(null);
+	const isInView = useInView(ref, { amount: 0.5, once: true });
+	const ranAnimation = useRef(false);
+
+	// State management for each step
+	const [showStep1, setShowStep1] = useState(false);
+	const [showStep2, setShowStep2] = useState(false);
+	const [showStep3, setShowStep3] = useState(false);
+	const [showSuccess, setShowSuccess] = useState(false);
+	const [step1Complete, setStep1Complete] = useState(false);
+	const [step2Complete, setStep2Complete] = useState(false);
+	const [step3Complete, setStep3Complete] = useState(false);
+
+	// SVG animation states
+	const [svgAnimationProgress, setSvgAnimationProgress] = useState(0);
+	const [showCircle1, setShowCircle1] = useState(false);
+	const [showCircle2, setShowCircle2] = useState(false);
+	const [showCircle3, setShowCircle3] = useState(false);
+
+	const runAnimationSequence = async () => {
+		ranAnimation.current = true;
+
+		// Step 1: Show identifying issue
+		setShowStep1(true);
+		setSvgAnimationProgress(1);
+		setShowCircle1(true);
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		setStep1Complete(true);
+
+		// Animate line to step 2
+		setSvgAnimationProgress(2);
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		setShowStep2(true);
+		setShowCircle2(true);
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		setStep2Complete(true);
+
+		// Animate line to step 3
+		setSvgAnimationProgress(3);
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		setShowStep3(true);
+		setShowCircle3(true);
+		await new Promise(resolve => setTimeout(resolve, 2000));
+		setStep3Complete(true);
+
+		// Animate line to final position and show WiFi reverted
+		setSvgAnimationProgress(4);
+		await new Promise(resolve => setTimeout(resolve, 1000));
+		setShowSuccess(true);
+	};
+
+	useEffect(() => {
+		if (isDesktop && isHovered && !ranAnimation.current) {
+			runAnimationSequence();
+		} else if (!isDesktop && isInView && !ranAnimation.current) {
+			runAnimationSequence();
+		}
+	}, [scope, animate, isHovered, isDesktop, isInView]);
+
+	return (
+		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
+			<FeatureCardGrid />
+			<FeatureCardHeader>
+				<WifiCogIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">WiFi Configuration Fix</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
+			</FeatureCardText>
+			<div className="relative flex flex-row items-start mb-4 pointer-events-none select-none">
+				<div className="ml-4 relative">
+					<Image
+						src="/assets/experience/xb8_device.png"
+						alt="Xb8 Device"
+						width={319}
+						height={540}
+						className="w-20 object-cover pointer-events-none select-none"
+					/>
+					<div className="inline-grid grid-cols-2 gap-2 text-xs">
+						<p>WiFi:</p>
+						{showSuccess ? <TextAnimate animation="blurIn" by="character" once className="font-mono text-indigo-600 dark:text-indigo-500">Home</TextAnimate> : <span className="font-mono text-indigo-600 dark:text-indigo-500">SETUP</span>}
+						<p>Password:</p>
+						<span className="font-mono text-indigo-600 dark:text-indigo-500">••••••</span>
+					</div>
+				</div>
+				<div ref={scope} className="flex flex-col gap-2 relative">
+					<div className="w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-red-500/10 to-red-500/5 rounded-md py-2 px-3 border-t border-red-500/30 shadow">
+						<TriangleAlertIcon className="size-3 stroke-red-500" />
+						<p className="text-xs text-red-500">WiFi Reset Detected</p>
+					</div>
+					<div className="ml-14 mt-4 flex flex-col gap-4">
+						{showStep1 && (
+							<div className="identifying-issue flex flex-row items-center gap-2">
+								{!step1Complete && <LoadingDots className="w-fit" spaceRatio={0.5} />}
+								{step1Complete && <CheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />}
+								<TextAnimate
+									key={step1Complete ? 'complete-1' : 'loading-1'}
+									animation="blurIn"
+									by="character"
+									once
+									className={cn("text-xs", step1Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
+								>
+									{step1Complete ? "Issue identified" : "Identifying issue"}
+								</TextAnimate>
+							</div>
+						)}
+						{showStep2 && (
+							<div className="fetching-credentials flex flex-row items-center gap-2">
+								{!step2Complete && <LoadingDots className="w-fit" spaceRatio={0.5} />}
+								{step2Complete && <CheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />}
+								<TextAnimate
+									key={step2Complete ? 'complete-2' : 'loading-2'}
+									animation="blurIn"
+									by="character"
+									once
+									className={cn("whitespace-nowrap text-xs", step2Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
+								>
+									{step2Complete ? "Past credentials fetched" : "Fetching past credentials"}
+								</TextAnimate>
+							</div>
+						)}
+						{showStep3 && (
+							<div className="reverting-configuration flex flex-row items-center gap-2">
+								{!step3Complete && <LoadingDots className="w-fit" spaceRatio={0.5} />}
+								{step3Complete && <CheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />}
+								<TextAnimate
+									key={step3Complete ? 'complete-3' : 'loading-3'}
+									animation="blurIn"
+									by="character"
+									once
+									className={cn("text-xs", step3Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
+								>
+									{step3Complete ? "Configuration reverted" : "Reverting configuration"}
+								</TextAnimate>
+							</div>
+						)}
+					</div>
+					{showSuccess && (
+						<motion.div
+							initial={{ opacity: 0, }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.25, ease: "easeInOut" }}
+							className="wifi-reverted absolute top-[9.55rem] left-4 w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-lime-500/10 to-lime-500/5 rounded-md py-2 px-3 border-t border-lime-500/30 shadow"
+						>
+							<CheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />
+							<p className="text-xs text-lime-600 dark:text-lime-500">
+								WiFi Reverted
+							</p>
+						</motion.div>
+					)}
+					<div className="absolute top-[2.1rem] left-6 w-full h-full">
+						<svg width="23" height="120" viewBox="0 0 23 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<defs>
+								<linearGradient id="lineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+									<stop offset="0%" stopColor="#dadada" stopOpacity="0.5" />
+									<stop offset="50%" stopColor="#e4e4e7" stopOpacity="0.5" />
+									<stop offset="100%" stopColor="#e9e9eb" stopOpacity="0.2" />
+								</linearGradient>
+								<filter id="glow">
+									<feGaussianBlur stdDeviation="2" result="coloredBlur" />
+									<feMerge>
+										<feMergeNode in="coloredBlur" />
+										<feMergeNode in="SourceGraphic" />
+									</feMerge>
+								</filter>
+							</defs>
+
+							{/* Main animated path */}
+							<path
+								d="M1 0V16L22.5 24.5V155"
+								stroke="url(#lineGradient)"
+								strokeWidth="2"
+								fill="none"
+								strokeDasharray="200"
+								strokeDashoffset={svgAnimationProgress === 0 ? "200" :
+									svgAnimationProgress === 1 ? "150" :
+										svgAnimationProgress === 2 ? "100" :
+											svgAnimationProgress === 3 ? "50" :
+												svgAnimationProgress === 4 ? "0" : "200"}
+								className="transition-all duration-1000 ease-in-out"
+							/>
+
+							{/* Stop circles at loading states */}
+							{showCircle1 && (
+								<circle
+									cx="22.5"
+									cy="40"
+									r="3"
+									className={cn("stroke-border/50", !step1Complete ? "fill-lime-600 dark:fill-lime-500 animate-pulse" : "fill-lime-600 dark:fill-lime-500")}
+									strokeWidth="2"
+								/>
+							)}
+
+							{showCircle2 && (
+								<circle
+									cx="22.5"
+									cy="80"
+									r="3"
+									strokeWidth="2"
+									className={cn("stroke-border/50", step1Complete && !step2Complete ? "fill-lime-600 dark:fill-lime-500 animate-pulse" : "fill-lime-600 dark:fill-lime-500")}
+								/>
+							)}
+
+							{showCircle3 && (
+								<circle
+									cx="22.5"
+									cy="122.5"
+									r="3"
+									strokeWidth="2"
+									className={cn("stroke-border/50", step2Complete && !step3Complete ? "fill-lime-600 dark:fill-lime-500 animate-pulse" : "fill-lime-600 dark:fill-lime-500")}
+								/>
+							)}
+
+
+						</svg>
+					</div>
+				</div>
+			</div>
+		</FeatureCard>
 	)
 }

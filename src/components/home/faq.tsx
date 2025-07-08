@@ -56,7 +56,7 @@ export default function FAQ() {
 					as="div"
 					preset="blur-slide"
 					className="space-y-4"
-					viewport={{ amount: 0.3, once: true }}
+					viewport={{ amount: 0.1, once: true }}
 					>
 					{faqItems.map((item, index) => (
 						<AccordionItem key={index} value={`item-${index + 1}`} className="border-b-0 border border-border rounded-md backdrop-blur-sm shadow-sm bg-linear-to-br from-background to-muted dark:to-muted/20">

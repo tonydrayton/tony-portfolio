@@ -12,24 +12,24 @@ export default function Logo({ size, className }: { size: number, className?: st
             </g>
             <defs>
                 <linearGradient id="a8236533" x1="25.8803" y1="34.6328" x2="26.2812" y2="56.9737" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="#EEEEEE"></stop>
-                    <stop offset="1" stop-color="#F0F0F0" stop-opacity="0.5"></stop>
+                    <stop stopColor="#EEEEEE"></stop>
+                    <stop offset="1" stopColor="#F0F0F0" stopOpacity="0.5"></stop>
                 </linearGradient>
                 <linearGradient id="aca5db46" x1="26" y1="0" x2="26" y2="17.3333" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="white"></stop>
-                    <stop offset="1" stop-color="white" stop-opacity="0.5"></stop>
+                    <stop stopColor="white"></stop>
+                    <stop offset="1" stopColor="white" stopOpacity="0.5"></stop>
                 </linearGradient>
                 <linearGradient id="85211717" x1="43.3334" y1="17.3333" x2="43.3334" y2="34.6667" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="white"></stop>
-                    <stop offset="1" stop-color="white" stop-opacity="0.5"></stop>
+                    <stop stopColor="white"></stop>
+                    <stop offset="1" stopColor="white" stopOpacity="0.5"></stop>
                 </linearGradient>
                 <linearGradient id="339ddeaf" x1="25.9492" y1="20.3125" x2="25.9492" y2="31.7891" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="white"></stop>
-                    <stop offset="1" stop-color="white" stop-opacity="0.5"></stop>
+                    <stop stopColor="white"></stop>
+                    <stop offset="1" stopColor="white" stopOpacity="0.5"></stop>
                 </linearGradient>
                 <linearGradient id="81de97f7" x1="8.66667" y1="17.3333" x2="8.66667" y2="34.6667" gradientUnits="userSpaceOnUse">
-                    <stop stop-color="white"></stop>
-                    <stop offset="1" stop-color="white" stop-opacity="0.5"></stop>
+                    <stop stopColor="white"></stop>
+                    <stop offset="1" stopColor="white" stopOpacity="0.5"></stop>
                 </linearGradient>
             </defs>
         </svg>

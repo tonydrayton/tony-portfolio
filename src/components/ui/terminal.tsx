@@ -59,17 +59,41 @@ export const TypingAnimation = ({
 
   const [displayedText, setDisplayedText] = useState<string>("");
   const [started, setStarted] = useState(false);
+  const [hasTriggered, setHasTriggered] = useState(false);
   const elementRef = useRef<HTMLElement | null>(null);
-  const isInView = useInView(elementRef, { once: true });
+  
+  // Use more aggressive intersection observer settings
+  const isInView = useInView(elementRef, { 
+    once: true,
+    margin: "-50px 0px -50px 0px",
+    amount: 0 // Trigger as soon as any part is visible
+  });
 
+  // Fallback: Also trigger after a timeout in case intersection observer fails
   useEffect(() => {
-    if (!isInView) return;
+    const fallbackTimeout = setTimeout(() => {
+      if (!hasTriggered) {
+        setHasTriggered(true);
+      }
+    }, 3000); // Fallback after 3 seconds
+
+    return () => clearTimeout(fallbackTimeout);
+  }, [hasTriggered]);
+
+  // Start animation when in view OR fallback triggers
+  useEffect(() => {
+    if (!isInView && !hasTriggered) return;
+    
+    if (!hasTriggered) {
+      setHasTriggered(true);
+    }
 
     const startTimeout = setTimeout(() => {
       setStarted(true);
     }, delay);
+    
     return () => clearTimeout(startTimeout);
-  }, [delay, isInView]);
+  }, [delay, isInView, hasTriggered]);
 
   useEffect(() => {
     if (!started) return;
@@ -93,9 +117,14 @@ export const TypingAnimation = ({
     <MotionComponent
       ref={elementRef}
       className={cn("text-sm font-normal tracking-tight", className)}
+      style={{ minHeight: "1.25rem" }} // Ensure the element has height even when empty
       {...props}
     >
       {displayedText}
+      {/* Add a cursor effect while typing */}
+      {started && displayedText.length < children.length && (
+        <span className="animate-pulse">|</span>
+      )}
     </MotionComponent>
   );
 };
