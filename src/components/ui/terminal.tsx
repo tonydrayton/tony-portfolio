@@ -39,6 +39,7 @@ interface TypingAnimationProps extends MotionProps {
   duration?: number;
   delay?: number;
   as?: ForwardRefExoticComponent<any>;
+  onAnimationComplete?: () => void;
 }
 
 export const TypingAnimation = ({
@@ -47,6 +48,7 @@ export const TypingAnimation = ({
   duration = 60,
   delay = 0,
   as: Component = motion.span,
+  onAnimationComplete,
   ...props
 }: TypingAnimationProps) => {
   if (typeof children !== "string") {
@@ -61,26 +63,28 @@ export const TypingAnimation = ({
   const [started, setStarted] = useState(false);
   const [hasTriggered, setHasTriggered] = useState(false);
   const elementRef = useRef<HTMLElement | null>(null);
+  const completionCallbackRef = useRef(onAnimationComplete);
   
-  // Use more aggressive intersection observer settings
+  useEffect(() => {
+    completionCallbackRef.current = onAnimationComplete;
+  }, [onAnimationComplete]);
+  
   const isInView = useInView(elementRef, { 
     once: true,
     margin: "-50px 0px -50px 0px",
-    amount: 0 // Trigger as soon as any part is visible
+    amount: 0
   });
 
-  // Fallback: Also trigger after a timeout in case intersection observer fails
   useEffect(() => {
     const fallbackTimeout = setTimeout(() => {
       if (!hasTriggered) {
         setHasTriggered(true);
       }
-    }, 3000); // Fallback after 3 seconds
+    }, 3000);
 
     return () => clearTimeout(fallbackTimeout);
   }, [hasTriggered]);
 
-  // Start animation when in view OR fallback triggers
   useEffect(() => {
     if (!isInView && !hasTriggered) return;
     
@@ -105,6 +109,9 @@ export const TypingAnimation = ({
         i++;
       } else {
         clearInterval(typingEffect);
+        if (completionCallbackRef.current) {
+          completionCallbackRef.current();
+        }
       }
     }, duration);
 
@@ -117,11 +124,10 @@ export const TypingAnimation = ({
     <MotionComponent
       ref={elementRef}
       className={cn("text-sm font-normal tracking-tight", className)}
-      style={{ minHeight: "1.25rem" }} // Ensure the element has height even when empty
+      style={{ minHeight: "1.25rem" }}
       {...props}
     >
       {displayedText}
-      {/* Add a cursor effect while typing */}
       {started && displayedText.length < children.length && (
         <span className="animate-pulse">|</span>
       )}

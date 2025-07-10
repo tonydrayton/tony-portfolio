@@ -13,6 +13,7 @@ import React from 'react';
 import { FeatureCard, FeatureCardGrid, FeatureCardHeader, FeatureCardText } from '../ui/feature-card';
 import { LoadingDots } from '@/components/ui/loading-dots';
 import { TextAnimate } from '@/components/ui/text-animate';
+import MacCursor from '@/components/ui/mac-cursor';
 
 const IntegrationCard = React.forwardRef<HTMLDivElement, {
 	children: React.ReactNode;
@@ -57,20 +58,17 @@ export function AnimatedDBCard() {
 		{ scale: 1.5, translateY: -70 }
 	];
 
-	// Function to clear all timeouts
 	const clearAllTimeouts = () => {
 		animationRef.current.timeouts.forEach(timeoutId => clearTimeout(timeoutId));
 		animationRef.current.timeouts = [];
 	};
 
-	// Function to create safe timeouts that can be tracked and cleared
 	const createTimeout = (callback: (value: unknown) => any, delay: number) => {
 		const timeoutId = setTimeout(callback, delay);
 		animationRef.current.timeouts.push(timeoutId);
 		return timeoutId;
 	};
 
-	// Reset animation state
 	const resetAnimation = () => {
 		clearAllTimeouts();
 		animationRef.current.isAnimating = false;
@@ -82,7 +80,6 @@ export function AnimatedDBCard() {
 
 	useEffect(() => {
 		const runAnimation = async () => {
-			// Only run if not already animating and in view
 			if (animationRef.current.isAnimating || !isAnimationOkay()) {
 				return;
 			}
@@ -174,10 +171,7 @@ export function AnimatedDBCard() {
 					createTimeout(resolve, 1500);
 				});
 			} finally {
-				// Reset animation state regardless of success or failure
 				animationRef.current.isAnimating = false;
-
-				// Don't loop automatically, wait for next inView trigger
 			}
 		};
 
@@ -193,7 +187,7 @@ export function AnimatedDBCard() {
 
 	return (
 		<FeatureCard onMouseEnter={() => isDesktop && setWasHovered(true)}>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-40 left-1/2" />
 			<FeatureCardHeader>
 				<DatabaseIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Cassandra Database UI</p>
@@ -265,7 +259,7 @@ export function MailCard() {
 
 	return (
 		<FeatureCard>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
 				<MailOpenIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Mail Webhook Handler</p>
@@ -310,36 +304,101 @@ export function EventsCard() {
 	const [scope, animate] = useAnimate();
 	const [isHovered, setIsHovered] = useState(false);
 	const [isAnimating, setIsAnimating] = useState(false);
+	const [chatVisible, setChatVisible] = useState(false);
+	const [showAgentTyping, setShowAgentTyping] = useState(false);
+	const [showAgentResponse, setShowAgentResponse] = useState(false);
+	const [showCursor, setShowCursor] = useState(false);
+	const [animationStarted, setAnimationStarted] = useState(false);
 	const windowSize = useWindowSize();
 	const isDesktop = windowSize.width >= MinimumWidth.Medium;
 	const ref = useRef(null);
 	const isInView = useInView(ref, { amount: 0.8 });
 
-	// useEffect(() => {
-	// 	if (isDesktop && isHovered) {
-	// 		animate(".chat-container", {
-	// 			opacity: 1,
-	// 			filter: "blur(0px)",
-	// 			transform: "translateY(0)"
-	// 		}, {
-	// 			duration: 0.75,
-	// 			delay: stagger(1)
-	// 		});
-	// 	} else if (!isDesktop && isInView) {
-	// 		animate(".chat-container", {
-	// 			opacity: 1,
-	// 			filter: "blur(0px)",
-	// 			transform: "translateY(0)"
-	// 		}, {
-	// 			duration: 0.75,
-	// 			delay: stagger(1)
-	// 		});
-	// 	}
-	// }, [scope, animate, isHovered, isDesktop, isInView]);
+		const startAgentTyping = async () => {
+		setShowAgentTyping(true);
+		
+		await new Promise(resolve => setTimeout(resolve, 50));
+		
+		await animate(`.agent-typing-container`, {
+			opacity: 1,
+			filter: "blur(0px)",
+			transform: "translateY(0)",
+			display: "flex"
+		}, { duration: 0.5, ease: "easeInOut" });
+
+		await new Promise(resolve => setTimeout(resolve, 2500));
+		
+		setShowAgentTyping(false);
+		setShowAgentResponse(true);
+		
+		await new Promise(resolve => setTimeout(resolve, 50));
+		
+		await animate(`.agent-chat-container`, {
+			opacity: 1,
+			filter: "blur(0px)",
+			transform: "translateY(0)",
+			display: "flex"
+		}, { duration: 0.5, ease: "easeInOut" });
+
+		setIsAnimating(false);
+	};
+
+	const startAnimation = async () => {
+		if (animationStarted) return;
+		
+		setAnimationStarted(true);
+		setIsAnimating(true);
+		
+		setShowCursor(true);
+		await new Promise(resolve => setTimeout(resolve, 50));
+		
+		await animate(`.mac-cursor`, {
+			x: 175,
+			y: 5,
+			opacity: 1
+		}, { duration: 0.75, ease: "easeInOut" });
+		
+		await new Promise(resolve => setTimeout(resolve, 500));
+		
+		await Promise.all([
+			animate(`.mac-cursor`, {
+				opacity: 0,
+			}, { duration: 0.3 }),
+			animate(`.open-chat`, {
+				opacity: 0,
+				filter: "blur(10px)",
+			}, { duration: 0.5, ease: "easeInOut" })
+		]);
+		
+		setShowCursor(false);
+		
+		setChatVisible(false);
+		setShowAgentTyping(false);
+		setShowAgentResponse(false);
+		
+		await new Promise(resolve => setTimeout(resolve, 100));
+
+		setChatVisible(true);
+
+		animate(`.user-chat-container`, {
+			opacity: 1,
+			filter: "blur(0px)",
+			transform: "translateY(0)",
+			display: "flex"
+		}, { duration: 0.5, ease: "circIn" });
+	};
+
+	useEffect(() => {
+		if (isDesktop && isHovered && !animationStarted) {
+			startAnimation();
+		} else if (!isDesktop && isInView && !animationStarted) {
+			startAnimation();
+		}
+	}, [isDesktop, isHovered, isInView, animationStarted]);
 
 	return (
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-40 left-1/3" />
 			<FeatureCardHeader>
 				<HeartPlusIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Support Staff</p>
@@ -347,34 +406,44 @@ export function EventsCard() {
 			<FeatureCardText>
 				{"Provided on-site support at prestigious alumni events including UPenn's Alumni Weekend and Drexel's 50-year Class of 1973 reunion, while managing customer support tickets to ensure seamless event experiences"}
 			</FeatureCardText>
-			<motion.ul
+						<motion.ul
 				ref={scope}
-				className={cn("overflow-hidden relative mx-auto w-fit items-center flex flex-col gap-6 select-none", isAnimating && "pointer-events-none")}
+				className={cn("min-h-32 relative mx-auto items-center flex flex-col gap-6 select-none", isAnimating && "pointer-events-none")}
 			>
+				{showCursor && (
+					<motion.div
+						className="mac-cursor absolute top-9 left-0 z-20"
+						initial={{ x: 0, y: 50, opacity: 0 }}
+					>
+						<MacCursor />
+					</motion.div>
+				)}
 				<motion.div
-					onClick={async () => {
-						setIsAnimating(true);
-
-						animate('.open-chat', {
-							filter: "blur(0px)",
-							opacity: 0
-						}, { duration: 0.25 });
-
-						await new Promise(resolve => setTimeout(resolve, 250));
-
-						animate(`.chat-container`, {
-							opacity: 1,
-							filter: "blur(0px)",
-							transform: "translateY(0)"
-						}, { duration: 0.5, delay: stagger(0.1), ease: "circIn" });
+					onClick={() => {
+						if (!animationStarted) {
+							startAnimation();
+						}
 					}}
-					className="open-chat absolute top-9 z-10 flex flex-row gap-1.5 items-center justify-center bg-gradient-to-b from-black/5 to-[#00000007] dark:bg-white/5 backdrop-blur-sm rounded-xl py-2 px-3 overflow-hidden hover:bg-black/10 active:bg-black/10 dark:hover:bg-white/10 dark:active:bg-white/10 shadow transition-all duration-300 ease-in-out"
+					className={cn(
+						"open-chat absolute top-9 z-10 flex flex-row gap-1.5 items-center justify-center bg-gradient-to-b from-black/20 to-black/10 dark:from-white/20 dark:to-white/10 backdrop-blur-sm rounded-xl py-2 px-3 overflow-hidden shadow transition-all duration-300 ease-in-out",
+						animationStarted && "pointer-events-none"
+					)}
 				>
 					<div className="absolute block -top-10 -left-4 inset-0 rounded-full opacity-0 dark:opacity-100 bg-muted-foreground/5 dark:bg-white/15 blur-2xl size-40" />
 					<PlusIcon className="size-4" />
 					<p className="text-sm">Open Chat</p>
 				</motion.div>
-				<motion.li className="chat-container flex flex-row gap-4 items-center px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+				<motion.li className="user-chat-container hidden w-full flex-row gap-2 items-center px-2" initial={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+					<div className="w-[18rem] shadow border border-border rounded-xl p-2 bg-background flex items-center">
+						{chatVisible && (
+							<TypingAnimation
+								className="text-xs"
+								onAnimationComplete={startAgentTyping}
+							>
+								{"Our event website is experiencing issues for attendees"}
+							</TypingAnimation>
+						)}
+					</div>
 					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
 						<Image
 							src="/person-2.webp"
@@ -384,24 +453,40 @@ export function EventsCard() {
 							className='object-cover pointer-events-none select-none'
 						/>
 					</div>
-					<div className="border border-border rounded-xl p-2 bg-background flex items-center">
-						<p className="text-xs">{"Our event website is experiencing issues for attendees"}</p>
-					</div>
 				</motion.li>
-				<motion.li className="chat-container flex flex-row gap-4 w-full justify-end items-center mb-4 px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
-					<div className="border border-border rounded-xl p-2 bg-border/70">
-						<p className="text-xs">{"We've identified the issue and are deploying a fix"}</p>
-					</div>
-					<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
-						<Image
-							src="/logos/alumniq_logo.png"
-							alt='AlumnIQ Logo'
-							width={216}
-							height={252}
-							className='object-cover pointer-events-none select-none'
-						/>
-					</div>
-				</motion.li>
+				{showAgentTyping && (
+					<motion.li className="agent-typing-container flex flex-row gap-2 w-full justify-start items-center mb-4 px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+						<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
+							<Image
+								src="/logos/alumniq_logo.png"
+								alt='AlumnIQ Logo'
+								width={216}
+								height={252}
+								className='object-cover pointer-events-none select-none'
+							/>
+						</div>
+						<div className="shadow border border-border rounded-xl p-2 bg-border/70 flex items-center gap-2">
+							<LoadingDots className="w-fit" spaceRatio={0.5} />
+							<p className="text-xs text-muted-foreground">Agent is typing...</p>
+						</div>
+					</motion.li>
+				)}
+				{showAgentResponse && (
+					<motion.li className="agent-chat-container flex flex-row gap-2 w-full justify-start items-center mb-4 px-2" style={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+						<div className="border border-border rounded-full h-10 w-10 overflow-hidden">
+							<Image
+								src="/logos/alumniq_logo.png"
+								alt='AlumnIQ Logo'
+								width={216}
+								height={252}
+								className='object-cover pointer-events-none select-none'
+							/>
+						</div>
+						<div className="shadow border border-border rounded-xl p-2 bg-border/70">
+							<p className="text-xs">{"We've identified the issue and are deploying a fix"}</p>
+						</div>
+					</motion.li>
+				)}
 			</motion.ul>
 		</FeatureCard>
 	)
@@ -426,25 +511,21 @@ export function UpdateFunctionsCard() {
 	const animateFunction = async (index: number) => {
 		if (index >= functions.length) return;
 
-		// Move current function to active position
 		await animate(`.function${index}-container`, {
 			filter: "blur(0px)",
 			transform: `translateY(${index * 5}px) scale(1)`,
 			zIndex: 5
 		}, { duration: 0.3 });
 
-		// Hide error icon
 		await animate(`.function${index}-error`, {
 			display: "none"
 		}, { duration: 0 });
 
-		// Show loader
 		await animate(`.function${index}-loader`, {
 			opacity: 1,
 			display: "block"
 		}, { duration: 1 });
 
-		// Change name color and show success
 		await animate(`.function${index}-name`, {
 			color: "#00c951"
 		}, {
@@ -452,7 +533,6 @@ export function UpdateFunctionsCard() {
 			delay: 3,
 		});
 
-		// Hide loader and show success
 		await animate(`.function${index}-loader`, {
 			opacity: 0,
 			display: "none"
@@ -469,19 +549,16 @@ export function UpdateFunctionsCard() {
 		}, { duration: 0.25 });
 
 		if (index + 1 < functions.length) {
-			// Move current function down
 			await animate(`.function${index}-container`, {
 				transform: `translateY(0px) scale(${0.80 + (index * 0.05)})`,
 				filter: "blur(1px)",
 				zIndex: index
 			}, { duration: 0.3, delay: 1 });
 
-			// Start animation for next function
 			setTimeout(() => {
 				animateFunction(index + 1);
 			}, 750);
 		} else {
-			// When all items are complete, reset their positions
 			for (let i = 0; i < functions.length; i++) {
 				await animate(`.function${i}-container`, {
 					transform: `translateY(${i * 5}px)`,
@@ -506,7 +583,7 @@ export function UpdateFunctionsCard() {
 
 	return (
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-40 left-1/3" />
 			<FeatureCardHeader>
 				<CircleFadingArrowUpIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">Updated Functions</p>
@@ -540,7 +617,7 @@ export function UpdateFunctionsCard() {
 export function TestsCard() {
 	return (
 		<FeatureCard>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
 				<FlaskConical className="h-5 w-5" />
 				<p className="text-lg font-medium">Comprehensive Testing</p>
@@ -600,7 +677,6 @@ export function ConfigFixCard() {
 	const isInView = useInView(ref, { amount: 0.5, once: true });
 	const ranAnimation = useRef(false);
 
-	// State management for each step
 	const [showStep1, setShowStep1] = useState(false);
 	const [showStep2, setShowStep2] = useState(false);
 	const [showStep3, setShowStep3] = useState(false);
@@ -609,7 +685,6 @@ export function ConfigFixCard() {
 	const [step2Complete, setStep2Complete] = useState(false);
 	const [step3Complete, setStep3Complete] = useState(false);
 
-	// SVG animation states
 	const [svgAnimationProgress, setSvgAnimationProgress] = useState(0);
 	const [showCircle1, setShowCircle1] = useState(false);
 	const [showCircle2, setShowCircle2] = useState(false);
@@ -618,14 +693,12 @@ export function ConfigFixCard() {
 	const runAnimationSequence = async () => {
 		ranAnimation.current = true;
 
-		// Step 1: Show identifying issue
 		setShowStep1(true);
 		setSvgAnimationProgress(1);
 		setShowCircle1(true);
 		await new Promise(resolve => setTimeout(resolve, 2000));
 		setStep1Complete(true);
 
-		// Animate line to step 2
 		setSvgAnimationProgress(2);
 		await new Promise(resolve => setTimeout(resolve, 2000));
 		setShowStep2(true);
@@ -633,7 +706,6 @@ export function ConfigFixCard() {
 		await new Promise(resolve => setTimeout(resolve, 2000));
 		setStep2Complete(true);
 
-		// Animate line to step 3
 		setSvgAnimationProgress(3);
 		await new Promise(resolve => setTimeout(resolve, 2000));
 		setShowStep3(true);
@@ -641,7 +713,6 @@ export function ConfigFixCard() {
 		await new Promise(resolve => setTimeout(resolve, 2000));
 		setStep3Complete(true);
 
-		// Animate line to final position and show WiFi reverted
 		setSvgAnimationProgress(4);
 		await new Promise(resolve => setTimeout(resolve, 1000));
 		setShowSuccess(true);
@@ -657,7 +728,7 @@ export function ConfigFixCard() {
 
 	return (
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
-			<FeatureCardGrid />
+			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
 				<WifiCogIcon className="h-5 w-5" />
 				<p className="text-lg font-medium">WiFi Configuration Fix</p>
@@ -763,7 +834,6 @@ export function ConfigFixCard() {
 								</filter>
 							</defs>
 
-							{/* Main animated path */}
 							<path
 								d="M1 0V16L22.5 24.5V155"
 								stroke="url(#lineGradient)"
@@ -778,7 +848,6 @@ export function ConfigFixCard() {
 								className="transition-all duration-1000 ease-in-out"
 							/>
 
-							{/* Stop circles at loading states */}
 							{showCircle1 && (
 								<circle
 									cx="22.5"

@@ -2,8 +2,6 @@ import { cn } from "@/lib/utils";
 import { genRandomPattern, GridPattern } from "./grid-pattern";
 import React from "react";
 
-const p = genRandomPattern();
-
 const FeatureCard = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
 	({ children, className, ...props }, ref) => {
 		return (
@@ -16,9 +14,10 @@ const FeatureCard = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>
 
 FeatureCard.displayName = 'FeatureCard';
 
-function FeatureCardGrid() {
+function FeatureCardGrid({ className }: { className?: string }) {
+	const p = genRandomPattern(20);
 	return (
-		<div className="select-none pointer-events-none absolute -top-[7.5rem] left-5/12 -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]">
+		<div className={cn("select-none pointer-events-none absolute -mt-2 -ml-20 p-2 h-full w-full [mask-image:linear-gradient(white,transparent)]", className)}>
 			<div className="from-foreground/5 to-foreground/1 absolute inset-0 bg-gradient-to-r [mask-image:radial-gradient(farthest-side_at_top,white,transparent)] opacity-100">
 				<GridPattern
 					width={20}
