@@ -736,8 +736,8 @@ export function ConfigFixCard() {
 			<FeatureCardText>
 				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
 			</FeatureCardText>
-			<div className="relative flex flex-row items-start mb-4 pointer-events-none select-none">
-				<div className="ml-4 relative">
+			<div className="relative flex flex-row gap-2 items-start mb-4 pointer-events-none select-none">
+				<div className="mt-8 ml-4 relative">
 					<Image
 						src="/assets/experience/xb8_device.png"
 						alt="Xb8 Device"
@@ -748,8 +748,6 @@ export function ConfigFixCard() {
 					<div className="inline-grid grid-cols-2 gap-2 text-xs">
 						<p>WiFi:</p>
 						{showSuccess ? <TextAnimate animation="blurIn" by="character" once className="font-mono text-indigo-600 dark:text-indigo-500">Home</TextAnimate> : <span className="font-mono text-indigo-600 dark:text-indigo-500">SETUP</span>}
-						<p>Password:</p>
-						<span className="font-mono text-indigo-600 dark:text-indigo-500">••••••</span>
 					</div>
 				</div>
 				<div ref={scope} className="flex flex-col gap-2 relative">
