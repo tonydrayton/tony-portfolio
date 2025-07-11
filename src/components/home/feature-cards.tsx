@@ -362,14 +362,17 @@ export function EventsCard() {
 
 		await new Promise(resolve => setTimeout(resolve, 500));
 
-		setCursorClicked(true);
 		await animate(`.mac-cursor`, {
 			opacity: 0,
 		}, { duration: 0.3 });
+		
+		setCursorClicked(true);
+		
 		await animate(`.open-chat`, {
 			opacity: 0,
 			filter: "blur(10px)",
 		}, { duration: 0.5, ease: "easeInOut" });
+		
 		setShowCursor(false);
 		setChatVisible(false);
 		setShowAgentTyping(false);
@@ -424,30 +427,51 @@ export function EventsCard() {
 						}
 					}}
 					className={cn(
-						"open-chat group relative w-36 cursor-pointer overflow-hidden rounded-full border shadow bg-linear-to-b from-background to-foreground/5 p-2 text-center absolute top-9 z-10 transition-all duration-300",
+						"open-chat group relative w-36 cursor-pointer overflow-hidden rounded-full border shadow bg-linear-to-b from-background to-foreground/5 p-2 text-center absolute top-9 z-10",
 						animationStarted && "pointer-events-none"
 					)}
 				>
-					<span className={cn(
-						"inline-block translate-x-1 transition-all duration-300 ml-2",
-						cursorClicked ? "translate-x-12 opacity-0" : "translate-x-1 opacity-100"
-					)}>
+					<motion.span 
+						className="inline-block ml-2"
+						animate={{
+							x: cursorClicked ? 48 : 4,
+							opacity: cursorClicked ? 0 : 1
+						}}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
 						Open Chat
-					</span>
-					<div className={cn(
-						"absolute top-0 z-10 flex h-full w-full items-center justify-center gap-2 text-primary-foreground transition-all duration-300",
-						cursorClicked ? "-translate-x-1 opacity-100" : "translate-x-12 opacity-0"
-					)}>
+					</motion.span>
+					<motion.div 
+						className="absolute top-0 z-10 flex h-full w-full items-center justify-center gap-2 text-primary-foreground"
+						animate={{
+							x: cursorClicked ? -4 : 48,
+							opacity: cursorClicked ? 1 : 0
+						}}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					>
 						<span>Open Chat</span>
 						<ArrowRight className="size-4" />
-					</div>
-					<div className={cn(
-						"absolute size-2 scale-[1] rounded-lg bg-primary transition-all duration-300",
-						cursorClicked ? "left-[0%] top-[0%] h-full w-full scale-[1.8] bg-primary" : "left-[15%] top-[40%]"
-					)}></div>
+					</motion.div>
+					<motion.div 
+						className="absolute size-2 rounded-lg bg-primary"
+						animate={cursorClicked ? {
+							left: "0%",
+							top: "0%",
+							height: "100%",
+							width: "100%",
+							scale: 1.8
+						} : {
+							left: "15%",
+							top: "40%",
+							height: "8px",
+							width: "8px",
+							scale: 1
+						}}
+						transition={{ duration: 0.3, ease: "easeInOut" }}
+					/>
 				</motion.button>
-				<motion.li className="user-chat-container hidden w-full flex-row gap-2 items-center px-2" initial={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
-					<div className="w-[18rem] shadow border border-border rounded-xl p-2 bg-background flex items-center">
+				<motion.li className="user-chat-container hidden w-full flex-row gap-2 items-center justify-end px-2" initial={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
+					<div className="w-fit shadow border border-border rounded-xl p-2 bg-background flex items-center">
 						{chatVisible && (
 							<TypingAnimation
 								className="text-xs"
@@ -922,9 +946,7 @@ export function ConfigFixCard() {
 			<FeatureCardText>
 				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
 			</FeatureCardText>
-
-			<div className="relative flex h-[10rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
-
+			<div className="relative pointer-events-none select-none flex h-[10rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
 				<div className="translate-x-10 translate-y-2 border border-border p-4 drop-shadow-md rounded-lg space-y-2 mask-b-from-5" style={{ background: "linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0) 55%)" }}>
 					<div className="grid grid-cols-2 gap-x-4">
 						<p className="text-xs text-muted-foreground">Issue</p>
