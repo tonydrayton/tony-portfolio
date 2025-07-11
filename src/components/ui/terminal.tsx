@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsMobile } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { motion, MotionProps, useInView } from "framer-motion";
 import { ForwardRefExoticComponent, useEffect, useRef, useState } from "react";
@@ -14,16 +15,18 @@ export const AnimatedSpan = ({
   children,
   delay = 0,
   className,
+  animate = true,
   ...props
 }: AnimatedSpanProps) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const isMobile = useIsMobile();
 
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: -5 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: -5 }}
+      animate={isMobile && isInView ? { opacity: 1, y: 0 } : isInView && animate ? { opacity: 1, y: 0 } : { opacity: 0, y: -5 }}
       transition={{ duration: 0.3, delay: delay / 1000 }}
       className={cn("grid text-sm font-normal tracking-tight", className)}
       {...props}
@@ -144,7 +147,7 @@ export const Terminal = ({ children, className }: TerminalProps) => {
   return (
     <div
       className={cn(
-        "z-0 h-full max-h-[400px] w-full max-w-lg rounded-xl border border-border bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
+        "z-0 h-full max-h-[400px] w-full max-w-lg rounded-xl border border-border shadow bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)]",
         className,
       )}
     >

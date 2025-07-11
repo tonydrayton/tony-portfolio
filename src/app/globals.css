@@ -11,57 +11,55 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: hsl(var(--border));
-  }
+
+	*,
+	::after,
+	::before,
+	::backdrop,
+	::file-selector-button {
+		border-color: hsl(var(--border));
+	}
 }
 
 @utility text-balance {
-  text-wrap: balance;
+	text-wrap: balance;
 }
 
 @layer utilities {
-  html {
-    scroll-behavior: smooth;
-  }
+	html {
+		scroll-behavior: smooth;
+	}
 
-  :root {
-    --foreground-rgb: 0, 0, 0;
-    --background-start-rgb: 214, 219, 220;
-    --background-end-rgb: 255, 255, 255;
-  }
+	:root {
+		--foreground-rgb: 0, 0, 0;
+		--background-start-rgb: 214, 219, 220;
+		--background-end-rgb: 255, 255, 255;
+	}
 
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --foreground-rgb: 255, 255, 255;
-      --background-start-rgb: 0, 0, 0;
-      --background-end-rgb: 0, 0, 0;
-    }
-  }
+	@media (prefers-color-scheme: dark) {
+		:root {
+			--foreground-rgb: 255, 255, 255;
+			--background-start-rgb: 0, 0, 0;
+			--background-end-rgb: 0, 0, 0;
+		}
+	}
 
-  body {
-    color: rgb(var(--foreground-rgb));
-    background: linear-gradient(
-        to bottom,
-        transparent,
-        rgb(var(--background-end-rgb))
-      )
-      rgb(var(--background-start-rgb));
-  }
+	body {
+		color: rgb(var(--foreground-rgb));
+		background: linear-gradient(to bottom,
+				transparent,
+				rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+	}
 
-  .rt-BaseButton:where(.rt-variant-soft) {
-    background-color: var(--accent-a3) !important;
-  }
+	.rt-BaseButton:where(.rt-variant-soft) {
+		background-color: var(--accent-a3) !important;
+	}
 
-  @media (hover: hover) {
-    .rt-BaseButton:where(.rt-variant-soft):where(:hover) {
-      background-color: var(--accent-a4) !important;
-    }
-  }
+	@media (hover: hover) {
+		.rt-BaseButton:where(.rt-variant-soft):where(:hover) {
+			background-color: var(--accent-a4) !important;
+		}
+	}
 }
 
 @layer base {
@@ -97,7 +95,7 @@
 		--mask-visible: #000;
 		--mask-invisible: transparent;
 		--shadow-horizontal: linear-gradient(to right, var(--mask-invisible) 0%, var(--mask-visible) var(--horizontal-size), var(--mask-visible) calc(100% - var(--horizontal-size)), var(--mask-invisible) 100%);
-    	--shadow-vertical: linear-gradient(to bottom, var(--mask-invisible) 0%, var(--mask-visible) var(--vertical-size), var(--mask-visible) calc(100% - var(--vertical-size)), var(--mask-invisible) 100%);
+		--shadow-vertical: linear-gradient(to bottom, var(--mask-invisible) 0%, var(--mask-visible) var(--vertical-size), var(--mask-visible) calc(100% - var(--vertical-size)), var(--mask-invisible) 100%);
 
 		--bg-size: 64px;
 	}
@@ -135,4 +133,25 @@
 	-webkit-mask-image: var(--shadow-horizontal), var(--shadow-vertical);
 	mask-composite: intersect;
 	-webkit-mask-composite: destination-in;
+}
+
+@theme inline {
+	--animate-ripple-after: ripple 2s linear 1s infinite;
+	--animate-ripple-before: ripple 2s linear infinite;
+
+	@keyframes ripple {
+		0% {
+			transform: scale(1);
+		}
+
+		50% {
+			transform: scale(1.3);
+			opacity: 1;
+		}
+
+		100% {
+			transform: scale(1.6);
+			opacity: 0;
+		}
+	}
 }

@@ -1,12 +1,12 @@
 import { AnimatedBeam } from '@/components/ui/animated-beam';
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal';
 import { Typewriter } from '@/components/ui/typewriter';
-import { useWindowSize } from '@/hooks';
+import { useIsMobile, useWindowSize } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, RouterIcon, SmartphoneIcon, TvMinimalIcon, SignalIcon, LoaderIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
@@ -14,6 +14,7 @@ import { FeatureCard, FeatureCardGrid, FeatureCardHeader, FeatureCardText } from
 import { LoadingDots } from '@/components/ui/loading-dots';
 import { TextAnimate } from '@/components/ui/text-animate';
 import MacCursor from '@/components/ui/mac-cursor';
+import { Badge } from '../ui/badge';
 
 const IntegrationCard = React.forwardRef<HTMLDivElement, {
 	children: React.ReactNode;
@@ -309,16 +310,17 @@ export function EventsCard() {
 	const [showAgentResponse, setShowAgentResponse] = useState(false);
 	const [showCursor, setShowCursor] = useState(false);
 	const [animationStarted, setAnimationStarted] = useState(false);
+	const [cursorClicked, setCursorClicked] = useState(false);
 	const windowSize = useWindowSize();
 	const isDesktop = windowSize.width >= MinimumWidth.Medium;
 	const ref = useRef(null);
 	const isInView = useInView(ref, { amount: 0.8 });
 
-		const startAgentTyping = async () => {
+	const startAgentTyping = async () => {
 		setShowAgentTyping(true);
-		
+
 		await new Promise(resolve => setTimeout(resolve, 50));
-		
+
 		await animate(`.agent-typing-container`, {
 			opacity: 1,
 			filter: "blur(0px)",
@@ -327,12 +329,12 @@ export function EventsCard() {
 		}, { duration: 0.5, ease: "easeInOut" });
 
 		await new Promise(resolve => setTimeout(resolve, 2500));
-		
+
 		setShowAgentTyping(false);
 		setShowAgentResponse(true);
-		
+
 		await new Promise(resolve => setTimeout(resolve, 50));
-		
+
 		await animate(`.agent-chat-container`, {
 			opacity: 1,
 			filter: "blur(0px)",
@@ -345,37 +347,34 @@ export function EventsCard() {
 
 	const startAnimation = async () => {
 		if (animationStarted) return;
-		
+
 		setAnimationStarted(true);
 		setIsAnimating(true);
-		
+
 		setShowCursor(true);
 		await new Promise(resolve => setTimeout(resolve, 50));
-		
+
 		await animate(`.mac-cursor`, {
 			x: 175,
 			y: 5,
 			opacity: 1
 		}, { duration: 0.75, ease: "easeInOut" });
-		
+
 		await new Promise(resolve => setTimeout(resolve, 500));
-		
-		await Promise.all([
-			animate(`.mac-cursor`, {
-				opacity: 0,
-			}, { duration: 0.3 }),
-			animate(`.open-chat`, {
-				opacity: 0,
-				filter: "blur(10px)",
-			}, { duration: 0.5, ease: "easeInOut" })
-		]);
-		
+
+		setCursorClicked(true);
+		await animate(`.mac-cursor`, {
+			opacity: 0,
+		}, { duration: 0.3 });
+		await animate(`.open-chat`, {
+			opacity: 0,
+			filter: "blur(10px)",
+		}, { duration: 0.5, ease: "easeInOut" });
 		setShowCursor(false);
-		
 		setChatVisible(false);
 		setShowAgentTyping(false);
 		setShowAgentResponse(false);
-		
+
 		await new Promise(resolve => setTimeout(resolve, 100));
 
 		setChatVisible(true);
@@ -406,7 +405,7 @@ export function EventsCard() {
 			<FeatureCardText>
 				{"Provided on-site support at prestigious alumni events including UPenn's Alumni Weekend and Drexel's 50-year Class of 1973 reunion, while managing customer support tickets to ensure seamless event experiences"}
 			</FeatureCardText>
-						<motion.ul
+			<motion.ul
 				ref={scope}
 				className={cn("min-h-32 relative mx-auto items-center flex flex-col gap-6 select-none", isAnimating && "pointer-events-none")}
 			>
@@ -418,21 +417,35 @@ export function EventsCard() {
 						<MacCursor />
 					</motion.div>
 				)}
-				<motion.div
+				<motion.button
 					onClick={() => {
 						if (!animationStarted) {
 							startAnimation();
 						}
 					}}
 					className={cn(
-						"open-chat absolute top-9 z-10 flex flex-row gap-1.5 items-center justify-center bg-gradient-to-b from-black/20 to-black/10 dark:from-white/20 dark:to-white/10 backdrop-blur-sm rounded-xl py-2 px-3 overflow-hidden shadow transition-all duration-300 ease-in-out",
+						"open-chat group relative w-36 cursor-pointer overflow-hidden rounded-full border shadow bg-linear-to-b from-background to-foreground/5 p-2 text-center absolute top-9 z-10 transition-all duration-300",
 						animationStarted && "pointer-events-none"
 					)}
 				>
-					<div className="absolute block -top-10 -left-4 inset-0 rounded-full opacity-0 dark:opacity-100 bg-muted-foreground/5 dark:bg-white/15 blur-2xl size-40" />
-					<PlusIcon className="size-4" />
-					<p className="text-sm">Open Chat</p>
-				</motion.div>
+					<span className={cn(
+						"inline-block translate-x-1 transition-all duration-300 ml-2",
+						cursorClicked ? "translate-x-12 opacity-0" : "translate-x-1 opacity-100"
+					)}>
+						Open Chat
+					</span>
+					<div className={cn(
+						"absolute top-0 z-10 flex h-full w-full items-center justify-center gap-2 text-primary-foreground transition-all duration-300",
+						cursorClicked ? "-translate-x-1 opacity-100" : "translate-x-12 opacity-0"
+					)}>
+						<span>Open Chat</span>
+						<ArrowRight className="size-4" />
+					</div>
+					<div className={cn(
+						"absolute size-2 scale-[1] rounded-lg bg-primary transition-all duration-300",
+						cursorClicked ? "left-[0%] top-[0%] h-full w-full scale-[1.8] bg-primary" : "left-[15%] top-[40%]"
+					)}></div>
+				</motion.button>
 				<motion.li className="user-chat-container hidden w-full flex-row gap-2 items-center px-2" initial={{ filter: "blur(10px)", opacity: 0, transform: "translateY(50px)" }}>
 					<div className="w-[18rem] shadow border border-border rounded-xl p-2 bg-background flex items-center">
 						{chatVisible && (
@@ -615,8 +628,23 @@ export function UpdateFunctionsCard() {
 }
 
 export function TestsCard() {
+	const [startTests, setStartTests] = useState(false);
+	const [isHovered, setIsHovered] = useState(false);
+	const [typingComplete, setTypingComplete] = useState(false);
+	const ref = useRef(null);
+	const isInView = useInView(ref, { amount: 0.5, once: true });
+	const isMobile = useIsMobile();
+
+	useEffect(() => {
+		if (isMobile && isInView && typingComplete) {
+			setStartTests(true);
+		} else if (!isMobile && isHovered && typingComplete) {
+			setStartTests(true);
+		}
+	}, [isInView, isMobile, isHovered, typingComplete]);
+
 	return (
-		<FeatureCard>
+		<FeatureCard ref={ref} onMouseEnter={() => !isMobile && setIsHovered(true)}>
 			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
 				<FlaskConical className="h-5 w-5" />
@@ -628,39 +656,37 @@ export function TestsCard() {
 			<div className="overflow-hidden mask-b-from-95% relative">
 				<div className="pointer-events-none select-none translate-x-10 translate-y-4 h-40 relative">
 					<Terminal className="absolute inset-0">
-						<TypingAnimation>&gt; make test</TypingAnimation>
-						<AnimatedSpan delay={1500} className="flex flex-row gap-1" >
-							<span className="bg-green-500/50 dark:bg-green-500 text-black w-fit">PASS</span>
-							<span className="">cool.test.js</span>
-						</AnimatedSpan>
+						<TypingAnimation onAnimationComplete={() => setTypingComplete(true)}>&gt; make test</TypingAnimation>
+						{startTests && (
+							<>
+								<AnimatedSpan className="flex flex-row gap-1" >
+									<span className="bg-green-500/50 dark:bg-green-500 text-black w-fit">PASS</span>
+									<span className="">cool.test.js</span>
+								</AnimatedSpan>
+								<AnimatedSpan delay={500} className="text-green-500">
+									<span>✔ Tony is a genius.</span>
+								</AnimatedSpan>
+								<AnimatedSpan delay={1000} className="text-green-500">
+									<span>✔ Tony is awesome.</span>
+								</AnimatedSpan>
+								<AnimatedSpan delay={1500} className="text-green-500">
+									<span>✔ Tony is great.</span>
+								</AnimatedSpan>
+								<AnimatedSpan delay={2000} className="flex flex-row gap-1">
+									<span className="font-bold">Test suites:</span>
+									<span className="text-green-500">3 passed,</span>
+									<span className="">3 total</span>
+								</AnimatedSpan>
+								<AnimatedSpan delay={2500} className="flex flex-row gap-1">
+									<span className="font-bold">Time:</span>
+									<span className="text-yellow-600 dark:text-yellow-500">1.5s</span>
+								</AnimatedSpan>
 
-						<AnimatedSpan delay={2000} className="text-green-500">
-							<span>✔ Tony is a genius.</span>
-						</AnimatedSpan>
-
-						<AnimatedSpan delay={2500} className="text-green-500">
-							<span>✔ Tony is awesome.</span>
-						</AnimatedSpan>
-
-						<AnimatedSpan delay={3000} className="text-green-500">
-							<span>✔ Tony is great.</span>
-						</AnimatedSpan>
-
-						<AnimatedSpan delay={3500} className="flex flex-row gap-1">
-							<span className="font-bold">Test suites:</span>
-							<span className="text-green-500">3 passed,</span>
-							<span className="">3 total</span>
-						</AnimatedSpan>
-
-						<AnimatedSpan delay={3500} className="flex flex-row gap-1">
-							<span className="font-bold">Time:</span>
-							<span className="text-yellow-600 dark:text-yellow-500">1.5s</span>
-						</AnimatedSpan>
-
-						<AnimatedSpan delay={4000} className="text-muted-foreground">
-							<span>Done in 2.5s.</span>
-						</AnimatedSpan>
-
+								<AnimatedSpan delay={3000} className="text-muted-foreground">
+									<span>Done in 2.5s.</span>
+								</AnimatedSpan>
+							</>
+						)}
 					</Terminal>
 				</div>
 			</div>
@@ -668,7 +694,7 @@ export function TestsCard() {
 	)
 }
 
-export function ConfigFixCard() {
+export function OnboardDeviceCard() {
 	const [scope, animate] = useAnimate();
 	const [isHovered, setIsHovered] = useState(false);
 	const windowSize = useWindowSize();
@@ -730,11 +756,11 @@ export function ConfigFixCard() {
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
-				<WifiCogIcon className="h-5 w-5" />
-				<p className="text-lg font-medium">WiFi Configuration Fix</p>
+				<UnplugIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">XLE Onboarding</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
-				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
+				Created a tool using Python and Flask that walks employees through onboarding new customer XLE devices to the Xfinity gateway
 			</FeatureCardText>
 			<div className="relative flex flex-row gap-2 items-start mb-4 pointer-events-none select-none">
 				<div className="mt-8 ml-4 relative">
@@ -751,9 +777,9 @@ export function ConfigFixCard() {
 					</div>
 				</div>
 				<div ref={scope} className="flex flex-col gap-2 relative">
-					<div className="w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-red-500/10 to-red-500/5 rounded-md py-2 px-3 border-t border-red-500/30 shadow">
-						<TriangleAlertIcon className="size-3 stroke-red-500" />
-						<p className="text-xs text-red-500">WiFi Reset Detected</p>
+					<div className="w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-sky-500/10 to-sky-500/5 rounded-md py-2 px-3 border-t border-sky-500/30 shadow">
+						<TriangleAlertIcon className="size-3 stroke-sky-500" />
+						<p className="text-xs text-sky-500">XLE Device Detected</p>
 					</div>
 					<div className="ml-14 mt-4 flex flex-col gap-4">
 						{showStep1 && (
@@ -767,7 +793,7 @@ export function ConfigFixCard() {
 									once
 									className={cn("text-xs", step1Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
 								>
-									{step1Complete ? "Issue identified" : "Identifying issue"}
+									{step1Complete ? "Fetched device information" : "Fetching device information"}
 								</TextAnimate>
 							</div>
 						)}
@@ -782,7 +808,7 @@ export function ConfigFixCard() {
 									once
 									className={cn("whitespace-nowrap text-xs", step2Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
 								>
-									{step2Complete ? "Past credentials fetched" : "Fetching past credentials"}
+									{step2Complete ? "Created configuration set" : "Creating configuration set"}
 								</TextAnimate>
 							</div>
 						)}
@@ -797,7 +823,7 @@ export function ConfigFixCard() {
 									once
 									className={cn("text-xs", step3Complete ? "text-lime-600 dark:text-lime-500" : "text-muted-foreground")}
 								>
-									{step3Complete ? "Configuration reverted" : "Reverting configuration"}
+									{step3Complete ? "Connected to the gateway" : "Connecting to the gateway"}
 								</TextAnimate>
 							</div>
 						)}
@@ -807,11 +833,11 @@ export function ConfigFixCard() {
 							initial={{ opacity: 0, }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.25, ease: "easeInOut" }}
-							className="wifi-reverted absolute top-[9.55rem] left-4 w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-lime-500/10 to-lime-500/5 rounded-md py-2 px-3 border-t border-lime-500/30 shadow"
+							className="xle-onboarded absolute top-[9.55rem] left-4 w-fit flex flex-row items-center gap-2 bg-gradient-to-b from-lime-500/10 to-lime-500/5 rounded-md py-2 px-3 border-t border-lime-500/30 shadow"
 						>
 							<CheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />
 							<p className="text-xs text-lime-600 dark:text-lime-500">
-								WiFi Reverted
+								Device Onboarded
 							</p>
 						</motion.div>
 					)}
@@ -880,6 +906,48 @@ export function ConfigFixCard() {
 						</svg>
 					</div>
 				</div>
+			</div>
+		</FeatureCard>
+	)
+}
+
+export function ConfigFixCard() {
+	return (
+		<FeatureCard>
+			<FeatureCardGrid className="-top-44 left-5/12" />
+			<FeatureCardHeader>
+				<WifiCogIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">WiFi Configuration Fix</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
+			</FeatureCardText>
+
+			<div className="relative flex h-[10rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
+
+				<div className="translate-x-10 translate-y-2 border border-border p-4 drop-shadow-md rounded-lg space-y-2 mask-b-from-5" style={{ background: "linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0) 55%)" }}>
+					<div className="grid grid-cols-2 gap-x-4">
+						<p className="text-xs text-muted-foreground">Issue</p>
+						<p className="text-xs text-muted-foreground">Progress</p>
+					</div>
+					<div className="grid grid-cols-2 gap-x-4">
+						<p className="text-xs truncate">Devices unexpectedly reset to default network configurations</p>
+						<p className="text-xs flex flex-row items-center gap-1"><CircleCheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />Resolved</p>
+					</div>
+					<div className="grid grid-cols-2 gap-x-4">
+						<p className="text-xs truncate">Learning Swift to build mobile apps</p>
+						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
+					</div>
+					<div className="grid grid-cols-2 gap-x-4">
+						<p className="text-xs truncate">Solve every Leetcode hard problem</p>
+						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
+					</div>
+					<div className="grid grid-cols-2 gap-x-4">
+						<p className="text-xs truncate">Become a trillionaire</p>
+						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
+					</div>
+				</div>
+
 			</div>
 		</FeatureCard>
 	)

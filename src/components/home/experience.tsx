@@ -3,7 +3,7 @@ import { SiAmazonwebservices, SiApachecassandra, SiApachecassandraHex, SiMysql, 
 import { ClassValue } from "clsx";
 import Link from "next/link";
 import { CSSProperties } from "react";
-import { AnimatedDBCard, ConfigFixCard, EventsCard, MailCard, TestsCard, UpdateFunctionsCard } from "./feature-cards";
+import { AnimatedDBCard, ConfigFixCard, EventsCard, MailCard, OnboardDeviceCard, TestsCard, UpdateFunctionsCard } from "./feature-cards";
 import Image from "next/image";
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"
@@ -16,6 +16,7 @@ const experienceData = [
 		skills: [{ icon: <SiTypescript className={iconClassName} fill={SiTypescriptHex} />, name: "TypeScript" }, { icon: <SiApachecassandra className={iconClassName} fill={SiApachecassandraHex} />, name: "Cassandra" }, { icon: <SiAmazonwebservices className={iconClassName} />, name: "AWS" }],
 		cards: [
 			AnimatedDBCard,
+			OnboardDeviceCard,
 			ConfigFixCard
 		]
 	},

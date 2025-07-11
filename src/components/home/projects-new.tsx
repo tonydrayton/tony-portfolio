@@ -126,7 +126,7 @@ export default function Projects() {
 				<AnimatedGroup
 					as="ul"
 					preset="blur-slide"
-					className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border pt-4"
+					className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-5 border-t border-border pt-4"
 				>
 					{projects.map((project, index) => (
 						<li key={index} className="flex flex-row items-center">
