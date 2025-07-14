@@ -93,12 +93,12 @@ export default function Home() {
 									<MapPinIcon /> Philadelphia, PA
 								</p>
 								<div className="flex flex-row items-center gap-2">
-									<h1 className="text-3xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2">
+									<h1 className="text-3xl md:text-5xl lg:text-6xl font-semibold tracking-tight flex flex-row flex-wrap gap-1 lg:gap-2 items-center lg:mb-2">
 										Building
 										<ContainerTextFlip
 											words={["bridges", "bonds", "ties", "links"]}
 											animationDuration={1000}
-											className="text-3xl lg:text-6xl mx-1"
+											className="text-3xl md:text-5xl lg:text-6xl mx-1"
 										/>
 										{["between", "design", "and", "code"].map((word, index) => (
 											<span key={index}>{word}</span>

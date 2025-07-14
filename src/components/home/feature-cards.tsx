@@ -6,7 +6,7 @@ import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, RouterIcon, SmartphoneIcon, TvMinimalIcon, SignalIcon, LoaderIcon } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, RouterIcon, SmartphoneIcon, TvMinimalIcon, SignalIcon, LoaderIcon, WrenchIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useId, useRef, useState, useMemo } from 'react';
 import React from 'react';
@@ -365,14 +365,14 @@ export function EventsCard() {
 		await animate(`.mac-cursor`, {
 			opacity: 0,
 		}, { duration: 0.3 });
-		
+
 		setCursorClicked(true);
-		
+
 		await animate(`.open-chat`, {
 			opacity: 0,
 			filter: "blur(10px)",
 		}, { duration: 0.5, ease: "easeInOut" });
-		
+
 		setShowCursor(false);
 		setChatVisible(false);
 		setShowAgentTyping(false);
@@ -431,7 +431,7 @@ export function EventsCard() {
 						animationStarted && "pointer-events-none"
 					)}
 				>
-					<motion.span 
+					<motion.span
 						className="inline-block ml-2"
 						animate={{
 							x: cursorClicked ? 48 : 4,
@@ -441,7 +441,7 @@ export function EventsCard() {
 					>
 						Open Chat
 					</motion.span>
-					<motion.div 
+					<motion.div
 						className="absolute top-0 z-10 flex h-full w-full items-center justify-center gap-2 text-primary-foreground"
 						animate={{
 							x: cursorClicked ? -4 : 48,
@@ -452,7 +452,7 @@ export function EventsCard() {
 						<span>Open Chat</span>
 						<ArrowRight className="size-4" />
 					</motion.div>
-					<motion.div 
+					<motion.div
 						className="absolute size-2 rounded-lg bg-primary"
 						animate={cursorClicked ? {
 							left: "0%",
@@ -935,42 +935,144 @@ export function OnboardDeviceCard() {
 	)
 }
 
+
 export function ConfigFixCard() {
+	const [currentIndex, setCurrentIndex] = useState(0);
+	const positions = useMemo(() => [
+		{ top: "80px", left: "34px" },
+		{ top: "161px", left: "90px" },
+		{ top: "118px", left: "230px" },
+		{ top: "203px", left: "165px" },
+		{ top: "100px", left: "120px" },
+		{ top: "156px", left: "15px" },
+		{ top: "238px", left: "61px" },
+		{ top: "180px", left: "237px" },
+		{ top: "53px", left: "204px" },
+	], []);
+
+	const calculateSpotlightAngle = (pos: { top: string; left: string }) => {
+		const targetX = parseInt(pos.left) + 2.5;
+		const targetY = parseInt(pos.top) + 2.5;
+
+		// X range: ~15px (leftmost) to ~240px (rightmost) -> map to -60° to -20°
+		const minX = 15, maxX = 240;
+		const minAngle = -65, maxAngle = -25;
+
+		const normalizedX = Math.max(0, Math.min(1, (targetX - minX) / (maxX - minX)));
+
+		const yInfluence = (targetY - 50) / 200; // normalize Y roughly to 0-1
+		const yAdjustment = yInfluence * 10; // up to 10° adjustment based on Y
+
+		const baseAngle = minAngle + (normalizedX * (maxAngle - minAngle));
+		return baseAngle + yAdjustment;
+	};
+
+	const spotlightAngles = useMemo(() =>
+		positions.map(pos => calculateSpotlightAngle(pos)),
+		[positions]
+	);
+
+	useEffect(() => {
+		setCurrentIndex(1);
+		const interval = setInterval(() => {
+			setCurrentIndex((prev) => (prev + 1) % positions.length);
+		}, 3000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, []);
 	return (
-		<FeatureCard>
+		<FeatureCard className="max-h-[25rem]">
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
-				<WifiCogIcon className="h-5 w-5" />
-				<p className="text-lg font-medium">WiFi Configuration Fix</p>
+				<WrenchIcon className="h-5 w-5" />
+				<p className="text-lg font-medium">Wifi Configuration Fix</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
 				Investigated and resolved a critical issue where customer WiFi devices were unexpectedly resetting to default network configurations
 			</FeatureCardText>
-			<div className="relative pointer-events-none select-none flex h-[10rem] w-full flex-col items-center justify-center overflow-hidden rounded-lg">
-				<div className="translate-x-10 translate-y-2 border border-border p-4 drop-shadow-md rounded-lg space-y-2 mask-b-from-5" style={{ background: "linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0) 55%)" }}>
-					<div className="grid grid-cols-2 gap-x-4">
-						<p className="text-xs text-muted-foreground">Issue</p>
-						<p className="text-xs text-muted-foreground">Progress</p>
-					</div>
-					<div className="grid grid-cols-2 gap-x-4">
-						<p className="text-xs truncate">Devices unexpectedly reset to default network configurations</p>
-						<p className="text-xs flex flex-row items-center gap-1"><CircleCheckIcon className="size-3 stroke-lime-600 dark:stroke-lime-500" />Resolved</p>
-					</div>
-					<div className="grid grid-cols-2 gap-x-4">
-						<p className="text-xs truncate">Learning Swift to build mobile apps</p>
-						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
-					</div>
-					<div className="grid grid-cols-2 gap-x-4">
-						<p className="text-xs truncate">Solve every Leetcode hard problem</p>
-						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
-					</div>
-					<div className="grid grid-cols-2 gap-x-4">
-						<p className="text-xs truncate">Become a trillionaire</p>
-						<p className="text-xs flex flex-row items-center gap-1"><LoaderIcon className="size-3 stroke-indigo-600 dark:stroke-indigo-500" />In Progress</p>
+			<div className="h-[30rem] -translate-y-10">
+				<div className="absolute left-1/2 h-full min-w-[300px] max-w-[300px] -translate-x-1/2">
+					<div className="relative h-[80%] w-full">
+						<motion.div
+							className="pointer-events-none absolute bottom-[20px] left-[148px] h-[400px] w-[300px] origin-bottom bg-[radial-gradient(circle_at_0%_100%,rgba(29,29,29,0)_5%,transparent_60%)] dark:bg-[radial-gradient(circle_at_0%_100%,rgba(255,255,255,0.3)_5%,transparent_60%)] blur-md"
+							initial={{ opacity: 0.7, rotate: spotlightAngles[0] || -55 }}
+							animate={{
+								opacity: [0.7, 1, 0.7],
+								rotate: spotlightAngles[currentIndex] || -55,
+							}}
+							transition={{
+								duration: 1.5,
+								ease: "easeInOut",
+								opacity: {
+									duration: 2,
+									repeat: Infinity,
+									ease: "easeInOut",
+								}
+							}}
+						/>
+
+						<div className="absolute left-1/2 top-[48px] h-full w-[130%] -translate-x-1/2 rounded-full border-t border-dashed border-muted-foreground/20 dark:border-neutral-700/80 bg-muted-foreground/5" />
+						<div className="absolute left-1/2 top-[100px] h-full w-[120%] -translate-x-1/2 rounded-full border-t border-dashed border-muted-foreground/20 dark:border-neutral-700/80 bg-muted-foreground/5" />
+						<div className="absolute left-1/2 top-[152px] h-full w-[100%] -translate-x-1/2 rounded-full border-t border-dashed border-muted-foreground/20 dark:border-neutral-700/80 bg-muted-foreground/5" />
+						<div className="absolute left-1/2 top-[204px] h-full w-[80%] -translate-x-1/2 rounded-full border-t border-dashed border-muted-foreground/20 dark:border-neutral-700/80 bg-muted-foreground/5" />
+						<svg
+							width="100%"
+							height="100%"
+							className="pointer-events-none absolute left-0 top-0 animate-pulse"
+						>
+							{positions.map((pos, i) => (
+								<g key={i}>
+									<circle
+										cx={parseInt(pos.left) + 2.5}
+										cy={parseInt(pos.top) + 2.5}
+										r={2.5}
+										fill="#404040be"
+									/>
+								</g>
+							))}
+						</svg>
+						<motion.div
+							layoutId="highlight-dot"
+							className="absolute flex h-[6.5px] w-[6.5px] -translate-x-[0.5px] -translate-y-[0.5px] items-center justify-center border-t border-red-400 bg-red-500 shadow-[0_0_10px_4px_rgba(239,68,68,0.9)] rounded-full"
+							style={positions[currentIndex]}
+							transition={{
+								type: "spring",
+								stiffness: 300,
+								damping: 70,
+							}}
+						>
+							<motion.div
+								key={`pulse-${currentIndex}`}
+								className="absolute -left-1.5 -top-1.5 h-[300%] w-[270%] rounded-full border border-red-500"
+								initial={{ scale: 1, opacity: 0.7 }}
+								animate={{ scale: 1.7, opacity: [0.7, 1, 0] }}
+								transition={{
+									duration: 1.2,
+									ease: "easeOut",
+									delay: 1.3,
+								}}
+							/>
+							<motion.div
+								key={currentIndex}
+								initial={{
+									scale: 1,
+								}}
+								animate={{
+									scale: [1, 1.2, 1],
+								}}
+								transition={{
+									duration: 1,
+									ease: "easeInOut",
+									delay: 1.3,
+								}}
+								className="absolute -left-1.5 -top-1.5 h-[300%] w-[270%] scale-[1.3] rounded-full border-[1px] border-red-500 shadow-[0_0_20px_4px_rgba(239,68,68,0.6)]"
+							/>
+						</motion.div>
 					</div>
 				</div>
-
 			</div>
-		</FeatureCard>
+		</FeatureCard >
 	)
 }
