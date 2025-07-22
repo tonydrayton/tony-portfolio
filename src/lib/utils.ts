@@ -6,6 +6,11 @@ import { ReactNode } from "react";
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
 }
+
+export function wait(ms: number) {
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 export interface ImageComponentData {
 	text: string;
 	src: StaticImageData;

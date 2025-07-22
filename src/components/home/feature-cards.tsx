@@ -1,36 +1,20 @@
 import { AnimatedBeam } from '@/components/ui/animated-beam';
 import { AnimatedSpan, Terminal, TypingAnimation } from '@/components/ui/terminal';
 import { Typewriter } from '@/components/ui/typewriter';
-import { useIsMobile, useWindowSize } from '@/hooks';
+import { useWindowSize, useResponsiveAnimation, useResponsiveInteraction } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
 import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
-import { motion, stagger, useAnimate, useAnimation, useInView } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, WifiCogIcon, PlusIcon, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, RouterIcon, SmartphoneIcon, TvMinimalIcon, SignalIcon, LoaderIcon, WrenchIcon } from 'lucide-react';
+import { motion, useAnimate, useAnimation, useInView, Variants } from 'framer-motion';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, WrenchIcon } from 'lucide-react';
 import Image from 'next/image';
-import { useEffect, useId, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import React from 'react';
 import { FeatureCard, FeatureCardGrid, FeatureCardHeader, FeatureCardText } from '../ui/feature-card';
 import { LoadingDots } from '@/components/ui/loading-dots';
 import { TextAnimate } from '@/components/ui/text-animate';
 import MacCursor from '@/components/ui/mac-cursor';
-import { Badge } from '../ui/badge';
-
-const IntegrationCard = React.forwardRef<HTMLDivElement, {
-	children: React.ReactNode;
-	className?: string;
-	position?: 'left-top' | 'left-middle' | 'left-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
-	isCenter?: boolean;
-}>((props, forwardedRef) => {
-	const { children, className, position, isCenter = false } = props;
-	return (
-		<div ref={forwardedRef} className={cn('z-20 bg-neutral-100 dark:bg-neutral-900 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
-			<div className={cn('relative z-20 m-auto size-fit *:size-6', isCenter && '*:size-8')}>{children}</div>
-		</div>
-	)
-});
-
-IntegrationCard.displayName = 'IntegrationCard';
+import { wait } from '@/lib/utils';
 
 export function AnimatedDBCard() {
 	const motionControls = useAnimation();
@@ -45,24 +29,24 @@ export function AnimatedDBCard() {
 	const [showButtonSubmitting, setShowButtonSubmitting] = useState(false);
 	const animationRef = useRef({ isAnimating: false, timeouts: [] } as { isAnimating: boolean, timeouts: NodeJS.Timeout[] });
 
-	const isAnimationOkay = () => {
+	const isAnimationOkay = useCallback(() => {
 		if (isDesktop && wasHovered && ref.current) {
 			return true;
 		} else if (!isDesktop && isInView && ref.current) {
 			return true;
 		}
 		return false;
-	}
+	}, [isDesktop, wasHovered, isInView]);
 
-	const keyframes = [
+	const keyframes = useMemo(() => [
 		{ scale: 1.5, translateX: 100, translateY: 100 },
 		{ scale: 1.5, translateY: -70 }
-	];
+	], []);
 
-	const clearAllTimeouts = () => {
+	const clearAllTimeouts = useCallback(() => {
 		animationRef.current.timeouts.forEach(timeoutId => clearTimeout(timeoutId));
 		animationRef.current.timeouts = [];
-	};
+	}, [animationRef]);
 
 	const createTimeout = (callback: (value: unknown) => any, delay: number) => {
 		const timeoutId = setTimeout(callback, delay);
@@ -70,14 +54,14 @@ export function AnimatedDBCard() {
 		return timeoutId;
 	};
 
-	const resetAnimation = () => {
+	const resetAnimation = useCallback(() => {
 		clearAllTimeouts();
 		animationRef.current.isAnimating = false;
 		setShowMacTyping(false);
 		setShowModelTyping(false);
 		setShowButtonSubmitting(false);
 		motionControls.stop();
-	};
+	}, [clearAllTimeouts, animationRef, setShowMacTyping, setShowModelTyping, setShowButtonSubmitting, motionControls]);
 
 	useEffect(() => {
 		const runAnimation = async () => {
@@ -183,7 +167,7 @@ export function AnimatedDBCard() {
 		return () => {
 			resetAnimation();
 		};
-	}, [isInView, isDesktop, wasHovered, motionControls]);
+	}, [isInView, isDesktop, wasHovered, motionControls, isAnimationOkay, keyframes, resetAnimation]);
 
 
 	return (
@@ -258,6 +242,22 @@ export function MailCard() {
 	const toRef = useRef<HTMLDivElement>(null);
 	const containerRef = useRef<HTMLDivElement>(null);
 
+	const IntegrationCard = React.forwardRef<HTMLDivElement, {
+		children: React.ReactNode;
+		className?: string;
+		position?: 'left-top' | 'left-middle' | 'left-bottom' | 'right-top' | 'right-middle' | 'right-bottom';
+		isCenter?: boolean;
+	}>((props, forwardedRef) => {
+		const { children, className, position, isCenter = false } = props;
+		return (
+			<div ref={forwardedRef} className={cn('z-20 bg-neutral-100 dark:bg-neutral-900 relative flex size-12 rounded-xl border border-border dark:border-white/25 shadow', className)}>
+				<div className={cn('relative z-20 m-auto size-fit *:size-6', isCenter && '*:size-8')}>{children}</div>
+			</div>
+		)
+	});
+
+	IntegrationCard.displayName = 'IntegrationCard';
+
 	return (
 		<FeatureCard>
 			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
@@ -319,7 +319,7 @@ export function EventsCard() {
 	const startAgentTyping = async () => {
 		setShowAgentTyping(true);
 
-		await new Promise(resolve => setTimeout(resolve, 50));
+		await wait(50);
 
 		await animate(`.agent-typing-container`, {
 			opacity: 1,
@@ -328,12 +328,12 @@ export function EventsCard() {
 			display: "flex"
 		}, { duration: 0.5, ease: "easeInOut" });
 
-		await new Promise(resolve => setTimeout(resolve, 2500));
+		await wait(2500);
 
 		setShowAgentTyping(false);
 		setShowAgentResponse(true);
 
-		await new Promise(resolve => setTimeout(resolve, 50));
+		await wait(50);
 
 		await animate(`.agent-chat-container`, {
 			opacity: 1,
@@ -345,14 +345,14 @@ export function EventsCard() {
 		setIsAnimating(false);
 	};
 
-	const startAnimation = async () => {
+	const startAnimation = useCallback(async () => {
 		if (animationStarted) return;
 
 		setAnimationStarted(true);
 		setIsAnimating(true);
 
 		setShowCursor(true);
-		await new Promise(resolve => setTimeout(resolve, 50));
+		await wait(50);
 
 		await animate(`.mac-cursor`, {
 			x: 175,
@@ -360,7 +360,7 @@ export function EventsCard() {
 			opacity: 1
 		}, { duration: 0.75, ease: "easeInOut" });
 
-		await new Promise(resolve => setTimeout(resolve, 500));
+		await wait(500);
 
 		await animate(`.mac-cursor`, {
 			opacity: 0,
@@ -378,7 +378,7 @@ export function EventsCard() {
 		setShowAgentTyping(false);
 		setShowAgentResponse(false);
 
-		await new Promise(resolve => setTimeout(resolve, 100));
+		await wait(100);
 
 		setChatVisible(true);
 
@@ -388,7 +388,7 @@ export function EventsCard() {
 			transform: "translateY(0)",
 			display: "flex"
 		}, { duration: 0.5, ease: "circIn" });
-	};
+	}, [animate, animationStarted]);
 
 	useEffect(() => {
 		if (isDesktop && isHovered && !animationStarted) {
@@ -396,7 +396,7 @@ export function EventsCard() {
 		} else if (!isDesktop && isInView && !animationStarted) {
 			startAnimation();
 		}
-	}, [isDesktop, isHovered, isInView, animationStarted]);
+	}, [isDesktop, isHovered, isInView, animationStarted, startAnimation]);
 
 	return (
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
@@ -422,12 +422,12 @@ export function EventsCard() {
 				)}
 				<motion.button
 					onClick={() => {
-						if (!animationStarted) {
+						if (!animationStarted	) {
 							startAnimation();
 						}
 					}}
 					className={cn(
-						"open-chat group relative w-36 cursor-pointer overflow-hidden rounded-full border shadow bg-linear-to-b from-background to-foreground/5 p-2 text-center absolute top-9 z-10",
+						"open-chat group w-36 cursor-pointer overflow-hidden rounded-full border shadow bg-linear-to-b from-background to-foreground/5 p-2 text-center absolute top-9 z-10",
 						animationStarted && "pointer-events-none"
 					)}
 				>
@@ -531,12 +531,6 @@ export function EventsCard() {
 
 export function UpdateFunctionsCard() {
 	const [scope, animate] = useAnimate();
-	const [isHovered, setIsHovered] = useState(false);
-	const windowSize = useWindowSize();
-	const isDesktop = windowSize.width >= MinimumWidth.Medium;
-	const ref = useRef(null);
-	const isInView = useInView(ref, { amount: 1, once: true });
-	const ranAnimation = useRef(false);
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const functions = useMemo(() => [
@@ -608,18 +602,13 @@ export function UpdateFunctionsCard() {
 		setCurrentIndex(index + 1);
 	};
 
-	useEffect(() => {
-		if (isDesktop && isHovered && !ranAnimation.current) {
-			ranAnimation.current = true;
-			animateFunction(currentIndex);
-		} else if (!isDesktop && isInView && !ranAnimation.current) {
-			ranAnimation.current = true;
-			animateFunction(currentIndex);
-		}
-	}, [scope, animate, isHovered, isDesktop, isInView, currentIndex]);
+	const { ref, onMouseEnter } = useResponsiveAnimation(
+		() => animateFunction(currentIndex),
+		{ threshold: 1, once: true }
+	);
 
 	return (
-		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-40 left-1/3" />
 			<FeatureCardHeader>
 				<CircleFadingArrowUpIcon className="h-5 w-5" />
@@ -653,22 +642,19 @@ export function UpdateFunctionsCard() {
 
 export function TestsCard() {
 	const [startTests, setStartTests] = useState(false);
-	const [isHovered, setIsHovered] = useState(false);
 	const [typingComplete, setTypingComplete] = useState(false);
-	const ref = useRef(null);
-	const isInView = useInView(ref, { amount: 0.5, once: true });
-	const isMobile = useIsMobile();
 
-	useEffect(() => {
-		if (isMobile && isInView && typingComplete) {
-			setStartTests(true);
-		} else if (!isMobile && isHovered && typingComplete) {
-			setStartTests(true);
-		}
-	}, [isInView, isMobile, isHovered, typingComplete]);
+	const { ref, onMouseEnter } = useResponsiveAnimation(
+		() => {
+			if (typingComplete) {
+				setStartTests(true);
+			}
+		},
+		{ threshold: 0.5, once: true, dependencies: [typingComplete] }
+	);
 
 	return (
-		<FeatureCard ref={ref} onMouseEnter={() => !isMobile && setIsHovered(true)}>
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
 				<FlaskConical className="h-5 w-5" />
@@ -720,12 +706,8 @@ export function TestsCard() {
 
 export function OnboardDeviceCard() {
 	const [scope, animate] = useAnimate();
-	const [isHovered, setIsHovered] = useState(false);
 	const windowSize = useWindowSize();
 	const isDesktop = windowSize.width >= MinimumWidth.Medium;
-	const ref = useRef(null);
-	const isInView = useInView(ref, { amount: 0.5, once: true });
-	const ranAnimation = useRef(false);
 
 	const [showStep1, setShowStep1] = useState(false);
 	const [showStep2, setShowStep2] = useState(false);
@@ -741,43 +723,40 @@ export function OnboardDeviceCard() {
 	const [showCircle3, setShowCircle3] = useState(false);
 
 	const runAnimationSequence = async () => {
-		ranAnimation.current = true;
-
 		setShowStep1(true);
 		setSvgAnimationProgress(1);
 		setShowCircle1(true);
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		await wait(2000);
 		setStep1Complete(true);
 
 		setSvgAnimationProgress(2);
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		await wait(2000);
 		setShowStep2(true);
 		setShowCircle2(true);
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		await wait(2000);
 		setStep2Complete(true);
 
 		setSvgAnimationProgress(3);
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		await wait(2000);
 		setShowStep3(true);
 		setShowCircle3(true);
-		await new Promise(resolve => setTimeout(resolve, 2000));
+		await wait(2000);
 		setStep3Complete(true);
 
 		setSvgAnimationProgress(4);
-		await new Promise(resolve => setTimeout(resolve, 1000));
+		await wait(1000);
 		setShowSuccess(true);
 	};
 
-	useEffect(() => {
-		if (isDesktop && isHovered && !ranAnimation.current) {
-			runAnimationSequence();
-		} else if (!isDesktop && isInView && !ranAnimation.current) {
-			runAnimationSequence();
-		}
-	}, [scope, animate, isHovered, isDesktop, isInView]);
+
+
+	const { ref, onMouseEnter } = useResponsiveAnimation(
+		() => runAnimationSequence(),
+		{ threshold: 1, once: true }
+	);
 
 	return (
-		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
 				<UnplugIcon className="h-5 w-5" />
@@ -972,18 +951,72 @@ export function ConfigFixCard() {
 		[positions]
 	);
 
-	useEffect(() => {
-		setCurrentIndex(1);
-		const interval = setInterval(() => {
-			setCurrentIndex((prev) => (prev + 1) % positions.length);
-		}, 3000);
+	const highlightVariants: Variants = {
+		open: {
+			type: "spring",
+			transition: {
+				stiffness: 300,
+				damping: 70,
+			}
+			// stiffness: 300,
+			// damping: 70,
+		},
+		closed: {
+			backgroundColor: "#747686",
+			borderTop: "1px solid #8A8B97",
+			type: "spring",
+			transition: {
+				stiffness: 300,
+				damping: 70,
+			}
+			// stiffness: 300,
+			// damping: 70,
+		}
+	}
 
-		return () => {
-			clearInterval(interval);
-		};
-	}, []);
+	const pulseVariants: Variants = {
+		open: {
+			scale: 1.7,
+			opacity: [0.7, 1, 0],
+			border: "1px solid #FA2C37"
+		},
+		close: {
+			scale: 1,
+			opacity: 1,
+			border: "1px dashed #87ceeb"
+		}
+	}
+
+	const pulse2Variants: Variants = {
+		open: {
+			opacity: 1,
+			scale: [1, 1.2, 1],
+		},
+		close: {
+			opacity: 0,
+			scale: 1,
+		}
+	}
+
+	const { ref, onMouseEnter, onMouseLeave, isActive } = useResponsiveInteraction(
+		{ threshold: 0.5, once: false }
+	);
+
+	useEffect(() => {
+		if (isActive) {
+			setCurrentIndex(1);
+			const interval = setInterval(() => {
+				setCurrentIndex((prev) => (prev + 1) % positions.length);
+			}, 3000);
+
+			return () => {
+				clearInterval(interval);
+			};
+		}
+	}, [positions.length, isActive]);
+
 	return (
-		<FeatureCard className="max-h-[25rem]">
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="max-h-[25rem]">
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
 				<WrenchIcon className="h-5 w-5" />
@@ -996,6 +1029,7 @@ export function ConfigFixCard() {
 				<div className="absolute left-1/2 h-full min-w-[300px] max-w-[300px] -translate-x-1/2">
 					<div className="relative h-[80%] w-full">
 						<motion.div
+							aria-hidden="true"
 							className="pointer-events-none absolute bottom-[20px] left-[148px] h-[400px] w-[300px] origin-bottom bg-[radial-gradient(circle_at_0%_100%,rgba(29,29,29,0)_5%,transparent_60%)] dark:bg-[radial-gradient(circle_at_0%_100%,rgba(255,255,255,0.3)_5%,transparent_60%)] blur-md"
 							initial={{ opacity: 0.7, rotate: spotlightAngles[0] || -55 }}
 							animate={{
@@ -1035,39 +1069,66 @@ export function ConfigFixCard() {
 						</svg>
 						<motion.div
 							layoutId="highlight-dot"
-							className="absolute flex h-[6.5px] w-[6.5px] -translate-x-[0.5px] -translate-y-[0.5px] items-center justify-center border-t border-red-400 bg-red-500 shadow-[0_0_10px_4px_rgba(239,68,68,0.9)] rounded-full"
-							style={positions[currentIndex]}
+							className={cn(
+								"absolute flex h-[6.5px] w-[6.5px] -translate-x-[0.5px] -translate-y-[0.5px] items-center justify-center border-t rounded-full"
+							)}
+							style={{
+								...positions[currentIndex],
+								boxShadow: isActive ? "0 0 10px 4px rgba(239,68,68,0.9)" : "none"
+							}}
+							animate={{
+								backgroundColor: isActive ? "#FA2C37" : "#87ceeb",
+								borderTopColor: isActive ? "#f87171" : "#d4d4d8"
+							}}
 							transition={{
 								type: "spring",
 								stiffness: 300,
 								damping: 70,
+								backgroundColor: {
+									duration: 0.3,
+									ease: "easeInOut"
+								},
+								borderTopColor: {
+									duration: 0.3,
+									ease: "easeInOut"
+								}
 							}}
 						>
 							<motion.div
 								key={`pulse-${currentIndex}`}
-								className="absolute -left-1.5 -top-1.5 h-[300%] w-[270%] rounded-full border border-red-500"
-								initial={{ scale: 1, opacity: 0.7 }}
-								animate={{ scale: 1.7, opacity: [0.7, 1, 0] }}
+								className={cn(
+								"absolute -left-1.5 -top-1.5 h-[300%] w-[270%] rounded-full")}
+								initial={"close"}
+								animate={isActive ? "open" : "close"}
+								variants={pulseVariants}
 								transition={{
 									duration: 1.2,
 									ease: "easeOut",
 									delay: 1.3,
+									border: {
+										duration: 0.5,
+										ease: "easeInOut"
+									}
 								}}
 							/>
 							<motion.div
 								key={currentIndex}
-								initial={{
-									scale: 1,
-								}}
-								animate={{
-									scale: [1, 1.2, 1],
-								}}
+								initial={"close"}
+								animate={isActive ? "open" : "close"}
+								variants={pulse2Variants}
 								transition={{
 									duration: 1,
 									ease: "easeInOut",
 									delay: 1.3,
+									opacity: {
+										duration: 2,
+										ease: "easeInOut"
+									}
 								}}
-								className="absolute -left-1.5 -top-1.5 h-[300%] w-[270%] scale-[1.3] rounded-full border-[1px] border-red-500 shadow-[0_0_20px_4px_rgba(239,68,68,0.6)]"
+								className={cn(
+									"absolute -left-1.5 -top-1.5 h-[300%] w-[270%] scale-[1.3] rounded-full border-[1px]",
+									isActive && "border-red-500 shadow-[0_0_20px_4px_rgba(239,68,68,0.6)]"
+								)}
 							/>
 						</motion.div>
 					</div>
