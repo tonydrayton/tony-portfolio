@@ -8,6 +8,7 @@ import Image from "next/image";
 import { TextAnimate } from "../ui/text-animate";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
+import { AnimatedGroup } from "../ui/animated-group";
 
 const iconClassName: ClassValue = "scale-75 mr-1 rounded-sm"
 const experienceData = [
@@ -43,7 +44,7 @@ const experienceData = [
 
 export default function ExperienceSection() {
 	const [showMoreStates, setShowMoreStates] = useState<boolean[]>(new Array(experienceData.length).fill(false));
-	
+
 	const toggleShowMore = (index: number) => {
 		setShowMoreStates(prev => prev.map((state, i) => i === index ? !state : state));
 	};
@@ -84,11 +85,16 @@ export default function ExperienceSection() {
 										Show Work
 									</Button>}
 									{showMore && (
-										<div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
+										<AnimatedGroup
+											as="div"
+											className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl"
+											preset="blur"
+											viewport={{ amount: 0.1, once: true }}
+										>
 											{exp.cards.map((Card, index) => (
 												<Card key={index} />
 											))}
-										</div>
+										</AnimatedGroup>
 									)}
 								</div>
 							</div>

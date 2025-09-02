@@ -5,7 +5,7 @@ import React from "react";
 const FeatureCard = React.forwardRef<HTMLDivElement, React.ComponentProps<'div'>>(
 	({ children, className, ...props }, ref) => {
 		return (
-			<div ref={ref} className={cn("border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden", className)} {...props}>
+			<div ref={ref} className={cn("h-full border border-border pt-4 rounded-lg bg-[linear-gradient(134deg,hsla(0,0%,100%,.08),hsla(0,0%,100%,.02),hsla(0,0%,100%,0)_55%)] shadow-sm md:max-w-sm relative overflow-hidden", className)} {...props}>
 				{children}
 			</div>
 		)
