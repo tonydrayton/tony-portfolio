@@ -110,52 +110,52 @@ export default function Home() {
 									<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm"}</p>
 									<TouchProvider>
 										<TooltipProvider>
-									<HybridTooltip delayDuration={200}>
-										<div className="flex items-center gap-3">
-											<div className="space-y-0.5">
-												<HybridTooltipTrigger className="pointer-events-auto cursor-pointer">
-													<p
-														className={cn(
-															"text-lg lg:text-xl text-left text-primary/80",
-															"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
-															"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
-															"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
-															)}
-															style={{
-																"--shiny-width": "50px",
-															} as CSSProperties}
-														>
-															{"Tony Drayton,"}
-														</p>
-												</HybridTooltipTrigger>
-											</div>
-										</div>
-										<HybridTooltipContent className="dark:bg-background/85">
-											<div className="space-y-3">
+											<HybridTooltip delayDuration={200}>
 												<div className="flex items-center gap-3">
-													<Image
-														className="shrink-0 object-top rounded-full pointer-events-none select-none"
-														src="/assets/me/IMG_4698.jpg"
-														width={40}
-														height={40}
-														alt="Avatar"
-														loading="eager"
-														priority
-													/>
 													<div className="space-y-0.5">
-														<p className="text-sm font-medium text-primary">Tony Drayton</p>
-														<p className="text-muted-foreground text-xs">@tony</p>
+														<HybridTooltipTrigger className="pointer-events-auto cursor-pointer">
+															<p
+																className={cn(
+																	"text-lg lg:text-xl text-left text-primary/80",
+																	"hover:text-primary/100 dark:hover:text-primary/70 transition-all duration-200 ease-in-out",
+																	"dark:hover:animate-shiny-text dark:bg-clip-text dark:bg-no-repeat dark:bg-position-[0_0] dark:bg-size-[var(--shiny-width)_100%] dark:[transition:background-position_1s_cubic-bezier(.6,.6,0,1)_infinite]",
+																	"dark:hover:bg-linear-to-r from-transparent via-black/80 via-50% to-transparent dark:via-white/80",
+																)}
+																style={{
+																	"--shiny-width": "50px",
+																} as CSSProperties}
+															>
+																{"Tony Drayton,"}
+															</p>
+														</HybridTooltipTrigger>
 													</div>
 												</div>
-												<p className="text-muted-foreground text-sm">
-													Computer science student at{" "}
-													<strong className="text-foreground font-medium">Drexel University</strong>.
-													Anticipated graduation in 2027.
-												</p>
-											</div>
-										</HybridTooltipContent>
-									</HybridTooltip>
-									</TooltipProvider>
+												<HybridTooltipContent className="dark:bg-background/85">
+													<div className="space-y-3">
+														<div className="flex items-center gap-3">
+															<Image
+																className="shrink-0 object-top rounded-full pointer-events-none select-none"
+																src="/assets/me/IMG_4698.jpg"
+																width={40}
+																height={40}
+																alt="Avatar"
+																loading="eager"
+																priority
+															/>
+															<div className="space-y-0.5">
+																<p className="text-sm font-medium text-primary">Tony Drayton</p>
+																<p className="text-muted-foreground text-xs">@tony</p>
+															</div>
+														</div>
+														<p className="text-muted-foreground text-sm">
+															Computer science student at{" "}
+															<strong className="text-foreground font-medium">Drexel University</strong>.
+															Anticipated graduation in 2027.
+														</p>
+													</div>
+												</HybridTooltipContent>
+											</HybridTooltip>
+										</TooltipProvider>
 									</TouchProvider>
 									{["a", "computer", "science", "student", "by", "day", "and", "developer", "by", "night"].map((word, index) => (
 										<span key={index} className="text-lg lg:text-xl text-left text-primary/80">{word}</span>
@@ -180,9 +180,9 @@ export default function Home() {
 									</a>
 								</div>
 							</div>
-						</div>	
+						</div>
 					</Container>
-					<motion.div 
+					<motion.div
 						className="pointer-events-none relative -top-48 w-full flex justify-center"
 						initial={{ opacity: 0 }}
 						animate={
@@ -216,7 +216,7 @@ export default function Home() {
 							</path>
 						</svg>
 						<span className="sr-only">Scroll down</span>
-					</motion.div>		
+					</motion.div>
 				</motion.div>
 
 				<div ref={experienceSectionRef} className="my-20" />

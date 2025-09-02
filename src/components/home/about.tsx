@@ -141,10 +141,10 @@ export default function About({
 
 					<Card className="col-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0 overflow-hidden">
 						<CardContainer>
-						<CardHeader>
-							<CardTitle className="text-2xl">My Go-Tos</CardTitle>
-						</CardHeader>
-						<CardContent className="!px-0">
+							<CardHeader>
+								<CardTitle className="text-2xl">My Go-Tos</CardTitle>
+							</CardHeader>
+							<CardContent className="!px-0">
 								<Marquee pauseOnHover>
 									{firstSkills.map((skill, index) => (
 										<SkillCard skill={skill} key={index} />
@@ -156,45 +156,45 @@ export default function About({
 
 									))}
 								</Marquee>
-						</CardContent>
+							</CardContent>
 						</CardContainer>
 					</Card>
 					<div className="col-span-1 grid grid-cols-2 sm:grid-rows-2 sm:grid-cols-none gap-2">
 						<Card className="col-span-1 sm:row-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
 							<CardContainer>
-							<CardHeader>
-								<CardTitle className="text-2xl flex flex-row items-center gap-2">
-									<HourglassIcon />Hours
-								</CardTitle>
-								<p className="text-xs text-muted-foreground">Coded since last year</p>
-							</CardHeader>
-							<CardContent className="flex items-center justify-center text-3xl font-mono">
-								{wakatimeStats
-									?
-									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:scale-110 transition-transform ease-in-out">
-										<NumberTicker value={parseInt(wakatimeStats?.data.human_readable_total.split(' ')[0])} />
-									</Link>
-									: "--"
-								}
-							</CardContent>
+								<CardHeader>
+									<CardTitle className="text-2xl flex flex-row items-center gap-2">
+										<HourglassIcon />Hours
+									</CardTitle>
+									<p className="text-xs text-muted-foreground">Coded since last year</p>
+								</CardHeader>
+								<CardContent className="flex items-center justify-center text-3xl font-mono">
+									{wakatimeStats
+										?
+										<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:scale-110 transition-transform ease-in-out">
+											<NumberTicker value={parseInt(wakatimeStats?.data.human_readable_total.split(' ')[0])} />
+										</Link>
+										: "--"
+									}
+								</CardContent>
 							</CardContainer>
 						</Card>
 						<Card className="col-span-1 sm:row-span-1 bg-black/5 border border-black/10 dark:border-white/10 p-0">
 							<CardContainer>
-							<CardHeader>
-								<CardTitle className="text-2xl flex flex-row items-center gap-2">
-									<CalendarDaysIcon />Daily
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="flex items-center justify-center text-lg md:text-3xl font-mono">
-								{wakatimeStats
-									?
-									<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:underline transition-all text-center">
-										{wakatimeStats.data.human_readable_daily_average}
-									</Link>
-									: "--"
-								}
-							</CardContent>
+								<CardHeader>
+									<CardTitle className="text-2xl flex flex-row items-center gap-2">
+										<CalendarDaysIcon />Daily
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="flex items-center justify-center text-lg md:text-3xl font-mono">
+									{wakatimeStats
+										?
+										<Link href="https://wakatime.com/@tonydrayton" target="_blank" className="hover:underline transition-all text-center">
+											{wakatimeStats.data.human_readable_daily_average}
+										</Link>
+										: "--"
+									}
+								</CardContent>
 							</CardContainer>
 						</Card>
 					</div>

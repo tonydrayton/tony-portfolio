@@ -51,28 +51,28 @@ export default function FAQ() {
 				type="single"
 				collapsible
 				className="w-full border-t border-border pt-4 mt-4"
-				>
-					<AnimatedGroup
+			>
+				<AnimatedGroup
 					as="div"
 					preset="blur-slide"
 					className="space-y-4"
 					viewport={{ amount: 0.1, once: true }}
-					>
+				>
 					{faqItems.map((item, index) => (
 						<AccordionItem key={index} value={`item-${index + 1}`} className="border-b-0 border border-border rounded-md backdrop-blur-sm shadow-sm bg-linear-to-br from-background to-muted dark:to-muted/20">
 							<MagicCard className="px-4" gradientColor={gradientColor}>
-							<AccordionTrigger className=" hover:no-underline!">
-								<div className="inline-flex flex-col sm:flex-row sm:items-center gap-2">
-									<item.icon size={16} />
-									{item.question}
-								</div>
-							</AccordionTrigger>
-							<AccordionContent className="text-primary/80">{item.answer}</AccordionContent>
+								<AccordionTrigger className=" hover:no-underline!">
+									<div className="inline-flex flex-col sm:flex-row sm:items-center gap-2">
+										<item.icon size={16} />
+										{item.question}
+									</div>
+								</AccordionTrigger>
+								<AccordionContent className="text-primary/80">{item.answer}</AccordionContent>
 							</MagicCard>
 						</AccordionItem>
 					))}
-					</AnimatedGroup>
-				</Accordion>
+				</AnimatedGroup>
+			</Accordion>
 		</ContainerContent>
 	)
 }

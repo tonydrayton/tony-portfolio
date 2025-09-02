@@ -94,9 +94,9 @@ export default function SideNav() {
 							>
 								<span className="group-hover:text-primary">{item.label}</span>
 
-									<span className={cn("ml-auto text-xs text-muted-foreground px-1.5 py-0.5 rounded border border-neutral-700 transition-opacity opacity-0", isOpen && "opacity-100")}>
-										{item.shortcut}
-									</span>
+								<span className={cn("ml-auto text-xs text-muted-foreground px-1.5 py-0.5 rounded border border-neutral-700 transition-opacity opacity-0", isOpen && "opacity-100")}>
+									{item.shortcut}
+								</span>
 							</a>
 						</li>
 					))}

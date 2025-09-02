@@ -17,7 +17,7 @@ export default function Nav() {
 
 	useEffect(() => {
 		const threshold = 40;
-		if(window.scrollY > threshold) {
+		if (window.scrollY > threshold) {
 			setIsScrolled(true)
 		}
 
