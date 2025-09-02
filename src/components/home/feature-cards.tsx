@@ -4,9 +4,9 @@ import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize, useResponsiveAnimation, useResponsiveInteraction } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { SiAmazonwebservices, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
+import { SiAmazonwebservices, SiLinkedin, SiLinkedinHex, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
 import { motion, useAnimate, useAnimation, useInView, Variants } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, WrenchIcon } from 'lucide-react';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, WrenchIcon, PresentationIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import React from 'react';
@@ -15,6 +15,9 @@ import { LoadingDots } from '@/components/ui/loading-dots';
 import { TextAnimate } from '@/components/ui/text-animate';
 import MacCursor from '@/components/ui/mac-cursor';
 import { wait } from '@/lib/utils';
+import Link from 'next/link';
+import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvider } from '../ui/hybrid-tooltip';
+import { TooltipProvider } from '../ui/tooltip';
 
 export function AnimatedDBCard() {
 	const motionControls = useAnimation();
@@ -174,7 +177,7 @@ export function AnimatedDBCard() {
 		<FeatureCard onMouseEnter={() => isDesktop && setWasHovered(true)}>
 			<FeatureCardGrid className="-top-40 left-1/2" />
 			<FeatureCardHeader>
-				<DatabaseIcon className="h-5 w-5" />
+				<DatabaseIcon className="size-5" />
 				<p className="text-lg font-medium">Cassandra Database UI</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -262,7 +265,7 @@ export function MailCard() {
 		<FeatureCard>
 			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
-				<MailOpenIcon className="h-5 w-5" />
+				<MailOpenIcon className="size-5" />
 				<p className="text-lg font-medium">Mail Webhook Handler</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -402,7 +405,7 @@ export function EventsCard() {
 		<FeatureCard ref={ref} onMouseEnter={() => isDesktop && setIsHovered(true)}>
 			<FeatureCardGrid className="-top-40 left-1/3" />
 			<FeatureCardHeader>
-				<HeartPlusIcon className="h-5 w-5" />
+				<HeartPlusIcon className="size-5" />
 				<p className="text-lg font-medium">Support Staff</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -422,7 +425,7 @@ export function EventsCard() {
 				)}
 				<motion.button
 					onClick={() => {
-						if (!animationStarted	) {
+						if (!animationStarted) {
 							startAnimation();
 						}
 					}}
@@ -611,7 +614,7 @@ export function UpdateFunctionsCard() {
 		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-40 left-1/3" />
 			<FeatureCardHeader>
-				<CircleFadingArrowUpIcon className="h-5 w-5" />
+				<CircleFadingArrowUpIcon className="size-5" />
 				<p className="text-lg font-medium">Updated Functions</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -657,7 +660,7 @@ export function TestsCard() {
 		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-[7.5rem] left-5/12" />
 			<FeatureCardHeader>
-				<FlaskConical className="h-5 w-5" />
+				<FlaskConical className="size-5" />
 				<p className="text-lg font-medium">Comprehensive Testing</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -759,7 +762,7 @@ export function OnboardDeviceCard() {
 		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
-				<UnplugIcon className="h-5 w-5" />
+				<UnplugIcon className="size-5" />
 				<p className="text-lg font-medium">XLE Onboarding</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -1019,7 +1022,7 @@ export function ConfigFixCard() {
 		<FeatureCard ref={ref} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave} className="max-h-[25rem]">
 			<FeatureCardGrid className="-top-44 left-5/12" />
 			<FeatureCardHeader>
-				<WrenchIcon className="h-5 w-5" />
+				<WrenchIcon className="size-5" />
 				<p className="text-lg font-medium">Wifi Configuration Fix</p>
 			</FeatureCardHeader>
 			<FeatureCardText>
@@ -1097,7 +1100,7 @@ export function ConfigFixCard() {
 							<motion.div
 								key={`pulse-${currentIndex}`}
 								className={cn(
-								"absolute -left-1.5 -top-1.5 h-[300%] w-[270%] rounded-full")}
+									"absolute -left-1.5 -top-1.5 h-[300%] w-[270%] rounded-full")}
 								initial={"close"}
 								animate={isActive ? "open" : "close"}
 								variants={pulseVariants}
@@ -1135,5 +1138,51 @@ export function ConfigFixCard() {
 				</div>
 			</div>
 		</FeatureCard >
+	)
+}
+
+export function PresentationCard() {
+	return (
+		<FeatureCard>
+			<FeatureCardGrid className="-top-44 left-5/12" />
+			<FeatureCardHeader>
+				<PresentationIcon className="size-5" />
+				<p className="text-lg font-medium">Capstone Project</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Worked with a team of 5 other interns to design and present an integrated feature that fetches and displays TV
+				show and cast information on Xfinity X1 devices to over 100 engineers
+			</FeatureCardText>
+			<div className="overflow-hidden relative mask-b-from-95% mask-t-from-95%">
+				<div className="md:translate-x-12 translate-y-4 flex flex-row gap-2 items-start mb-4 max-h-[11.65rem]">
+					<TouchProvider>
+						<TooltipProvider>
+							<HybridTooltip delayDuration={200}>
+								<div className="mx-auto md:mx-[unset] p-5 bg-[#707070]/20 rounded-xl">
+									<HybridTooltipTrigger>
+										<Link href="https://www.linkedin.com/posts/tony-drayton_presented-our-intern-capstone-pitch-yesterday-activity-7358855550903689218-0DFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEM5vU4BLXHDGIzWt3j6Cl4oX4Q-i7E15rU" target="_blank" className="">
+											<img
+												src="/me/capstone_project.jpeg"
+												className='rounded-lg w-80 drop-shadow-md'
+												alt="Capstone Project Team"
+												width={1000}
+												height={1000}
+											/>
+										</Link>
+									</HybridTooltipTrigger>
+								</div>
+								<HybridTooltipContent className="dark:bg-background/50 py-2 w-fit">
+									<div className="inline-flex flex-row items-center gap-1">
+										<p className="text-xs text-muted-foreground mr-1">View on</p>
+										<SiLinkedin color={SiLinkedinHex} className="size-3" />
+										<span className="text-primary font-medium">LinkedIn</span>
+									</div>
+								</HybridTooltipContent>
+							</HybridTooltip>
+						</TooltipProvider>
+					</TouchProvider>
+				</div>
+			</div>
+		</FeatureCard>
 	)
 }
