@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { FileCheckIcon, Github, Linkedin, MoonIcon, SunIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
+import { RESUME_URL } from "@/lib/constants";
 
 interface SocialItem {
 	id: string;
@@ -30,7 +31,7 @@ const socialItems: SocialItem[] = [
 		id: "resume",
 		label: "Resume",
 		icon: <FileCheckIcon className="w-5 h-5" />,
-		href: "/assets/resumes/Tony_Drayton_10_25_24.pdf"
+		href: RESUME_URL
 	},
 ];
 

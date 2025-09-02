@@ -5,6 +5,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { FileCheckIcon, GithubIcon, LinkedinIcon, MailIcon } from 'lucide-react';
 import Logo from '@/components/logo';
 import AnimatedShinyText from '@/components/ui/animated-shiny-text';
+import { RESUME_URL } from '@/lib/constants';
 
 interface FooterLink {
     title: string;
@@ -23,7 +24,7 @@ const footerLinks: FooterSection[] = [
         links: [
             { title: 'Github', href: 'https://github.com/tonydrayton', icon: GithubIcon },
             { title: 'LinkedIn', href: 'https://linkedin.com/in/tony-drayton', icon: LinkedinIcon },
-            { title: 'Resume', href: '/assets/resumes/Tony_Drayton_10_25_24.pdf', icon: FileCheckIcon },
+            { title: 'Resume', href: RESUME_URL, icon: FileCheckIcon },
             { title: 'Email', href: 'mailto:tonydrytn@gmail.com', icon: MailIcon }
         ],
     },

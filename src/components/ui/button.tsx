@@ -8,7 +8,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "border drop-shadow-xs shadow-xs hover:bg-accent bg-[linear-gradient(to_bottom,hsla(0,0%,98%,.9),transparent_50%)] dark:shadow-sleek dark:border-none dark:bg-[linear-gradient(to_bottom,hsla(0,0%,100%,.05),transparent_50%)]",
+        default: "border drop-shadow-xs shadow-xs hover:bg-accent dark:shadow-sleek dark:border-none",
         destructive:
           "bg-destructive text-destructive-foreground hover:bg-destructive/90",
         outline:
