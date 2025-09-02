@@ -1160,13 +1160,14 @@ export function PresentationCard() {
 							<HybridTooltip delayDuration={200}>
 								<div className="mx-auto md:mx-[unset] p-5 bg-[#707070]/20 rounded-xl">
 									<HybridTooltipTrigger>
-										<Link href="https://www.linkedin.com/posts/tony-drayton_presented-our-intern-capstone-pitch-yesterday-activity-7358855550903689218-0DFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEM5vU4BLXHDGIzWt3j6Cl4oX4Q-i7E15rU" target="_blank" className="">
-											<img
+										<Link href="https://www.linkedin.com/posts/tony-drayton_presented-our-intern-capstone-pitch-yesterday-activity-7358855550903689218-0DFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEM5vU4BLXHDGIzWt3j6Cl4oX4Q-i7E15rU" target="_blank">
+											<Image
 												src="/me/capstone_project.jpeg"
 												className='rounded-lg w-80 drop-shadow-md'
 												alt="Capstone Project Team"
 												width={1000}
 												height={1000}
+												unoptimized
 											/>
 										</Link>
 									</HybridTooltipTrigger>
