@@ -19,7 +19,7 @@ import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvide
 import { TooltipProvider } from "../ui/tooltip";
 import FAQ from "./faq";
 import { RESUME_URL } from "@/lib/constants";
-import { Badge } from "../ui/badge";
+import { Status, StatusIndicator } from "../ui/status";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -165,8 +165,10 @@ export default function Home() {
 								</div>
 								<div className="hero-items mt-2 flex flex-row gap-2 pointer-events-auto">
 									<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href={RESUME_URL} target="_blank">
+										<Status status="online">
+											<StatusIndicator />
+										</Status>
 										Resume
-										<Badge className="-ml-2 text-xs tracking-tight">Updated</Badge>
 									</ShinyAnchor>
 									<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 										<Github />
