@@ -77,25 +77,25 @@ export default function ExperienceSection() {
 											{exp.workplace.name}
 										</Link>
 									</p>
-									<TextAnimate className="mb-2" animation="fadeIn" by="line" duration={0.7} once>
-										{exp.text}
-									</TextAnimate>
+									{showMore && (
+										<TextAnimate className="mb-2" animation="blurIn" by="line" duration={0.7} once>
+											{exp.text}
+										</TextAnimate>
+									)}
 									{!showMore && <Button className="w-fit h-8 py-0 bg-background rounded-3xl text-xs" aria-label="Show More" onClick={() => toggleShowMore(index)}>
 										<PlusIcon className="size-3 mr-2" />
-										Show Work
+										Read More
 									</Button>}
-									{showMore && (
-										<AnimatedGroup
-											as="div"
-											className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl"
-											preset="blur"
-											viewport={{ amount: 0.1, once: true }}
-										>
-											{exp.cards.map((Card, index) => (
-												<Card key={index} />
-											))}
-										</AnimatedGroup>
-									)}
+									<AnimatedGroup
+										as="div"
+										className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl"
+										preset="blur"
+										viewport={{ amount: 0.1, once: true }}
+									>
+										{exp.cards.map((Card, index) => (
+											<Card key={index} />
+										))}
+									</AnimatedGroup>
 								</div>
 							</div>
 						)

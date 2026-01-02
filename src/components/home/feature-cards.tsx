@@ -1158,7 +1158,7 @@ export function PresentationCard() {
 					<TouchProvider>
 						<TooltipProvider>
 							<HybridTooltip delayDuration={200}>
-								<div className="mx-auto md:mx-[unset] p-5 bg-[#707070]/20 rounded-xl">
+								<div className="mx-auto md:mx-[unset] p-5 bg-[#707070]/20 rounded-xl border border-neutral-500/30">
 									<HybridTooltipTrigger>
 										<Link href="https://www.linkedin.com/posts/tony-drayton_presented-our-intern-capstone-pitch-yesterday-activity-7358855550903689218-0DFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEM5vU4BLXHDGIzWt3j6Cl4oX4Q-i7E15rU" target="_blank">
 											<Image
