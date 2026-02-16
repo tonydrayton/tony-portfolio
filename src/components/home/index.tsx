@@ -143,7 +143,7 @@ export default function Home() {
 					</Container>
 				</motion.div>
 
-				<Container className="-mt-96 flex-col items-center justify-start" id="experience">
+				<Container className="-mt-16 lg:-mt-96 flex-col items-center justify-start" id="experience">
 					<ExperienceSection />
 				</Container>
 
