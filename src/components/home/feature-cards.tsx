@@ -771,8 +771,8 @@ export function OnboardDeviceCard() {
 			<div className="relative flex flex-row gap-2 items-start mb-4 pointer-events-none select-none">
 				<div className="mt-8 ml-4 relative">
 					<Image
-						src="/assets/experience/xb8_device.png"
-						alt="Xb8 Device"
+						src="/assets/experience/xb8_device.webp"
+						alt="XB8 Device"
 						width={319}
 						height={540}
 						className="w-20 object-cover pointer-events-none select-none"
@@ -1162,7 +1162,7 @@ export function PresentationCard() {
 									<HybridTooltipTrigger>
 										<Link href="https://www.linkedin.com/posts/tony-drayton_presented-our-intern-capstone-pitch-yesterday-activity-7358855550903689218-0DFQ?utm_source=share&utm_medium=member_desktop&rcm=ACoAAEM5vU4BLXHDGIzWt3j6Cl4oX4Q-i7E15rU" target="_blank">
 											<Image
-												src="/me/capstone_project.jpeg"
+												src="/assets/experience/capstone_project.webp"
 												className='rounded-lg w-80 drop-shadow-md'
 												alt="Capstone Project Team"
 												width={1000}
