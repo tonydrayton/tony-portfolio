@@ -1,8 +1,6 @@
-import { Badge } from "@/components/ui/badge";
 import { SiFlask, SiNextdotjs, SiPayloadcms, SiTrpc, SiTypescript } from "@icons-pack/react-simple-icons"
-import { Github } from "lucide-react";
+import { Github, SquareArrowOutUpRight } from "lucide-react";
 import Image from "next/image";
-import { HoverCard, HoverCardContent, HoverCardTrigger } from "../ui/hover-card";
 import { HybridTooltip, HybridTooltipContent, HybridTooltipTrigger, TouchProvider } from "../ui/hybrid-tooltip";
 import { TooltipProvider } from "../ui/tooltip";
 import { AnimatedGroup } from "../ui/animated-group";
@@ -42,11 +40,6 @@ const projects = [
 		skills: [{ name: "Java" }, { name: "JUnit" }, { name: "StarUML" }],
 		date: 'Sept. 2024 - Dec. 2024',
 		description: 'A test and survey system curated for students and teachers to create and manage tests and surveys. Fully developed in a Java backend with an extensive UML to diagram how it functions.',
-		link: {
-			url: 'https://github.com/tonydrayton',
-			text: 'View on Github',
-			icon: <Github className='scale-75' />
-		},
 	},
 	{
 		name: 'Mock Banking',
@@ -54,11 +47,6 @@ const projects = [
 		skills: [{ name: "Java" }, { name: "JUnit" }],
 		date: 'Sept. 2023 - Dec. 2023',
 		description: 'A mock bank system built to simulate a real bank system. It allows users to create accounts, deposit and withdraw money, and view their transaction history.',
-		link: {
-			url: 'https://github.com/tonydrayton',
-			text: 'View on Github',
-			icon: <Github className='scale-75' />
-		},
 	},
 	{
 		name: 'Adopteam',
@@ -83,9 +71,6 @@ const projects = [
 		date: 'Jan. - June 2023',
 		description: 'A platform for students at Drexel University to connet with each other and share their music. Included features such as direct Spotify integration, scheduling concerts & events, finding other artists, and more.',
 		image: '/projects/musicatdrexel/logo.png',
-		link: {
-			url: 'https://github.com/tonydrayton',
-		}
 	},
 	{
 		name: 'Digital Icon Market',
@@ -111,8 +96,7 @@ const projects = [
 		image: '/projects/vaeleth/logo.png',
 		link: {
 			url: 'https://top.gg/bot/543565592527896596',
-			text: 'View on Github',
-			icon: <Github className='scale-75' />
+			text: 'View on Top.gg',
 		}
 	}
 ]
@@ -139,21 +123,41 @@ export default function Projects() {
 										<HybridTooltipContent side="top" className="flex flex-col gap-2 max-w-80 sm:w-lg!">
 											<div className="flex flex-row items-center gap-2">
 												{project.image && (
-													<a href={project.link.url} target="_blank">
+													project.link ? (
+														<a href={project.link.url} target="_blank">
+															<Image
+																src={project.image}
+																alt={`${project.name} logo`}
+																width={75}
+																height={75}
+																className="w-full max-w-10 rounded-sm bg-transparent object-center object-contain"
+																loading="eager"
+																priority
+															/>
+														</a>
+													) : (
 														<Image
 															src={project.image}
 															alt={`${project.name} logo`}
 															width={75}
 															height={75}
 															className="w-full max-w-10 rounded-sm bg-transparent object-center object-contain"
-															loading="eager"
-															priority
 														/>
-													</a>
+													)
 												)}
 												<div>
 													<div className="flex flex-row gap-2 items-center">
-														<a href={project.link.url} target="_blank" className="text-base text-primary/90 no-underline underline-offset-2 hover:text-primary hover:underline hover:brightness-120 transition-all duration-200 ease-in-out max-w-40 sm:max-w-40 md:max-w-60 truncate">{project.name}</a>
+														{project.link ? (
+															<a href={project.link.url} target="_blank" className="text-base text-primary/90 no-underline underline-offset-2 hover:text-primary hover:underline hover:brightness-120 transition-all duration-200 ease-in-out max-w-40 sm:max-w-40 md:max-w-60 truncate flex flex-row items-center gap-2">
+																{project.name}
+																<SquareArrowOutUpRight className="size-4" />
+															</a>
+														) : (
+															<span className="text-base text-primary/90 max-w-40 sm:max-w-40 md:max-w-60 truncate">
+																{project.name}
+															</span>
+														)}
+
 													</div>
 													<p className="text-xs text-muted-foreground">{project.role}</p>
 												</div>
