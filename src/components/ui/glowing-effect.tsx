@@ -1,5 +1,6 @@
 "use client";
 
+import { useHasFinePointer } from "@/hooks";
 import { cn } from "@/lib/utils";
 import { CSSProperties, ReactNode, useEffect, useRef } from "react";
 
@@ -35,31 +36,46 @@ export function GlowingEffect({
 	disabled = false,
 }: GlowingEffectProps) {
 	const ref = useRef<HTMLDivElement>(null);
+	const hasFinePointer = useHasFinePointer();
+	const isEnabled = hasFinePointer === true && !disabled;
 
 	useEffect(() => {
-		if (disabled) return;
+		if (!isEnabled) return;
 
-		const handleMove = (event: PointerEvent) => {
+		let frame = 0;
+		let latest: { x: number; y: number } | null = null;
+
+		/* Measured once per frame at most, and never inside the event handler. */
+		const apply = () => {
+			frame = 0;
 			const element = ref.current;
-			if (!element) return;
+			if (!element || !latest) return;
 
 			const rect = element.getBoundingClientRect();
 			const isNear =
-				event.clientX > rect.left - proximity &&
-				event.clientX < rect.right + proximity &&
-				event.clientY > rect.top - proximity &&
-				event.clientY < rect.bottom + proximity;
+				latest.x > rect.left - proximity &&
+				latest.x < rect.right + proximity &&
+				latest.y > rect.top - proximity &&
+				latest.y < rect.bottom + proximity;
 
 			element.style.setProperty("--glow-opacity", isNear ? "1" : "0");
 			if (!isNear) return;
 
-			element.style.setProperty("--glow-x", `${event.clientX - rect.left}px`);
-			element.style.setProperty("--glow-y", `${event.clientY - rect.top}px`);
+			element.style.setProperty("--glow-x", `${latest.x - rect.left}px`);
+			element.style.setProperty("--glow-y", `${latest.y - rect.top}px`);
+		};
+
+		const handleMove = (event: PointerEvent) => {
+			latest = { x: event.clientX, y: event.clientY };
+			if (!frame) frame = requestAnimationFrame(apply);
 		};
 
 		window.addEventListener("pointermove", handleMove, { passive: true });
-		return () => window.removeEventListener("pointermove", handleMove);
-	}, [disabled, proximity]);
+		return () => {
+			window.removeEventListener("pointermove", handleMove);
+			if (frame) cancelAnimationFrame(frame);
+		};
+	}, [isEnabled, proximity]);
 
 	const glow = `radial-gradient(${spread}px circle at var(--glow-x, 50%) var(--glow-y, 0%), ${from}, ${to} 40%, transparent 68%)`;
 
@@ -73,16 +89,21 @@ export function GlowingEffect({
 				aria-hidden="true"
 				className="pointer-events-none absolute inset-0 rounded-[inherit] border border-border"
 			/>
-			<div
-				aria-hidden="true"
-				className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-[var(--glow-opacity)] transition-opacity duration-300"
-				style={{ background: glow }}
-			/>
-			<div
-				aria-hidden="true"
-				className="pointer-events-none absolute -inset-1 rounded-[inherit] opacity-[var(--glow-opacity)] blur-md transition-opacity duration-300"
-				style={{ background: glow, opacity: "calc(var(--glow-opacity) * 0.45)" }}
-			/>
+			{/* Touch devices can never light these up, so the layers are not created at all. */}
+			{isEnabled && (
+				<>
+					<div
+						aria-hidden="true"
+						className="pointer-events-none absolute inset-0 rounded-[inherit] opacity-[var(--glow-opacity)] transition-opacity duration-300"
+						style={{ background: glow }}
+					/>
+					<div
+						aria-hidden="true"
+						className="pointer-events-none absolute -inset-1 rounded-[inherit] blur-md transition-opacity duration-300"
+						style={{ background: glow, opacity: "calc(var(--glow-opacity) * 0.45)" }}
+					/>
+				</>
+			)}
 			<div className="relative h-full overflow-hidden rounded-[inherit] bg-background">
 				{children}
 			</div>

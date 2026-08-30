@@ -76,18 +76,19 @@ export function VanguardVisual({ active, className }: CompanyVisualProps) {
 				/>
 			</div>
 
+			{/* Rise is a transform, not an animated `top`, so it never triggers layout. */}
 			{FLOATERS.map(floater => (
 				<motion.span
 					key={`${floater.label}-${floater.x}`}
 					className={cn(
-						"pointer-events-none absolute font-mono tabular-nums text-[#96151d] dark:text-[#e2606c]",
+						"pointer-events-none absolute top-[52%] font-mono tabular-nums text-[#96151d] dark:text-[#e2606c]",
 						floater.size
 					)}
 					style={{ left: `${floater.x}%` }}
-					initial={{ top: "52%", opacity: 0 }}
+					initial={{ y: 0, opacity: 0 }}
 					animate={active
-						? { top: ["52%", "40%", "24%", "14%"], opacity: [0, 0.8, 0.8, 0] }
-						: { top: "52%", opacity: 0 }}
+						? { y: [0, -26, -66, -88], opacity: [0, 0.8, 0.8, 0] }
+						: { y: 0, opacity: 0 }}
 					transition={active
 						? {
 							duration: FLOAT_DURATION,

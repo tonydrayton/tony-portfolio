@@ -54,7 +54,11 @@ export function FlickeringGrid({
 
 	const setupCanvas = useCallback(
 		(canvas: HTMLCanvasElement, w: number, h: number) => {
-			const dpr = window.devicePixelRatio || 1;
+			/*
+			 * Capped: a phone at dpr 3 means a 9x backing store for a purely
+			 * decorative texture, and every square is filled at that scale.
+			 */
+			const dpr = Math.min(window.devicePixelRatio || 1, 2);
 			canvas.width = w * dpr;
 			canvas.height = h * dpr;
 			canvas.style.width = `${w}px`;
@@ -108,13 +112,18 @@ export function FlickeringGrid({
 			}
 		};
 
+		/* A flicker does not need 60fps, and halving the redraws halves the cost. */
+		const frameInterval = 1000 / 30;
+
 		const loop = (time: number) => {
+			animationFrame = requestAnimationFrame(loop);
+			if (time - lastTime < frameInterval) return;
+
 			const deltaTime = (time - lastTime) / 1000;
 			lastTime = time;
 
 			updateSquares(deltaTime);
 			draw();
-			animationFrame = requestAnimationFrame(loop);
 		};
 
 		if (canvasSize.width > 0 && canvasSize.height > 0) {

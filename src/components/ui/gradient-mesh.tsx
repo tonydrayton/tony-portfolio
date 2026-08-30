@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { useMemo } from "react";
 
 export type MeshBlob = {
@@ -65,6 +65,8 @@ export function GradientMesh({
 	);
 
 	const mask = FADE_MASKS[fade];
+	const prefersReducedMotion = useReducedMotion();
+	const isAnimating = animate && !prefersReducedMotion;
 
 	return (
 		<div
@@ -75,36 +77,55 @@ export function GradientMesh({
 				...(mask ? { maskImage: mask, WebkitMaskImage: mask } : {}),
 			}}
 		>
-			{resolved.map((blob, i) => (
-				<motion.div
-					key={i}
-					className="absolute rounded-full blur-2xl"
-					style={{
-						width: `${blob.size}%`,
-						aspectRatio: "1",
-						background: `radial-gradient(circle at center, ${blob.color} 0%, transparent 68%)`,
-						left: `${blob.from[0]}%`,
-						top: `${blob.from[1]}%`,
-						x: "-50%",
-						y: "-50%",
-					}}
-					animate={
-						animate
-							? {
-								left: [`${blob.from[0]}%`, `${blob.to[0]}%`, `${blob.from[0]}%`],
-								top: [`${blob.from[1]}%`, `${blob.to[1]}%`, `${blob.from[1]}%`],
-								scale: [1, 1.12, 1],
-							}
-							: undefined
+			{resolved.map((blob, i) => {
+				/*
+				 * Drift is expressed as a transform on an inner element rather than
+				 * animated `left`/`top`. Animating layout properties on a blurred
+				 * element re-runs layout and re-blurs a large surface every frame,
+				 * which is what made several of these at once unusable on mobile.
+				 * Transforms let the compositor reuse the cached blurred texture.
+				 *
+				 * The offsets are percentages of the blob rather than of the
+				 * container, so the drift distance differs slightly from a
+				 * position-based version. For abstract decoration that is fine.
+				 */
+				const drift = isAnimating
+					? {
+						x: ["0%", `${blob.to[0] - blob.from[0]}%`, "0%"],
+						y: ["0%", `${blob.to[1] - blob.from[1]}%`, "0%"],
+						scale: [1, 1.12, 1],
 					}
-					transition={{
-						duration: blob.duration,
-						delay: blob.delay,
-						repeat: Infinity,
-						ease: "easeInOut",
-					}}
-				/>
-			))}
+					: undefined;
+
+				return (
+					<div
+						key={i}
+						className="absolute"
+						style={{
+							width: `${blob.size}%`,
+							aspectRatio: "1",
+							left: `${blob.from[0]}%`,
+							top: `${blob.from[1]}%`,
+							transform: "translate(-50%, -50%)",
+						}}
+					>
+						<motion.div
+							className="h-full w-full rounded-full blur-2xl"
+							style={{
+								background: `radial-gradient(circle at center, ${blob.color} 0%, transparent 68%)`,
+								willChange: isAnimating ? "transform" : undefined,
+							}}
+							animate={drift}
+							transition={{
+								duration: blob.duration,
+								delay: blob.delay,
+								repeat: Infinity,
+								ease: "easeInOut",
+							}}
+						/>
+					</div>
+				);
+			})}
 			{grain && (
 				<div
 					className="absolute inset-0 opacity-[0.18] mix-blend-overlay dark:opacity-[0.12]"

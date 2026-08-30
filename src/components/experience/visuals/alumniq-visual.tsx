@@ -43,7 +43,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 			active={active}
 			className={className}
 			badge={
-				<span className="flex flex-row items-center gap-1.5 rounded-full border border-border/60 bg-background/70 px-2.5 py-1 shadow-sm backdrop-blur-md">
+				<span className="flex flex-row items-center gap-1.5 rounded-full border border-border/60 bg-background/80 px-2.5 py-1 shadow-sm md:backdrop-blur-md">
 					<WebhookIcon className="size-3 text-[#0084fc] dark:text-[#67b6ff]" />
 					<span className="font-mono text-[9px] uppercase tracking-wide text-muted-foreground">mailgun events</span>
 				</span>
@@ -105,7 +105,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 						? { duration: 0.7, delay: TRAVEL_SECONDS, ease: "easeOut" }
 						: { duration: 0.3 }}
 				/>
-				<div className="relative flex size-9 items-center justify-center rounded-lg border border-border/70 bg-background/80 shadow-sm backdrop-blur-sm">
+				<div className="relative flex size-9 items-center justify-center rounded-lg border border-border/70 bg-background/90 shadow-sm md:backdrop-blur-sm">
 					<WebhookIcon className="size-4 text-[#0084fc] dark:text-[#67b6ff]" />
 				</div>
 			</div>
@@ -114,7 +114,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 				const isRouted = active && lane.type === routed.type;
 				return (
 					<motion.span
-						className="absolute flex -translate-y-1/2 flex-row items-center gap-1.5 rounded-md border bg-background/70 px-2 py-1 backdrop-blur-sm"
+						className="absolute flex -translate-y-1/2 flex-row items-center gap-1.5 rounded-md border bg-background/85 px-2 py-1 md:backdrop-blur-sm"
 						key={lane.type}
 						style={{ left: `${NODE_X + 26}%`, top: `${lane.y}%` }}
 						animate={{

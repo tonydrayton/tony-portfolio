@@ -54,7 +54,8 @@ export function VisualFrame({ accent, logo, logoAlt, badge, active, children, cl
 			<div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-background via-background/50 to-transparent" />
 			<div className="absolute bottom-3 left-3 flex flex-row items-center gap-2">
 				{/* rounded-full on the image so full-bleed marks read as circles too */}
-				<div className="flex items-center rounded-full border border-border/60 bg-background/70 p-1.5 shadow-sm backdrop-blur-md">
+				{/* backdrop-filter is disproportionately costly on mobile GPUs, so it is desktop-only */}
+				<div className="flex items-center rounded-full border border-border/60 bg-background/80 p-1.5 shadow-sm md:backdrop-blur-md">
 					<Image src={logo} alt={logoAlt} width={32} height={32} className="size-4 rounded-full object-contain" />
 				</div>
 				{badge}

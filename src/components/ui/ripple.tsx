@@ -5,10 +5,16 @@ interface RippleProps extends React.ComponentPropsWithoutRef<"div"> {
 	mainCircleSize?: number;
 	mainCircleOpacity?: number;
 	numCircles?: number;
-	/** Any CSS colour; drives both the ring border and its fill. */
+	/** Any CSS colour; drives the ring border and, when filled, its tint. */
 	color?: string;
 	/** Pauses the breathing animation so idle instances cost nothing. */
 	animate?: boolean;
+	/**
+	 * Concentric translucent fills all overlap at the centre, so the middle of
+	 * the stack is composited once per circle. Outline-only costs a fraction of
+	 * that and reads the same when the rings sit over a gradient.
+	 */
+	fill?: boolean;
 }
 
 export function Ripple({
@@ -17,6 +23,7 @@ export function Ripple({
 	numCircles = 8,
 	color,
 	animate = true,
+	fill = true,
 	className,
 	...props
 }: RippleProps) {
@@ -35,7 +42,8 @@ export function Ripple({
 					<div
 						key={i}
 						className={cn(
-							"absolute left-1/2 top-1/2 rounded-full border bg-foreground/10 [--i:0]",
+							"absolute left-1/2 top-1/2 rounded-full border [--i:0]",
+							fill && "bg-foreground/10",
 							animate && "animate-ripple"
 						)}
 						style={{
@@ -46,7 +54,7 @@ export function Ripple({
 							borderStyle,
 							borderWidth: "1px",
 							borderColor: color ?? `hsl(var(--foreground) / ${0.15 + i * 0.02})`,
-							background: color ? `${color}14` : undefined,
+							background: fill && color ? `${color}14` : undefined,
 							transform: "translate(-50%, -50%) scale(1)",
 							["--i" as keyof CSSProperties]: i,
 						} as CSSProperties}
