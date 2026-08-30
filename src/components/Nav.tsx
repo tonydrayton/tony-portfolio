@@ -1,19 +1,25 @@
+"use client";
+
 import { MenuIcon, XIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import Logo from "./logo";
 import { AnimatedGroup } from "./ui/animated-group";
 
 const menuItems = [
-	{ name: 'Experience', href: '#experience' },
-	{ name: 'Projects', href: '#projects' },
-	{ name: 'FAQ', href: '#faq' },
+	{ name: 'Experience', hash: '#experience' },
+	{ name: 'Projects', hash: '#projects' },
+	{ name: 'FAQ', hash: '#faq' },
 ]
 
 export default function Nav() {
 	const [menuState, setMenuState] = useState(false)
 	const [isScrolled, setIsScrolled] = useState(false)
+	const pathname = usePathname()
+	/* Bare hashes only scroll on the home page; elsewhere they need to route first. */
+	const sectionHref = (hash: string) => (pathname === '/' ? hash : `/${hash}`)
 
 	useEffect(() => {
 		const threshold = 40;
@@ -57,7 +63,7 @@ export default function Nav() {
 								{menuItems.map((item, index) => (
 									<li key={index}>
 										<Link
-											href={item.href}
+											href={sectionHref(item.hash)}
 											className="text-muted-foreground hover:text-accent-foreground block duration-150">
 											<span>{item.name}</span>
 										</Link>
@@ -80,7 +86,8 @@ export default function Nav() {
 					{menuItems.map((item, index) => (
 						<li key={index}>
 							<Link
-								href={item.href}
+								href={sectionHref(item.hash)}
+								onClick={() => setMenuState(false)}
 								className="text-primary sm:text-muted-foreground hover:text-accent-foreground block duration-150">
 								<span>{item.name}</span>
 							</Link>

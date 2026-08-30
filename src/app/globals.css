@@ -135,6 +135,23 @@
 	-webkit-mask-composite: destination-in;
 }
 
+/*
+  Decorative full-viewport backdrop for the hero canvas. Deliberately written as
+  a base declaration plus an @supports override rather than Tailwind's `h-svh`:
+  when a browser drops an unsupported `svh` declaration the element would have no
+  height at all, and anything that sizes layout from it collapses. Layout height
+  must never depend on this class -- it only sizes the backdrop.
+*/
+.hero-backdrop {
+	height: 100vh;
+}
+
+@supports (height: 100svh) {
+	.hero-backdrop {
+		height: 100svh;
+	}
+}
+
 @theme inline {
 	--animate-ripple-after: ripple 2s linear 1s infinite;
 	--animate-ripple-before: ripple 2s linear infinite;

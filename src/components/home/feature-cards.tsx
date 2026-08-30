@@ -4,9 +4,10 @@ import { Typewriter } from '@/components/ui/typewriter';
 import { useWindowSize, useResponsiveAnimation, useResponsiveInteraction } from '@/hooks';
 import { MinimumWidth } from '@/lib/types';
 import { cn } from '@/lib/utils';
-import { SiAmazonwebservices, SiLinkedin, SiLinkedinHex, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
-import { motion, useAnimate, useAnimation, useInView, Variants } from 'framer-motion';
-import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, WrenchIcon, PresentationIcon } from 'lucide-react';
+import { SiAmazonwebservices, SiAngular, SiCypress, SiLinkedin, SiLinkedinHex, SiMailgun, SiReact, SiTypescript, SiTypescriptHex } from '@icons-pack/react-simple-icons';
+import { AnimatePresence, motion, useAnimate, useAnimation, useInView, Variants } from 'framer-motion';
+import { CircleFadingArrowUpIcon, CircleXIcon, CircleCheckIcon, DatabaseIcon, LoaderCircleIcon, MailOpenIcon, HeartPlusIcon, FlaskConical, TriangleAlertIcon, CheckIcon, UnplugIcon, ArrowRight, WrenchIcon, PresentationIcon, Accessibility, TrendingUp, Blocks, Crosshair, Info, Volume2 } from 'lucide-react';
+import { GradientMesh } from '@/components/ui/gradient-mesh';
 import Image from 'next/image';
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
 import React from 'react';
@@ -1139,6 +1140,611 @@ export function ConfigFixCard() {
 			</div>
 		</FeatureCard >
 	)
+}
+
+/**
+ * Merge diagram in the shape of Bklit's Sankey -- dashed links growing by
+ * stroke-dashoffset, nodes converging on the same easing curve -- hand-rolled
+ * because the real thing pulls in @visx for one 240x88 graphic. The topology is
+ * the point: a forked guess collapsing into one authoritative path.
+ *
+ * The SVG scales uniformly inside a box of matching aspect ratio, so the
+ * percentage-positioned HTML nodes land exactly on the viewBox coordinates.
+ */
+export function SourceOfTruthCard() {
+	const [started, setStarted] = useState(false);
+	const [showAnswer, setShowAnswer] = useState(false);
+
+	const run = useCallback(async () => {
+		setStarted(true);
+		await wait(900);
+		setShowAnswer(true);
+	}, []);
+
+	const { ref, onMouseEnter } = useResponsiveAnimation(run, { threshold: 0.4, once: true });
+
+	return (
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
+			<FeatureCardGrid className="-top-40 left-1/3" />
+			<FeatureCardHeader>
+				<Crosshair className="size-5" />
+				<p className="text-lg font-medium">Single Source of Truth</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Fund lookups were identifying securities by guessing from the shape of the ticker symbol, so most third-party funds resolved to the wrong view entirely. I replaced the heuristic with the API&apos;s authoritative response, collapsed two round trips into one, and retired both hand-built modals in favour of the shared component that already resolves layout per security type
+			</FeatureCardText>
+			<div className="relative mb-5 px-4 pointer-events-none select-none">
+				<div className="relative mb-3 flex flex-col gap-1 font-mono text-[10px]">
+					<div className="flex flex-row items-center gap-1.5">
+						<CircleXIcon className={cn("size-3 shrink-0 transition-colors duration-500", showAnswer ? "stroke-muted-foreground/70" : "stroke-red-500")} />
+						<span className={cn("transition-all duration-500", showAnswer ? "text-muted-foreground/70 line-through" : "text-red-500")}>
+							len === 5 &amp;&amp; endsWith(&quot;X&quot;)
+						</span>
+					</div>
+					<motion.div
+						className="flex flex-row items-center gap-1.5"
+						initial={{ opacity: 0, y: -4 }}
+						animate={showAnswer ? { opacity: 1, y: 0 } : { opacity: 0, y: -4 }}
+						transition={{ duration: 0.4, ease: "easeOut" }}
+					>
+						<CircleCheckIcon className="size-3 shrink-0 stroke-emerald-600 dark:stroke-emerald-500" />
+						<span className="text-emerald-600 dark:text-emerald-500">status → 200 · 206 · 207 · 204</span>
+					</motion.div>
+				</div>
+				<div className="relative overflow-hidden rounded-lg border border-border bg-background/60 backdrop-blur-sm">
+					<GradientMesh
+						animate={started}
+						grain={false}
+						fade="edges"
+						className="opacity-60"
+						blobs={[
+							{ color: "rgba(231,0,11,0.22)", size: 70, from: [28, 82], to: [58, 62], duration: 15 },
+							{ color: "rgba(16,185,129,0.2)", size: 60, from: [82, 18], to: [58, 40], duration: 18 },
+						]}
+					/>
+					<div className="relative aspect-[240/112] w-full">
+						<svg viewBox="0 0 240 112" className="absolute inset-0 h-full w-full">
+							<motion.path
+								d="M62 56C96 56 104 20 138 20"
+								fill="none"
+								strokeWidth="1.5"
+								strokeDasharray="3 3"
+								className="stroke-red-500/80"
+								animate={{ opacity: showAnswer ? 0 : 1 }}
+								transition={{ duration: 0.5, ease: [0.85, 0, 0.15, 1] }}
+							/>
+							<motion.path
+								d="M62 56C96 56 104 92 138 92"
+								fill="none"
+								strokeWidth="1.5"
+								strokeDasharray="3 3"
+								className="stroke-border"
+								animate={{ opacity: showAnswer ? 0 : 1 }}
+								transition={{ duration: 0.5, ease: [0.85, 0, 0.15, 1] }}
+							/>
+							<motion.path
+								d="M62 56L138 56"
+								fill="none"
+								strokeWidth="2"
+								strokeLinecap="round"
+								className="stroke-emerald-500"
+								initial={{ pathLength: 0, opacity: 0 }}
+								animate={showAnswer ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
+								transition={{ duration: 0.9, delay: 0.2, ease: [0.85, 0, 0.15, 1] }}
+							/>
+						</svg>
+						<div className="absolute left-[3%] top-1/2 w-[22%] -translate-y-1/2 rounded-md border border-border bg-background/80 py-1 text-center font-mono text-[10px]">
+							FXAIX
+						</div>
+						<div className="absolute left-[31%] top-1/2 -translate-y-1/2 rounded-full border border-border bg-background px-1.5 py-0.5 font-mono text-[9px] text-muted-foreground">
+							<AnimatePresence mode="wait" initial={false}>
+								<motion.span
+									key={showAnswer ? "one" : "two"}
+									className={cn("block whitespace-nowrap", showAnswer && "text-emerald-600 dark:text-emerald-500")}
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.25, delay: showAnswer ? 0.35 : 0 }}
+								>
+									{showAnswer ? "1 request" : "2 requests"}
+								</motion.span>
+							</AnimatePresence>
+						</div>
+						<motion.div
+							className="absolute left-[57.5%] flex w-[39.5%] flex-row items-center gap-1.5 rounded-md border border-red-500/40 bg-red-500/10 px-2 py-1 font-mono text-[10px] text-red-600 dark:text-red-400"
+							initial={{ top: "17.9%" }}
+							animate={{ top: showAnswer ? "50%" : "17.9%", opacity: showAnswer ? 0 : 1 }}
+							transition={{ duration: 0.6, ease: [0.85, 0, 0.15, 1] }}
+							style={{ y: "-50%" }}
+						>
+							<CircleXIcon className="size-3 shrink-0" />
+							<span>equity view</span>
+						</motion.div>
+						<motion.div
+							className="absolute left-[57.5%] w-[39.5%] rounded-md border border-border bg-background/70 px-2 py-1 font-mono text-[10px] text-muted-foreground"
+							initial={{ top: "82.1%" }}
+							animate={{ top: showAnswer ? "50%" : "82.1%", opacity: showAnswer ? 0 : 1 }}
+							transition={{ duration: 0.6, ease: [0.85, 0, 0.15, 1] }}
+							style={{ y: "-50%" }}
+						>
+							fund view
+						</motion.div>
+						<motion.div
+							className="absolute left-[57.5%] top-1/2 w-[39.5%] rounded-md border border-emerald-500/50 bg-emerald-500/10 px-2 py-1"
+							initial={{ opacity: 0, scale: 0.96 }}
+							animate={showAnswer ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.96 }}
+							transition={{ duration: 0.5, delay: 0.55, ease: [0.85, 0, 0.15, 1] }}
+							style={{ y: "-50%" }}
+						>
+							<div className="flex flex-row items-center gap-1.5 font-mono text-[10px] text-emerald-700 dark:text-emerald-400">
+								<CircleCheckIcon className="size-3 shrink-0" />
+								<span>shared MFE</span>
+							</div>
+							<p className="mt-0.5 font-mono text-[9px] leading-tight text-muted-foreground">
+								equity · ETF · fund
+							</p>
+						</motion.div>
+					</div>
+				</div>
+				<motion.div
+					className="relative mt-2 flex flex-row flex-wrap items-center gap-1.5"
+					animate={{ opacity: showAnswer ? 1 : 0 }}
+					transition={{ delay: 0.9, duration: 0.4 }}
+				>
+					<span className="rounded-md border border-border bg-background/70 px-2 py-1 font-mono text-[9px] text-muted-foreground backdrop-blur-sm">
+						3 effects retired
+					</span>
+					<span className="rounded-md border border-border bg-background/70 px-2 py-1 font-mono text-[9px] text-muted-foreground backdrop-blur-sm">
+						duplicate quote state removed
+					</span>
+				</motion.div>
+				<motion.p
+					className="relative mt-2 font-mono text-[9px] text-muted-foreground"
+					animate={{ opacity: showAnswer ? 1 : 0 }}
+					transition={{ delay: 0.9, duration: 0.4 }}
+				>
+					every analytics event preserved · rollback path intact
+				</motion.p>
+			</div>
+		</FeatureCard>
+	);
+}
+
+const A11Y_DEFECTS = [
+	{ severity: "serious", label: "non-text contrast" },
+	{ severity: "serious", label: "focus order" },
+	{ severity: "serious", label: "focus return" },
+	{ severity: "serious", label: "reading order" },
+	{ severity: "sr", label: "skipped options" },
+	{ severity: "sr", label: "amount not announced" },
+	{ severity: "sr", label: "accessible name" },
+	{ severity: "sr", label: "action labeling" },
+	{ severity: "sr", label: "focus retention" },
+	{ severity: "sr", label: "heading order" },
+	{ severity: "sr", label: "aria-label placement" },
+] as const;
+
+/**
+ * Each step is one of the defects above, played back as the behaviour a screen
+ * reader user gets now that it is fixed -- announcement text included, since
+ * that is the part a purely visual demo would leave out.
+ */
+const A11Y_STEPS = [
+	{ id: "filter", caption: "Mutual fund, selected, filter", live: false },
+	{ id: "shares", caption: "Shares, edit text", live: false },
+	{ id: "amount", caption: "Estimated amount, $1,240.00", live: true },
+	{ id: "continue", caption: "Continue, button", live: false },
+] as const;
+
+/**
+ * Notch track modelled on Bklit's linear Gauge -- discrete notches read as
+ * countable defects, which a continuous progress bar does not. Below it the
+ * remediated form walks its own focus order, captioned like a screen reader.
+ */
+export function AccessibilityCard() {
+	const [resolved, setResolved] = useState(0);
+	const [step, setStep] = useState(-1);
+
+	const run = useCallback(async () => {
+		for (let i = 1; i <= A11Y_DEFECTS.length; i++) {
+			await wait(160);
+			setResolved(i);
+		}
+		await wait(500);
+		for (let i = 0; i < A11Y_STEPS.length; i++) {
+			setStep(i);
+			await wait(1150);
+		}
+	}, []);
+
+	const { ref, onMouseEnter } = useResponsiveAnimation(run, { threshold: 0.4, once: true });
+	const seriousCount = A11Y_DEFECTS.filter(d => d.severity === "serious").length;
+	const active = step >= 0 ? A11Y_STEPS[step] : null;
+	const focused = (id: (typeof A11Y_STEPS)[number]["id"]) => active?.id === id;
+	const ring = "ring-2 ring-sky-500 dark:ring-sky-400";
+
+	return (
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
+			<FeatureCardGrid className="-top-44 left-5/12" />
+			<FeatureCardHeader>
+				<Accessibility className="size-5" />
+				<p className="text-lg font-medium">Accessibility Remediation</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Eleven accessibility defects across the platform&apos;s micro-frontends and shared component library, four of them serious. I fixed focus outlines you couldn&apos;t see, focus that jumped to the wrong place, and controls screen readers skipped right over. The ones that could quietly break again got regression tests
+			</FeatureCardText>
+			<div className="relative mb-5 px-4 pointer-events-none select-none">
+				<div className="relative mb-2 flex flex-row items-baseline gap-2">
+					<span className="font-mono text-2xl leading-none tabular-nums text-primary">{resolved}</span>
+					<span className="font-mono text-[10px] uppercase tracking-wide text-muted-foreground">
+						of {A11Y_DEFECTS.length} resolved
+					</span>
+				</div>
+				<div className="relative mb-3 flex flex-row items-end gap-[3px]">
+					{A11Y_DEFECTS.map((defect, i) => {
+						const done = i < resolved;
+						const serious = defect.severity === "serious";
+						return (
+							<motion.div
+								key={defect.label}
+								className={cn(
+									"flex-1 rounded-[2px]",
+									serious ? "h-6" : "h-4"
+								)}
+								initial={{ backgroundColor: "hsl(var(--border))", opacity: 0.5 }}
+								animate={{
+									backgroundColor: done
+										? (serious ? "#f59e0b" : "#0ea5e9")
+										: "hsl(var(--border))",
+									opacity: done ? 1 : 0.5,
+								}}
+								transition={{ duration: 0.35, ease: "easeOut" }}
+							/>
+						);
+					})}
+				</div>
+				<div className="relative overflow-hidden rounded-lg border border-border bg-background/60 backdrop-blur-sm">
+					<GradientMesh
+						animate={step >= 0}
+						grain={false}
+						fade="edges"
+						className="opacity-60"
+						blobs={[
+							{ color: "rgba(14,165,233,0.22)", size: 70, from: [22, 20], to: [58, 55], duration: 16 },
+							{ color: "rgba(245,158,11,0.18)", size: 60, from: [85, 80], to: [60, 50], duration: 19 },
+						]}
+					/>
+					<div className="relative flex flex-col gap-2 px-2.5 pb-2.5 pt-2.5">
+						<div className="flex flex-row items-center gap-1.5">
+							<span className="font-mono text-[9px] text-muted-foreground">h2</span>
+							<span className="text-[11px] font-medium">Review order</span>
+						</div>
+						<div className="flex flex-row items-center gap-1.5">
+							<span className="rounded-full border border-border bg-background/70 px-2 py-0.5 font-mono text-[9px] text-muted-foreground">
+								ETF
+							</span>
+							<span
+								className={cn(
+									"rounded-full border border-border bg-background/70 px-2 py-0.5 font-mono text-[9px] transition-shadow duration-200",
+									focused("filter") ? cn(ring, "text-primary") : "text-muted-foreground"
+								)}
+							>
+								Mutual fund
+							</span>
+						</div>
+						<div className="flex flex-row items-center gap-2">
+							<span className="w-14 shrink-0 font-mono text-[9px] text-muted-foreground">Shares</span>
+							<div
+								className={cn(
+									"h-5 flex-1 rounded-md border border-border bg-background/80 px-2 font-mono text-[10px] leading-5 transition-shadow duration-200",
+									focused("shares") && ring
+								)}
+							>
+								{step >= 1 ? "12" : <span className="text-muted-foreground/60">0</span>}
+							</div>
+							<span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-border bg-background/70">
+								<Info className="size-2.5 text-muted-foreground" />
+							</span>
+						</div>
+						<div className="flex flex-row items-baseline gap-2">
+							<span className="w-14 shrink-0 font-mono text-[9px] text-muted-foreground">Estimated</span>
+							<motion.span
+								key={step >= 2 ? "priced" : "empty"}
+								className="font-mono text-[11px] tabular-nums"
+								initial={{ opacity: 0, y: -2 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.3 }}
+							>
+								{step >= 2 ? "$1,240.00" : <span className="text-muted-foreground/60">—</span>}
+							</motion.span>
+						</div>
+						<div
+							className={cn(
+								"w-fit rounded-md border border-border bg-foreground/10 px-2.5 py-1 font-mono text-[9px] transition-shadow duration-200",
+								focused("continue") ? cn(ring, "text-primary") : "text-muted-foreground"
+							)}
+						>
+							Continue
+						</div>
+					</div>
+					<div className="relative flex min-h-[1.75rem] flex-row items-center gap-1.5 border-t border-border bg-foreground/[0.04] px-2.5 py-1.5">
+						<Volume2 className={cn("size-3 shrink-0 transition-colors duration-300", active ? "stroke-sky-600 dark:stroke-sky-400" : "stroke-muted-foreground/50")} />
+						<AnimatePresence mode="wait" initial={false}>
+							<motion.span
+								key={active?.id ?? "idle"}
+								className="font-mono text-[9px] text-muted-foreground"
+								initial={{ opacity: 0, y: 3 }}
+								animate={{ opacity: 1, y: 0 }}
+								exit={{ opacity: 0, y: -3 }}
+								transition={{ duration: 0.2 }}
+							>
+								{active ? `“${active.caption}”` : "screen reader output"}
+							</motion.span>
+						</AnimatePresence>
+						{active?.live && (
+							<motion.span
+								className="ml-auto shrink-0 rounded border border-sky-500/40 bg-sky-500/10 px-1.5 py-0.5 font-mono text-[8px] text-sky-700 dark:text-sky-400"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								transition={{ duration: 0.2 }}
+							>
+								aria-live
+							</motion.span>
+						)}
+					</div>
+				</div>
+				<div className="relative mt-2 flex flex-row flex-wrap items-center gap-1.5">
+					<div className="flex flex-row items-center gap-1.5 rounded-md border border-amber-500/40 bg-amber-500/10 px-2 py-1">
+						<span className="size-1.5 rounded-full bg-amber-500" />
+						<span className="font-mono text-[9px] text-amber-700 dark:text-amber-400">{seriousCount} serious</span>
+					</div>
+					<div className="flex flex-row items-center gap-1.5 rounded-md border border-sky-500/40 bg-sky-500/10 px-2 py-1">
+						<span className="size-1.5 rounded-full bg-sky-500" />
+						<span className="font-mono text-[9px] text-sky-700 dark:text-sky-400">{A11Y_DEFECTS.length - seriousCount} screen reader</span>
+					</div>
+				</div>
+			</div>
+		</FeatureCard>
+	);
+}
+
+const VOL_WINDOW = 26;
+const VOL_BASE = 14.2;
+const VOL_TICKS = 26;
+const VOL_THRESHOLD = 24;
+
+/**
+ * Streaming line following Bklit's Live Line Chart: a sliding window, a pulsing
+ * dot at the current value, a badge pinned to the live tip, and momentum colour.
+ * Inverted against Bklit's default -- for a volatility metric, rising is the
+ * warning state, so up is red rather than green.
+ */
+export function VolatilityBannerCard() {
+	const [started, setStarted] = useState(false);
+	const [series, setSeries] = useState<number[]>(() => Array(VOL_WINDOW).fill(VOL_BASE));
+
+	const run = useCallback(async () => setStarted(true), []);
+	const { ref, onMouseEnter } = useResponsiveAnimation(run, { threshold: 0.4, once: true });
+
+	useEffect(() => {
+		if (!started) return;
+		let ticks = 0;
+		const id = setInterval(() => {
+			setSeries(prev => {
+				const last = prev[prev.length - 1];
+				const drift = ticks < VOL_TICKS * 0.75 ? 0.85 : -0.15;
+				const next = Math.max(VOL_BASE - 1, Math.min(31.5, last + drift + (Math.random() - 0.5) * 1.9));
+				return [...prev.slice(1), next];
+			});
+			ticks += 1;
+			if (ticks >= VOL_TICKS) clearInterval(id);
+		}, 220);
+		return () => clearInterval(id);
+	}, [started]);
+
+	const current = series[series.length - 1];
+	const previous = series[series.length - 2] ?? current;
+	const rising = current >= previous;
+	const elevated = current >= VOL_THRESHOLD;
+	const momentum = rising ? "#e7000b" : "#10b981";
+
+	const { linePath, areaPath, tip } = useMemo(() => {
+		const W = 234, H = 52, pad = 5;
+		const min = Math.min(...series), max = Math.max(...series);
+		const range = max - min || 1;
+		const pt = (v: number, i: number) => [
+			(i / (series.length - 1)) * W,
+			H - pad - ((v - min) / range) * (H - pad * 2),
+		] as const;
+		const d = series.map((v, i) => {
+			const [x, y] = pt(v, i);
+			return `${i === 0 ? "M" : "L"}${x.toFixed(1)} ${y.toFixed(1)}`;
+		}).join(" ");
+		const [tx, ty] = pt(series[series.length - 1], series.length - 1);
+		return { linePath: d, areaPath: `${d} L${W} ${H} L0 ${H} Z`, tip: { x: tx, y: ty } };
+	}, [series]);
+
+	return (
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
+			<FeatureCardGrid className="-top-44 left-5/12" />
+			<FeatureCardHeader>
+				<TrendingUp className="size-5" />
+				<p className="text-lg font-medium">Volatility Banner</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Shipped a real-time market volatility feed into an order-entry micro-frontend, deriving high-volatility state from the response store and building session-scoped dismissal that auto-clears when the host app opts in via config
+			</FeatureCardText>
+			<div className="relative mb-5 px-4 pointer-events-none select-none">
+				<div className="relative overflow-hidden rounded-lg border border-border bg-background/60 backdrop-blur-sm">
+					<GradientMesh
+						animate={started}
+						fade="bottom"
+						className="opacity-70"
+						base="rgba(150,21,29,0.05)"
+						blobs={[
+							{ color: "rgba(234,88,12,0.28)", size: 85, from: [20, 80], to: [60, 30], duration: 13 },
+							{ color: "rgba(150,21,29,0.26)", size: 70, from: [90, 20], to: [55, 75], duration: 16 },
+						]}
+					/>
+					<AnimatePresence>
+						{elevated && (
+							<motion.div
+								initial={{ height: 0, opacity: 0 }}
+								animate={{ height: "auto", opacity: 1 }}
+								exit={{ height: 0, opacity: 0 }}
+								transition={{ duration: 0.45, ease: [0.4, 0, 0.2, 1] }}
+								className="relative overflow-hidden border-b border-amber-500/40 bg-amber-500/15"
+							>
+								<div className="flex flex-row items-center gap-2 px-2.5 py-2">
+									<TriangleAlertIcon className="size-3 shrink-0 stroke-amber-600 dark:stroke-amber-500" />
+									<p className="text-[10px] leading-tight text-amber-700 dark:text-amber-400">
+										Elevated volatility, quotes may be delayed
+									</p>
+									<span className="ml-auto rounded px-1.5 py-0.5 font-mono text-[9px] text-amber-700 dark:text-amber-400">
+										Dismiss
+									</span>
+								</div>
+							</motion.div>
+						)}
+					</AnimatePresence>
+					<div className="relative px-2.5 pb-2 pt-2.5">
+						<div className="mb-1.5 flex flex-row items-end justify-between">
+							<div className="flex flex-col">
+								<span className="font-mono text-[9px] uppercase tracking-wide text-muted-foreground">Volatility</span>
+								<span className="font-mono text-lg leading-none tabular-nums transition-colors duration-300" style={{ color: momentum }}>
+									{current.toFixed(2)}
+								</span>
+							</div>
+							<span className="font-mono text-[9px] tabular-nums" style={{ color: momentum }}>
+								{rising ? "▲" : "▼"} {Math.abs(current - VOL_BASE).toFixed(2)}
+							</span>
+						</div>
+						<svg viewBox="0 0 234 52" className="h-14 w-full overflow-visible" preserveAspectRatio="none">
+							<defs>
+								<linearGradient id="volArea" x1="0" y1="0" x2="0" y2="1">
+									<stop offset="0%" stopColor={momentum} stopOpacity="0.35" />
+									<stop offset="100%" stopColor={momentum} stopOpacity="0" />
+								</linearGradient>
+							</defs>
+							<path d={areaPath} fill="url(#volArea)" />
+							<path
+								d={linePath}
+								fill="none"
+								stroke={momentum}
+								strokeWidth="1.75"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+							/>
+							{started && (
+								<>
+									<circle cx={tip.x} cy={tip.y} r="5" fill={momentum} opacity="0.25" className="animate-pulse" />
+									<circle cx={tip.x} cy={tip.y} r="2.25" fill={momentum} />
+								</>
+							)}
+						</svg>
+					</div>
+				</div>
+			</div>
+		</FeatureCard>
+	);
+}
+
+const BROWSER_LANES = [
+	{ name: "chromium", duration: 1.6 },
+	{ name: "firefox", duration: 2.1 },
+	{ name: "webkit", duration: 2.5 },
+];
+
+export function E2EMigrationCard() {
+	const [started, setStarted] = useState(false);
+	const [passed, setPassed] = useState<number[]>([]);
+	const [upgraded, setUpgraded] = useState(false);
+
+	const run = useCallback(async () => {
+		setStarted(true);
+		for (let i = 0; i < BROWSER_LANES.length; i++) {
+			await wait(BROWSER_LANES[i].duration * 1000 - (i > 0 ? BROWSER_LANES[i - 1].duration * 1000 : 0));
+			setPassed(prev => [...prev, i]);
+		}
+		await wait(400);
+		setUpgraded(true);
+	}, []);
+
+	const { ref, onMouseEnter } = useResponsiveAnimation(run, { threshold: 0.4, once: true });
+
+	return (
+		<FeatureCard ref={ref} onMouseEnter={onMouseEnter}>
+			<FeatureCardGrid className="-top-40 left-1/3" />
+			<FeatureCardHeader>
+				<Blocks className="size-5" />
+				<p className="text-lg font-medium">Platform Modernization</p>
+			</FeatureCardHeader>
+			<FeatureCardText>
+				Championed team-wide engineering improvements by leading a Cypress-to-Playwright E2E migration, driving an Angular 20 framework upgrade, and standardizing AI-agent onboarding across 10+ repositories
+			</FeatureCardText>
+			<div className="relative mb-5 px-4 pointer-events-none select-none">
+				<div className="relative mb-3 flex flex-row items-center gap-2">
+					<div className={cn("flex flex-row items-center gap-1.5 transition-all duration-500", started && "opacity-40")}>
+						<SiCypress className="size-3.5" />
+						<span className={cn("font-mono text-[10px] text-muted-foreground transition-all duration-500", started && "line-through")}>
+							Cypress
+						</span>
+					</div>
+					<ArrowRight className="size-3 text-muted-foreground" />
+					<motion.div
+						className="flex flex-row items-center gap-1.5"
+						animate={{ opacity: started ? 1 : 0.4 }}
+						transition={{ duration: 0.5 }}
+					>
+						<span className="size-2 rounded-full bg-emerald-500" />
+						<span className="font-mono text-[10px] font-medium text-primary">Playwright</span>
+					</motion.div>
+				</div>
+				<div className="relative flex flex-col gap-2">
+					{BROWSER_LANES.map((lane, i) => {
+						const done = passed.includes(i);
+						return (
+							<div key={lane.name} className="flex flex-row items-center gap-2">
+								<span className="w-16 shrink-0 font-mono text-[10px] text-muted-foreground">{lane.name}</span>
+								<div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-border/60">
+									<motion.div
+										className="absolute inset-y-0 left-0 rounded-full bg-emerald-500"
+										initial={{ width: "0%" }}
+										animate={started ? { width: "100%" } : { width: "0%" }}
+										transition={{ duration: lane.duration, ease: "easeInOut" }}
+									/>
+								</div>
+								<span className="w-4 shrink-0">
+									{done
+										? <CheckIcon className="size-3 stroke-emerald-600 dark:stroke-emerald-500" />
+										: started
+											? <LoaderCircleIcon className="size-3 animate-spin text-muted-foreground" />
+											: null}
+								</span>
+							</div>
+						);
+					})}
+				</div>
+				<div className="relative mt-3 flex flex-row flex-wrap items-center gap-1.5">
+					<motion.div
+						className="flex flex-row items-center gap-1.5 rounded-md border border-border bg-background/70 px-2 py-1 backdrop-blur-sm"
+						animate={{ borderColor: upgraded ? "rgba(16,185,129,0.4)" : undefined }}
+						transition={{ duration: 0.4 }}
+					>
+						<SiAngular className="size-3" />
+						<span className="font-mono text-[10px] text-muted-foreground">Angular</span>
+						<span className={cn("font-mono text-[10px] tabular-nums transition-colors duration-500", upgraded ? "text-emerald-600 dark:text-emerald-500" : "text-primary/80")}>
+							{upgraded ? "20" : "17"}
+						</span>
+					</motion.div>
+					<div className="flex flex-row items-center gap-1.5 rounded-md border border-border bg-background/70 px-2 py-1 backdrop-blur-sm">
+						<SiTypescript className="size-3" fill={SiTypescriptHex} />
+						<span className="font-mono text-[10px] text-muted-foreground">10+ repos onboarded</span>
+					</div>
+				</div>
+			</div>
+		</FeatureCard>
+	);
 }
 
 export function PresentationCard() {

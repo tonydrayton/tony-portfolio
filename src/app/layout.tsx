@@ -60,8 +60,8 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="en" className="supports-[height:100cqh]:h-[100cqh] supports-[height:100svh]:h-svh">
-			<body className={`h-full ${inter.className}`}>
+		<html lang="en">
+			<body className={`min-h-screen ${inter.className}`}>
 				<ThemeProvider attribute="class" defaultTheme="system" enableSystem>
 					<Theme grayColor="mauve">
 						{children}

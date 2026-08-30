@@ -3,7 +3,6 @@ import MotionBlurFade from "../ui/MotionBlurFade";
 import { Github, Linkedin, Mail } from "lucide-react";
 import { motion, Variants } from "framer-motion";
 import { ShinyAnchor } from "../ui/shiny-button";
-import { Button } from "../ui/button";
 import { Container } from "../Container";
 import { useEffect, useState } from "react";
 import SideNav from "../side-nav";
@@ -16,7 +15,6 @@ import { Footer } from "./footer";
 import Projects from "./projects-new";
 import FAQ from "./faq";
 import { RESUME_URL } from "@/lib/constants";
-import { Status, StatusIndicator } from "../ui/status";
 
 const useDevicePerformance = () => {
 	const [canHandleGrid, setCanHandleGrid] = useState(true);
@@ -80,10 +78,12 @@ export default function Home() {
 			<SideNav />
 			<SocialSideNav />
 			<MotionBlurFade>
-				<motion.div variants={childVariants} className="h-svh w-screen relative">
-					{showGrid && canHandleGrid && <ChromeGrid />}
-					<Container className="absolute top-0 flex-col items-center !justify-start pointer-events-none" id="hero">
-						<div className="absolute flex md:flex-row flex-col items-center gap-4 md:gap-10 px-4 md:px-14 lg:max-w-4xl mt-24 sm:mt-32 md:mt-24">
+				<motion.div variants={childVariants} className="relative w-full">
+					<div className="hero-backdrop absolute inset-x-0 top-0 -z-10 overflow-hidden">
+						{showGrid && canHandleGrid && <ChromeGrid />}
+					</div>
+					<Container className="flex-col items-center !justify-start pointer-events-none" id="hero">
+						<div className="flex md:flex-row flex-col items-center gap-4 md:gap-10 max-w-full w-full px-4 md:px-14 lg:max-w-4xl pt-24 sm:pt-32 md:pt-28 pb-12 sm:pb-14 md:pb-16">
 							<div className="lg:max-w-3xl flex flex-col gap-6 items-start">
 								<div className="flex flex-row items-center gap-2">
 									<Image
@@ -113,29 +113,22 @@ export default function Home() {
 
 								<div className="flex flex-row flex-wrap items-center gap-x-1">
 									<p className="text-lg lg:text-xl text-left text-primary/80">{"I'm Tony Drayton,"}</p>
-									{["a", "student", "studying", "computer", "science", "at", "Drexel", "University.", "My", "primary", "focus", "is", "fullstack", "web", "development.", "I", "have", "completed", "two", "Software", "Engineering", "internships", "and", "will", "be", "interning", "at", "Vanguard", "in", "Pennsylvania", "this", "spring", "and", "summer."].map((word, index) => (
+									{["a", "student", "studying", "computer", "science", "at", "Drexel", "University.", "My", "primary", "focus", "is", "fullstack", "web", "development.", "I", "have", "completed", "three", "Software", "Engineering", "internships,", "most", "recently", "at", "Vanguard", "in", "Pennsylvania", "building", "for", "their", "trading", "platform."].map((word, index) => (
 										<span key={index} className="text-lg lg:text-xl text-left text-primary mix-blend-difference md:leading-8">{word}</span>
 									))}
 								</div>
 								<div className="hero-items mt-2 flex flex-row gap-2 pointer-events-auto">
 									<ShinyAnchor className="bg-neutral-50/80 dark:bg-neutral-900/80" href={RESUME_URL} target="_blank">
-										<Status status="online">
-											<StatusIndicator />
-										</Status>
 										Resume
 									</ShinyAnchor>
-									<a href="https://github.com/tonydrayton" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+									<a href="https://github.com/tonydrayton" target="_blank" aria-label="GitHub" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 										<Github />
 									</a>
-									<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+									<a href="https://www.linkedin.com/in/tony-drayton/" target="_blank" aria-label="LinkedIn" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
 										<Linkedin />
 									</a>
-									<a
-										href="mailto:tonydrytn@gmail.com" className="p-1 hover:cursor-pointer group transition-all ease-in-out duration-300"
-									>
-										<Button variant="ghost" className="p-0 h-[unset]">
-											<Mail className="brightness-90 group-hover:brightness-110 transition-all ease-in-out duration-100 cursor-pointer" />
-										</Button>
+									<a href="mailto:tonydrytn@gmail.com" aria-label="Email" className="relative group p-1 brightness-90 hover:brightness-110 transition-all ease-in-out duration-300">
+										<Mail />
 									</a>
 								</div>
 							</div>
@@ -143,7 +136,7 @@ export default function Home() {
 					</Container>
 				</motion.div>
 
-				<Container className="-mt-16 lg:-mt-96 flex-col items-center justify-start" id="experience">
+				<Container className="relative flex-col items-center justify-start" id="experience">
 					<ExperienceSection />
 				</Container>
 
