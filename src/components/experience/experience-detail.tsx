@@ -43,7 +43,11 @@ export function ExperienceDetail({ slug }: { slug: ExperienceSlug }) {
 					animate={{ opacity: 1, y: 0 }}
 					transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
 				>
-					<div className="relative aspect-[16/7] w-full">
+					{/*
+					 * 16/7 is only ~157px tall at phone width, which clips the graphics.
+					 * Small screens get the same taller ratio the home cards use.
+					 */}
+					<div className="relative aspect-[16/10] w-full md:aspect-[16/7]">
 						<Visual active />
 					</div>
 				</motion.div>
