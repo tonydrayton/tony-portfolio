@@ -4,10 +4,13 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { MailCheckIcon, MailOpenIcon, MailXIcon, ShieldAlertIcon, WebhookIcon } from "lucide-react";
 import { useEffect, useState } from "react";
+import { usePlayOnce } from "./use-play-once";
 import { CompanyVisualProps, VisualFrame } from "./visual-frame";
 
 const TRAVEL_SECONDS = 0.85;
 const CYCLE_MS = 1750;
+/** One pass through every lane, then the router holds its last route. */
+const PLAY_MS = 7400;
 
 /**
  * Real Mailgun webhook event types, which is what makes this read as a router
@@ -26,13 +29,16 @@ const INGRESS_Y = 45.5;
 
 export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 	const [tick, setTick] = useState(0);
+	const phase = usePlayOnce(active, PLAY_MS);
+	const isPlaying = phase === "playing";
 
 	useEffect(() => {
-		if (!active) return;
+		if (!isPlaying) return;
 		const id = setInterval(() => setTick(current => current + 1), CYCLE_MS);
 		return () => clearInterval(id);
-	}, [active]);
+	}, [isPlaying]);
 
+	/* The lane the run finished on stays lit, so the settled frame still reads as a router. */
 	const routed = LANES[tick % LANES.length];
 
 	return (
@@ -40,7 +46,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 			accent={{ primary: "#0084fc", secondary: "#e4b460" }}
 			logo="/logos/alumniq_logo.png"
 			logoAlt="AlumnIQ logo"
-			active={active}
+			phase={phase}
 			className={className}
 			badge={
 				<span className="flex flex-row items-center gap-1.5 rounded-full border border-border/60 bg-background/80 px-2.5 py-1 shadow-sm md:backdrop-blur-md">
@@ -65,7 +71,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 					strokeDasharray="3 3"
 				/>
 				{LANES.map(lane => {
-					const isRouted = active && lane.type === routed.type;
+					const isRouted = phase !== "idle" && lane.type === routed.type;
 					return (
 						<motion.path
 							key={lane.type}
@@ -82,7 +88,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 				})}
 			</svg>
 
-			{active && (
+			{isPlaying && (
 				<motion.span
 					key={tick}
 					className="absolute size-1.5 rounded-full"
@@ -100,8 +106,8 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 				<motion.span
 					className="absolute -inset-1 rounded-xl border"
 					style={{ borderColor: routed.color }}
-					animate={active ? { opacity: [0, 0.8, 0], scale: [0.85, 1.2, 1.2] } : { opacity: 0, scale: 0.85 }}
-					transition={active
+					animate={isPlaying ? { opacity: [0, 0.8, 0], scale: [0.85, 1.2, 1.2] } : { opacity: 0, scale: 0.85 }}
+					transition={isPlaying
 						? { duration: 0.7, delay: TRAVEL_SECONDS, ease: "easeOut" }
 						: { duration: 0.3 }}
 				/>
@@ -111,7 +117,7 @@ export function AlumnIQVisual({ active, className }: CompanyVisualProps) {
 			</div>
 
 			{LANES.map(lane => {
-				const isRouted = active && lane.type === routed.type;
+				const isRouted = phase !== "idle" && lane.type === routed.type;
 				return (
 					<motion.span
 						className="absolute flex -translate-y-1/2 flex-row items-center gap-1.5 rounded-md border bg-background/85 px-2 py-1 md:backdrop-blur-sm"

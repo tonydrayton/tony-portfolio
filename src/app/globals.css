@@ -98,9 +98,24 @@
 		--shadow-vertical: linear-gradient(to bottom, var(--mask-invisible) 0%, var(--mask-visible) var(--vertical-size), var(--mask-visible) calc(100% - var(--vertical-size)), var(--mask-invisible) 100%);
 
 		--bg-size: 64px;
+
+		/*
+		 * Vanguard card mesh. Dark mode pairs crimson with a deep navy, but on a
+		 * white background that navy just reads as a grey smudge, so light mode
+		 * swaps it for a warm gold: sunset on the water rather than dirt.
+		 */
+		--mesh-vanguard-primary: rgba(150, 21, 29, 0.4);
+		--mesh-vanguard-secondary: rgba(198, 149, 96, 0.3);
+
+		/* Gain green for the quote panel, darker on white and lighter on near-black. */
+		--quote-gain: #0f9b6c;
 	}
 
 	.dark {
+		--mesh-vanguard-primary: rgba(150, 21, 29, 0.4);
+		--mesh-vanguard-secondary: rgba(22, 35, 61, 0.322);
+		--quote-gain: #34d399;
+
 		--background: 240 10% 3.9%;
 		--foreground: 0 0% 98%;
 		--card: 240 10% 3.9%;

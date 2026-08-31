@@ -1,173 +1,145 @@
 "use client";
 
-import { FlickeringGrid } from "@/components/ui/flickering-grid";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
-import { useId, useMemo } from "react";
+import { TrendingUpIcon } from "lucide-react";
+import { useId } from "react";
+import { usePlayOnce } from "./use-play-once";
 import { CompanyVisualProps, VisualFrame } from "./visual-frame";
 
-const VIEW_WIDTH = 480;
-const VIEW_HEIGHT = 200;
-/** Waves are drawn past the frame so translating one wavelength loops seamlessly. */
-const DRAW_WIDTH = 960;
-const WAVELENGTH = 240;
-const WATERLINE = 116;
-const SWELL_DURATION = 9;
+const ACCENT_TEXT = "text-[#96151d] dark:text-[#e2848c]";
+const ACCENT_BORDER = "border-[#96151d]/45 dark:border-[#e2848c]/45";
 
-const WAVES = [
-	{ baseline: WATERLINE, amplitude: 10, duration: SWELL_DURATION, className: "text-[#96151d] dark:text-[#e2606c]", strokeWidth: 1.75 },
-	{ baseline: 140, amplitude: 8, duration: 13, className: "text-foreground/25", strokeWidth: 1.25 },
-	{ baseline: 164, amplitude: 6, duration: 17, className: "text-foreground/15", strokeWidth: 1 },
-];
+const CHART_WIDTH = 200;
+const CHART_HEIGHT = 58;
+const PLAY_MS = 2600;
 
 /**
- * Gains rising off the water, which is the other half of what Vanguard is known
- * for. Values are decorative rather than any real quote.
+ * Deterministic rather than random: a random series would differ between the
+ * server and client render and trip hydration.
  */
-const FLOATERS = [
-	{ label: "+1.24%", x: 12, size: "text-[10px]", delay: 0 },
-	{ label: "$", x: 25, size: "text-[15px]", delay: 2.6 },
-	{ label: "▲ 2.05", x: 58, size: "text-[10px]", delay: 1.3 },
-	{ label: "$", x: 72, size: "text-[13px]", delay: 4.1 },
-	{ label: "+0.86%", x: 84, size: "text-[10px]", delay: 0.7 },
-];
+const SERIES = Array.from({ length: 26 }, (_, i) => {
+	const progress = i / 25;
+	return 30 + progress * 24 + Math.sin(i * 1.3) * 4.6 + Math.sin(i * 0.47) * 3.1;
+});
 
-const FLOAT_DURATION = 7;
+const { linePath, areaPath } = (() => {
+	const pad = 5;
+	const min = Math.min(...SERIES);
+	const max = Math.max(...SERIES);
+	const range = max - min || 1;
 
-const buildWavePath = (baseline: number, amplitude: number) => {
-	const points: string[] = [];
-	for (let x = 0; x <= DRAW_WIDTH; x += 8) {
-		const y = baseline + Math.sin((x / WAVELENGTH) * Math.PI * 2) * amplitude;
-		points.push(`${x === 0 ? "M" : "L"}${x} ${y.toFixed(1)}`);
-	}
-	return points.join(" ");
-};
+	const point = (value: number, index: number) => {
+		const x = (index / (SERIES.length - 1)) * CHART_WIDTH;
+		const y = CHART_HEIGHT - pad - ((value - min) / range) * (CHART_HEIGHT - pad * 2);
+		return `${x.toFixed(1)} ${y.toFixed(1)}`;
+	};
+
+	const line = SERIES.map((value, index) => `${index === 0 ? "M" : "L"}${point(value, index)}`).join(" ");
+	return {
+		linePath: line,
+		areaPath: `${line} L${CHART_WIDTH} ${CHART_HEIGHT} L0 ${CHART_HEIGHT} Z`,
+	};
+})();
 
 /**
- * Vanguard is named for HMS Vanguard, so the market data and the sea are drawn
- * as the same object: the top swell is styled as a price line, the flickering
- * grid is the data field above the waterline, and the ship rides the boundary.
+ * A quote panel: ticker, price, change, chart, buy. The vocabulary every finance
+ * app shares, so it is recognisable at a glance rather than needing decoding.
+ *
+ * Earlier passes failed on legibility. A wave standing in for a price line and a
+ * tape of tiny candlesticks both required the viewer to be told what they were
+ * looking at, and an order-state rail was pure jargon. VTI is a real, public
+ * Vanguard fund, which anchors the card to the company without touching anything
+ * internal; the figures are illustrative.
  */
 export function VanguardVisual({ active, className }: CompanyVisualProps) {
-	const rawId = useId();
-	const swellId = `swell-${rawId.replace(/:/g, "")}`;
+	const phase = usePlayOnce(active, PLAY_MS);
+	const revealed = phase !== "idle";
+	const settled = phase === "settled";
+	const gradientId = `quote-${useId().replace(/:/g, "")}`;
 
-	const waves = useMemo(
-		() => WAVES.map(wave => ({ ...wave, path: buildWavePath(wave.baseline, wave.amplitude) })),
-		[]
-	);
+	/* Settling collapses the stagger so a card scrolled past mid-run lands whole. */
+	const delay = (ms: number) => ({ transitionDelay: `${settled ? 0 : ms}ms` });
 
 	return (
 		<VisualFrame
 			accent={{ primary: "#96151d", secondary: "#16233d" }}
+			mesh={{
+				primary: "var(--mesh-vanguard-primary)",
+				secondary: "var(--mesh-vanguard-secondary)",
+			}}
 			logo="/logos/vanguard_logo.png"
 			logoAlt="Vanguard logo"
-			active={active}
+			phase={phase}
 			className={className}
 		>
-			<div className="pointer-events-none absolute inset-x-0 top-0 h-[58%] [mask-image:linear-gradient(to_bottom,#000_30%,transparent_100%)]">
-				<FlickeringGrid
-					animate={active}
-					squareSize={2.5}
-					gridGap={8}
-					flickerChance={0.12}
-					maxOpacity={0.3}
-					color="#96151d"
-				/>
-			</div>
+			<div className="absolute inset-0 flex items-center justify-center px-4 pb-[11%]">
+				<div className="w-full max-w-[19rem] rounded-xl border border-border bg-background/75 p-3 shadow-sm md:max-w-[23rem] md:p-4">
+					<div className="flex flex-row items-center gap-2">
+						<span className={cn("rounded-md border bg-background/80 px-1.5 py-0.5 font-mono text-[10px] font-medium", ACCENT_BORDER, ACCENT_TEXT)}>
+							VTI
+						</span>
+						<span className="truncate text-[10px] text-muted-foreground">Total Stock Market ETF</span>
+						<span
+							className="ml-auto flex shrink-0 flex-row items-center gap-1 font-mono text-[10px] transition-opacity duration-500"
+							style={{ ...delay(1400), opacity: revealed ? 1 : 0, color: `var(--quote-gain)` }}
+						>
+							<TrendingUpIcon className="size-3" />
+							+1.24%
+						</span>
+					</div>
 
-			{/* Rise is a transform, not an animated `top`, so it never triggers layout. */}
-			{FLOATERS.map(floater => (
-				<motion.span
-					key={`${floater.label}-${floater.x}`}
-					className={cn(
-						"pointer-events-none absolute top-[52%] font-mono tabular-nums text-[#96151d] dark:text-[#e2606c]",
-						floater.size
-					)}
-					style={{ left: `${floater.x}%` }}
-					initial={{ y: 0, opacity: 0 }}
-					animate={active
-						? { y: [0, -26, -66, -88], opacity: [0, 0.8, 0.8, 0] }
-						: { y: 0, opacity: 0 }}
-					transition={active
-						? {
-							duration: FLOAT_DURATION,
-							repeat: Infinity,
-							delay: floater.delay,
-							ease: "linear",
-							times: [0, 0.15, 0.7, 1],
-						}
-						: { duration: 0.4 }}
-				>
-					{floater.label}
-				</motion.span>
-			))}
-
-			<svg
-				viewBox={`0 0 ${VIEW_WIDTH} ${VIEW_HEIGHT}`}
-				preserveAspectRatio="none"
-				className="absolute inset-0 h-full w-full"
-				aria-hidden="true"
-			>
-				<defs>
-					<linearGradient id={swellId} x1="0" y1="0" x2="0" y2="1">
-						<stop offset="0%" stopColor="#96151d" stopOpacity="0.38" />
-						<stop offset="100%" stopColor="#96151d" stopOpacity="0" />
-					</linearGradient>
-				</defs>
-
-				{waves.map((wave, index) => (
-					<motion.g
-						key={index}
-						className={wave.className}
-						animate={active ? { x: [0, -WAVELENGTH] } : { x: 0 }}
-						transition={active
-							? { duration: wave.duration, repeat: Infinity, ease: "linear" }
-							: { duration: 0.4 }}
+					<div
+						className="mt-1.5 font-mono text-lg leading-none tabular-nums transition-opacity duration-500 md:text-xl"
+						style={{ ...delay(1200), opacity: revealed ? 1 : 0 }}
 					>
-						{index === 0 && (
-							<>
-								<path d={`${wave.path} L${DRAW_WIDTH} ${VIEW_HEIGHT} L0 ${VIEW_HEIGHT} Z`} fill={`url(#${swellId})`} />
-								<path
-									d={wave.path}
-									fill="none"
-									stroke="currentColor"
-									strokeWidth={4}
-									opacity={0.25}
-									style={{ filter: "blur(3px)" }}
-								/>
-							</>
-						)}
-						<path
-							d={wave.path}
-							fill="none"
-							stroke="currentColor"
-							strokeWidth={wave.strokeWidth}
-							strokeLinecap="round"
-						/>
-					</motion.g>
-				))}
-			</svg>
+						$291.40
+					</div>
 
-			<div className="pointer-events-none absolute left-[44%] top-[58%] -translate-y-full">
-				<motion.div
-					className="relative"
-					animate={active
-						? { y: [-1, -11, -1, 9, -1], rotate: [-4, 0, 4, 0, -4] }
-						: { y: -1, rotate: -4 }}
-					transition={active
-						? { duration: SWELL_DURATION, repeat: Infinity, ease: "easeInOut", times: [0, 0.25, 0.5, 0.75, 1] }
-						: { duration: 0.4 }}
-				>
-					<div className="absolute right-full top-[32px] h-px w-10 bg-gradient-to-l from-foreground/25 to-transparent" />
-					<svg width="46" height="40" viewBox="0 0 46 40" fill="none" className="text-foreground/85" aria-hidden="true">
-						{/* Main sail is cut at the same angle as the V in the logo. */}
-						<path d="M24 3L39 28H24Z" fill="currentColor" />
-						<path d="M21 8L10 28H21Z" fill="currentColor" opacity="0.7" />
-						<rect x="21.4" y="1.5" width="1.6" height="27" fill="currentColor" />
-						<path d="M4 29H42L37 37Q23 39 8.5 37Z" fill="currentColor" />
+					<svg
+						viewBox={`0 0 ${CHART_WIDTH} ${CHART_HEIGHT}`}
+						preserveAspectRatio="none"
+						className="mt-2 h-12 w-full md:h-14"
+						aria-hidden="true"
+					>
+						<defs>
+							<linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+								<stop offset="0%" stopColor="var(--quote-gain)" stopOpacity="0.28" />
+								<stop offset="100%" stopColor="var(--quote-gain)" stopOpacity="0" />
+							</linearGradient>
+						</defs>
+						<path
+							d={areaPath}
+							fill={`url(#${gradientId})`}
+							className="transition-opacity duration-700"
+							style={{ ...delay(700), opacity: revealed ? 1 : 0 }}
+						/>
+						<path
+							d={linePath}
+							fill="none"
+							stroke="var(--quote-gain)"
+							strokeWidth="1.75"
+							strokeLinecap="round"
+							strokeLinejoin="round"
+							pathLength={1}
+							strokeDasharray={1}
+							className="transition-[stroke-dashoffset] duration-[1100ms] ease-out"
+							style={{ strokeDashoffset: revealed ? 0 : 1, ...delay(0) }}
+						/>
 					</svg>
-				</motion.div>
+
+					<div className="mt-2 flex flex-row items-center gap-2">
+						<span
+							className={cn(
+								"rounded-md border px-2.5 py-1 font-mono text-[10px] transition-colors duration-500",
+								revealed ? cn(ACCENT_BORDER, ACCENT_TEXT) : "border-border text-muted-foreground"
+							)}
+							style={delay(1700)}
+						>
+							Buy
+						</span>
+						<span className="font-mono text-[9px] text-muted-foreground">market order</span>
+					</div>
+				</div>
 			</div>
 		</VisualFrame>
 	);

@@ -4,9 +4,11 @@ import { Ripple } from "@/components/ui/ripple";
 import { useIsMediumUp } from "@/hooks";
 import { motion } from "framer-motion";
 import { WifiIcon } from "lucide-react";
+import { usePlayOnce } from "./use-play-once";
 import { CompanyVisualProps, VisualFrame } from "./visual-frame";
 
 const BROADCAST_DURATION = 3.2;
+const PLAY_MS = 5400;
 
 /** Delays are tuned to each dot's distance so it lights as a ring reaches it. */
 const DEVICES = [
@@ -27,19 +29,22 @@ export function ComcastVisual({ active, className }: CompanyVisualProps) {
 	 */
 	const isMediumUp = useIsMediumUp() === true;
 	const ringDelays = isMediumUp ? RING_DELAYS : RING_DELAYS.slice(0, 1);
+	const phase = usePlayOnce(active, PLAY_MS);
+	const isPlaying = phase === "playing";
+	const hasRun = phase === "settled";
 
 	return (
 		<VisualFrame
 			accent={{ primary: "#6060a8", secondary: "#0084cc" }}
 			logo="/logos/comcast.png"
 			logoAlt="Comcast logo"
-			active={active}
+			phase={phase}
 			className={className}
 		>
 			<div className="absolute inset-0 -translate-y-[6%]">
 				{/*
 				 * The dish rings are the static field, not part of the motion. Having
-				 * them breathe as well meant five extra infinite animations under the
+				 * them breathe as well meant extra infinite animations under the
 				 * pulses that actually carry the idea, and their overlapping fills
 				 * made the centre of the card the most overdrawn region on the page.
 				 */}
@@ -60,10 +65,10 @@ export function ComcastVisual({ active, className }: CompanyVisualProps) {
 							key={delay}
 							className="absolute size-24 rounded-full border border-[#0084cc]/50"
 							initial={{ scale: 0.35, opacity: 0 }}
-							animate={active
+							animate={isPlaying
 								? { scale: [0.35, 2.1], opacity: [0.7, 0] }
 								: { scale: 0.35, opacity: 0 }}
-							transition={active
+							transition={isPlaying
 								? { duration: BROADCAST_DURATION, repeat: Infinity, ease: "easeOut", delay }
 								: { duration: 0.3 }}
 						/>
@@ -74,15 +79,18 @@ export function ComcastVisual({ active, className }: CompanyVisualProps) {
 					</div>
 				</div>
 
+				{/* Settles lit rather than dim, so the final frame reads as connected. */}
 				{DEVICES.map(device => (
 					<motion.span
 						key={`${device.x}-${device.y}`}
 						className="absolute size-1.5 rounded-full bg-foreground/30"
 						style={{ left: `${device.x}%`, top: `${device.y}%` }}
-						animate={active
+						animate={isPlaying
 							? { scale: [1, 2.1, 1], opacity: [0.35, 1, 0.35] }
-							: { scale: 1, opacity: 0.35 }}
-						transition={active
+							: hasRun
+								? { scale: 1.25, opacity: 0.85 }
+								: { scale: 1, opacity: 0.35 }}
+						transition={isPlaying
 							? {
 								duration: BROADCAST_DURATION,
 								repeat: Infinity,
@@ -90,7 +98,7 @@ export function ComcastVisual({ active, className }: CompanyVisualProps) {
 								delay: device.delay,
 								times: [0, 0.15, 1],
 							}
-							: { duration: 0.3 }}
+							: { duration: 0.5, ease: "easeOut" }}
 					/>
 				))}
 			</div>

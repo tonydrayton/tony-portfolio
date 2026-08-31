@@ -58,8 +58,10 @@ export function ExperienceHeroCard({
 							<h3 className="text-lg font-medium tracking-tight">{experience.title}</h3>
 							<ArrowUpRight className="mt-1 size-4 shrink-0 text-muted-foreground transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
 						</div>
-						<p className="mt-0.5 text-sm text-muted-foreground">
-							{experience.workplace.name} · {experience.date}
+						{/* Weight and colour carry the separation between the two, not layout. */}
+						<p className="mt-0.5 text-sm">
+							<span className="font-medium text-foreground">{experience.workplace.name}</span>
+							<span className="text-muted-foreground"> · {experience.date}</span>
 						</p>
 						<p className="mt-2 text-sm text-balance text-primary/70">{experience.tagline}</p>
 					</div>

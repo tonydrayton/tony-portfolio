@@ -3,7 +3,7 @@
 import { useHasFinePointer } from "@/hooks";
 import { experiences } from "@/lib/experience";
 import { cn } from "@/lib/utils";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { ExperienceHeroCard } from "../experience/experience-hero-card";
 
@@ -11,18 +11,15 @@ export default function ExperienceSection() {
 	const [hovered, setHovered] = useState<number | null>(null);
 	const [mostVisible, setMostVisible] = useState<number | null>(null);
 	const hasFinePointer = useHasFinePointer();
-	const prefersReducedMotion = useReducedMotion();
 	const slotRefs = useRef<(HTMLDivElement | null)[]>([]);
 
 	/*
-	 * Touch has no hover to nominate a card, so the one filling most of the
-	 * viewport wins. One shared observer picking a single winner, rather than one
-	 * per card each activating independently, is what keeps the page from running
-	 * three canvas-and-blur visuals at the same time.
+	 * Scroll position nominates the card that plays, on every device. Now that a
+	 * visual plays once and settles, hover is no longer needed to trigger it, so
+	 * a visitor who never moves the mouse still sees each graphic run. One shared
+	 * observer picking a single winner keeps them from all starting at once.
 	 */
 	useEffect(() => {
-		if (hasFinePointer !== false) return;
-
 		const ratios = new Map<number, number>();
 		const observer = new IntersectionObserver(
 			entries => {
@@ -48,10 +45,7 @@ export default function ExperienceSection() {
 			if (slot) observer.observe(slot);
 		}
 		return () => observer.disconnect();
-	}, [hasFinePointer]);
-
-	/* Nothing animates until the pointer type is known. */
-	const activeIndex = hasFinePointer === null ? null : hasFinePointer ? hovered : mostVisible;
+	}, []);
 
 	return (
 		<div className="max-w-full w-full px-4 md:px-14 lg:max-w-4xl">
@@ -74,7 +68,7 @@ export default function ExperienceSection() {
 							>
 								<ExperienceHeroCard
 									experience={experience}
-									active={!prefersReducedMotion && activeIndex === index}
+									active={mostVisible === index}
 									dimmed={hasFinePointer === true && hovered !== null && hovered !== index}
 									aspectClassName={index === 0 ? "aspect-[16/10] md:aspect-[21/9]" : undefined}
 									onActivate={() => setHovered(index)}

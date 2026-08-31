@@ -6,23 +6,32 @@ import { Experience } from "@/lib/experience";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { VisualPhase } from "./use-play-once";
 
 export type CompanyVisualProps = {
 	/**
-	 * Owned by the parent grid rather than the visual itself, so only the card
-	 * being looked at pays for its animation.
+	 * Permission to play, owned by the parent grid so cards start one at a time.
+	 * Each visual latches this into a play-once phase of its own.
 	 */
 	active: boolean;
 	className?: string;
 };
 
-type VisualFrameProps = CompanyVisualProps & {
+type VisualFrameProps = {
+	phase: VisualPhase;
 	accent: Experience["accent"];
+	/**
+	 * Full CSS colours for the two mesh blobs, alpha included. Lets a card hand
+	 * over theme-aware custom properties instead of the flat hex derived from
+	 * `accent`, which cannot vary between light and dark.
+	 */
+	mesh?: { primary: string; secondary: string };
 	logo: string;
 	logoAlt: string;
 	/** Optional pill rendered in the same bottom-left row as the logo. */
 	badge?: ReactNode;
 	children?: ReactNode;
+	className?: string;
 };
 
 /**
@@ -31,16 +40,19 @@ type VisualFrameProps = CompanyVisualProps & {
  * edge, and the logo pill in a consistent corner. The caller owns the aspect
  * ratio, since the home card and the detail hero use different proportions.
  */
-export function VisualFrame({ accent, logo, logoAlt, badge, active, children, className }: VisualFrameProps) {
+export function VisualFrame({ accent, mesh, logo, logoAlt, badge, phase, children, className }: VisualFrameProps) {
+	const meshPrimary = mesh?.primary ?? `${accent.primary}66`;
+	const meshSecondary = mesh?.secondary ?? `${accent.secondary}52`;
+
 	return (
 		<div className={cn("relative h-full w-full overflow-hidden", className)}>
 			<div className="absolute inset-0" style={{ backgroundColor: `${accent.primary}0f` }} />
 			<GradientMesh
-				animate={active}
+				animate={phase === "playing"}
 				fade="none"
 				blobs={[
-					{ color: `${accent.primary}66`, size: 85, from: [18, 24], to: [54, 56], duration: 17 },
-					{ color: `${accent.secondary}52`, size: 72, from: [86, 76], to: [58, 40], duration: 21 },
+					{ color: meshPrimary, size: 85, from: [18, 24], to: [54, 56], duration: 17 },
+					{ color: meshSecondary, size: 72, from: [86, 76], to: [58, 40], duration: 21 },
 				]}
 			/>
 			<GridPattern

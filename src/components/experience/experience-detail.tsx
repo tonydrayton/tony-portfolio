@@ -2,7 +2,7 @@
 
 import { ExperienceSlug, getExperience, getSurroundingExperiences } from "@/lib/experience";
 import { cn } from "@/lib/utils";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowLeftIcon, ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { CSSProperties } from "react";
@@ -19,7 +19,6 @@ const shinyLinkClassName = cn(
 );
 
 export function ExperienceDetail({ slug }: { slug: ExperienceSlug }) {
-	const prefersReducedMotion = useReducedMotion();
 	const experience = getExperience(slug);
 	if (!experience) return null;
 
@@ -45,7 +44,7 @@ export function ExperienceDetail({ slug }: { slug: ExperienceSlug }) {
 					transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
 				>
 					<div className="relative aspect-[16/7] w-full">
-						<Visual active={!prefersReducedMotion} />
+						<Visual active />
 					</div>
 				</motion.div>
 
